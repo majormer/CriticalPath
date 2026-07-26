@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.2] - unreleased
+
+### Fixed
+
+- **The partial-scan warning is gone for good this time** - On an ordinary mid-game save the header still said "only 606 of 609 checked - too many to scan" when nothing whatsoever had been skipped. The count of machines examined was only being raised for machines that had a recipe set, while the total it was compared against included every machine you own, so three placed-but-not-yet-configured constructors were enough to make the panel announce that your factory was too big to read. An idle machine is now counted as looked at, because it was. The same counting error meant unconfigured machines did not count toward the scan limit either, so that limit now means what it says.
+
+---
+
 ## [1.0.1] - 2026-07-26
 
 > *Critical Path now works on a finished factory. The first release was sized for a mid-game base and quietly stopped measuring long before an endgame save was covered, which made it both wrong and, on a large enough factory, fatal.*
