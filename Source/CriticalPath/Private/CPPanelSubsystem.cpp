@@ -2,6 +2,8 @@
 
 #include "CPPanelSubsystem.h"
 
+#include "CPRCO.h"
+
 #include "Blueprint/UserWidget.h"
 #include "Async/Async.h"
 #include "CPAnalysis.h"
@@ -153,14 +155,12 @@ void UCPPanelSubsystem::RefreshReport()
 		// or exporting — a wrong report on disk is worse than no report (TransportModel.md S6).
 		if (!Snapshot.bAuthoritative)
 		{
-			Panel->SetUnavailable(
-				LOCTEXT("ClientUnavailableHeadline", "Production data is not available on this client"),
-				LOCTEXT("ClientUnavailableDetail",
-					"Machine contents, storage levels and vehicle stations are tracked by the server, "
-					"so Critical Path cannot measure this factory from a joined game. Open the panel "
-					"on the host to get an accurate report."));
+			// The client cannot COMPUTE the report, but it can be told the answer. Ask the host,
+			// which has the inventories this capture could not see, and show the previous report
+			// (with its age) meanwhile rather than blanking a panel that already had data.
+			RequestReportFromHost();
 			UE_LOG(LogCriticalPath, Log,
-				TEXT("PanelSubsystem: non-authoritative (%s) — refusing to present a report"), *Snapshot.NetMode);
+				TEXT("PanelSubsystem: non-authoritative (%s) — requesting a report from the host"), *Snapshot.NetMode);
 			return;
 		}
 
@@ -239,6 +239,83 @@ void UCPPanelSubsystem::RefreshReport()
 	{
 		Panel->SetReport(FCPAnalysisResult(), FText::Format(LOCTEXT("AgeErrorFmt", "no data — {0}"), FText::FromString(Error)));
 	}
+}
+
+void UCPPanelSubsystem::RequestReportFromHost()
+{
+	UWorld* World = GetWorld();
+	AFGPlayerController* PC = World ? Cast<AFGPlayerController>(World->GetFirstPlayerController()) : nullptr;
+	if (!PC)
+	{
+		if (Panel)
+		{
+			Panel->SetUnavailable(
+				LOCTEXT("NoControllerHeadline", "Not connected to a game"),
+				LOCTEXT("NoControllerDetail", "Critical Path could not find a player to ask the host on behalf of."));
+		}
+		return;
+	}
+
+	UCPRCO* Relay = PC->GetRemoteCallObjectOfClass<UCPRCO>();
+	if (!Relay)
+	{
+		// The host is running a build without the relay, so it cannot answer. Say that plainly
+		// rather than leaving a request outstanding forever.
+		if (Panel)
+		{
+			Panel->SetUnavailable(
+				LOCTEXT("NoRelayHeadline", "The host cannot send a report"),
+				LOCTEXT("NoRelayDetail",
+					"This client asked the host for a report, but the host is not running a version of "
+					"Critical Path that can send one. Ask the host to update, or open the panel on the host."));
+		}
+		return;
+	}
+
+	// Tell the player something is happening. A request crosses the network, is answered by an
+	// analysis on the host, and comes back in pieces — several seconds on a large factory.
+	if (Panel && !bHasCachedResult)
+	{
+		Panel->SetUnavailable(
+			LOCTEXT("AskingHostHeadline", "Asking the host for a report"),
+			LOCTEXT("AskingHostDetail",
+				"Machine contents and storage are tracked by the host, so Critical Path is requesting "
+				"the report from there. This can take a few seconds on a large factory."));
+	}
+	Relay->Server_RequestReport();
+}
+
+void UCPPanelSubsystem::ApplyHostReport(const FCPAnalysisResult& Report)
+{
+	CachedResult = Report;
+	bHasCachedResult = true;
+	if (UWorld* World = GetWorld())
+	{
+		CachedAtWorldSeconds = World->GetTimeSeconds();
+	}
+	if (Panel && Panel->IsInViewport())
+	{
+		// Labelled as the host's reading, because it is: measured there, not here, and already a
+		// little old by the time it arrives.
+		Panel->SetReport(CachedResult, LOCTEXT("AgeFromHost", "from the host, just now"));
+	}
+}
+
+void UCPPanelSubsystem::ApplyHostReportFailure(const FString& Reason)
+{
+	UE_LOG(LogCriticalPath, Warning, TEXT("PanelSubsystem: host declined the report request (%s)"), *Reason);
+	if (!Panel)
+	{
+		return;
+	}
+	if (bHasCachedResult)
+	{
+		Panel->SetReport(CachedResult, LOCTEXT("AgeHostStale", "from the host, earlier (latest request failed)"));
+		return;
+	}
+	Panel->SetUnavailable(
+		LOCTEXT("HostDeclinedHeadline", "The host could not produce a report"),
+		FText::FromString(Reason));
 }
 
 #undef LOCTEXT_NAMESPACE

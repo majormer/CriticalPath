@@ -30,6 +30,11 @@ public:
 
 	bool IsPanelVisible() const;
 
+	/** A joined client cannot measure the factory, but the host can send its report. These are
+	 *  called by the relay when one arrives, or when the host says it cannot produce one. */
+	void ApplyHostReport(const FCPAnalysisResult& Report);
+	void ApplyHostReportFailure(const FString& Reason);
+
 private:
 	void HandleTogglePanel();
 	void ShowPanel();
@@ -37,6 +42,9 @@ private:
 
 	/** Re-run the engine and push into the panel. Falls back to the cached result on failure. */
 	void RefreshReport();
+
+	/** Ask the host for a report. Only meaningful on a non-authoritative client. */
+	void RequestReportFromHost();
 
 	UPROPERTY()
 	TObjectPtr<UCPPanelWidget> Panel;
