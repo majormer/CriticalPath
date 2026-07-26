@@ -9,6 +9,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/CircularThrobber.h"
+#include "Components/ComboBoxString.h"
 #include "Components/EditableTextBox.h"
 #include "Components/HorizontalBox.h"
 #include "Components/Image.h"
@@ -34,12 +35,56 @@
 
 namespace
 {
+/** Widget budget for the balance list.
+ *
+ *  EVERY UMG WIDGET IS A UOBJECT, and the engine's global UObject pool is a hard ceiling shared
+ *  with the whole game (2,162,688 by default). A large save spends most of that on the factory
+ *  itself, so the panel gets whatever is left — which on a big base is not much.
+ *
+ *  The header's claim that row count is bounded "by the objective-item cap" is true of ROWS and
+ *  false of their contents: a row renders one line per producer and per consumer location, and an
+ *  item on a real megabase has thousands of each. Those lines are built eagerly and then hidden
+ *  (the endpoint block starts collapsed), so the cost was paid for widgets the player never saw.
+ *  On an 8,808-machine save that exhausted the pool and took the game down inside AddBalanceRows.
+ *
+ *  These caps are what makes the panel's footprint bounded regardless of factory size. They are
+ *  display limits only: the analysis still measures every location it captured, and the row says
+ *  how many it is not drawing.
+ *
+ *  BUDGET ARITHMETIC, because these numbers are not free. A rendered row costs roughly 40 fixed
+ *  widgets plus ~7 per endpoint, so at 25 endpoints per section (producers + consumers) a row is
+ *  about 390 UObjects. 200 rows is therefore on the order of 78,000 — bounded, but no longer
+ *  negligible against a pool an endgame factory has already eaten most of. Note this is the cost
+ *  PER REBUILD, and discarded widgets are not reclaimed until a GC pass runs, so anything that
+ *  rebuilds repeatedly (a live search) multiplies it before any of it comes back.
+ *
+ *  The cheap way to buy that back is lazy endpoint construction: the endpoint block starts
+ *  collapsed, so ~350 of those ~390 are built for something the player has not opened. Building
+ *  them on first expand would put a 500-row panel near 20,000 instead. Worth doing if this ever
+ *  gets close again. */
+constexpr int32 MaxBalanceRowsRendered = 200;
+constexpr int32 MaxEndpointRowsPerSection = 25;
+
 UTextBlock* MakeText(UWidgetTree* Tree, const FText& Text, int32 Size, const FLinearColor& Color, bool bBold = false)
 {
 	UTextBlock* Block = Tree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
 	Block->SetText(Text);
 	Block->SetFont(CPStyle::Font(Size, bBold));
 	Block->SetColorAndOpacity(FSlateColor(Color));
+	return Block;
+}
+
+/** A full-width sentence rather than a label: wraps instead of running off the panel.
+ *
+ *  Anything that states a diagnosis, a rate summary or an explanation belongs here. English
+ *  happened to fit inside the row width for most of these; German and Russian run 20-30% longer
+ *  and Finnish-style compounds longer still, so a string that "fits" in the source language is
+ *  not evidence of anything. Short labels in horizontal boxes must NOT use this - wrapping a
+ *  column heading breaks the row layout - which is why it is opt-in rather than the default. */
+UTextBlock* MakeWrappedText(UWidgetTree* Tree, const FText& Text, int32 Size, const FLinearColor& Color, bool bBold = false)
+{
+	UTextBlock* Block = MakeText(Tree, Text, Size, Color, bBold);
+	Block->SetAutoWrapText(true);
 	return Block;
 }
 
@@ -257,7 +302,19 @@ FText BalanceRateText(float RatePerMinute, bool bFluid)
 		bFluid ? LOCTEXT("BalanceFluidRateUnit", "m³/min") : LOCTEXT("BalanceSolidRateUnit", "items/min"));
 }
 
-FText BalanceDiagnosis(const FCPItemBalance& Balance, FLinearColor& OutColor)
+/** bProducedElsewhere: this item has producers in a DIFFERENT domain of the same report.
+ *
+ *  A domain is a set of machines reachable from one another by belt or pipe. Anything that moves
+ *  items without one - a fluid teleporter, a portal, a mod loader/unloader, a storage teleporter -
+ *  leaves no edge for the walk to follow, so the sending and receiving halves of a working line
+ *  land in separate domains. The receiving half then shows demand with zero producers, and the
+ *  old verdict told the player to "build at least N more production" about a line they had
+ *  already built and which was running fine on the other side of the teleport.
+ *
+ *  We cannot see the link, and guessing which sender feeds which receiver would produce confident
+ *  wrong answers - the exact failure this mod exists to avoid. So we say what we do know: the item
+ *  IS produced, and no route we can follow reaches here. */
+FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, FLinearColor& OutColor)
 {
 	const float Demand = Balance.Current.DemandPerMinute;
 	const float Installed = Balance.Current.InstalledPerMinute;
@@ -274,8 +331,51 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, FLinearColor& OutColor)
 
 	if (Demand <= KINDA_SMALL_NUMBER)
 	{
+		// Zero demand has TWO causes and they call for opposite advice. Either nothing is
+		// connected, or something is connected and stopped: flow capture zeroes a machine's
+		// current demand when it is unpowered, paused or output-blocked, so a stalled consumer
+		// draws nothing and looks identical to no consumer at all. Telling a player "nothing is
+		// using this, it is only filling storage" about a blocked assembler is wrong twice over -
+		// something IS using it, and it is not filling anything. DESIGN demand is what the machine
+		// would draw if it ran, so it survives the machine being dead and separates the two cases.
+		if (Balance.ConsumerBuildings > 0 && Balance.Design.DemandPerMinute > KINDA_SMALL_NUMBER)
+		{
+			int32 Stopped = 0;
+			int32 Blocked = 0;
+			for (const FCPBalanceLocation& Location : Balance.Locations)
+			{
+				if (Location.bProducer)
+				{
+					continue;
+				}
+				if (Location.bOutputBlocked || Location.bNoPower || Location.bPaused || Location.bMissingInput)
+				{
+					++Stopped;
+					Blocked += Location.bOutputBlocked ? 1 : 0;
+				}
+			}
+			if (Stopped > 0)
+			{
+				OutColor = CPStyle::StatusRed;
+				const FText Rate = BalanceRateText(Balance.Design.DemandPerMinute, Balance.bFluid);
+				return Blocked > 0
+					? FText::Format(LOCTEXT("BalanceConsumersBlockedFmt",
+						"CONSUMERS STOPPED · {0} machine(s) here would use {1}, but their own output is backed up"),
+						FText::AsNumber(Stopped), Rate)
+					: FText::Format(LOCTEXT("BalanceConsumersStoppedFmt",
+						"CONSUMERS STOPPED · {0} machine(s) here would use {1}, but none of them are running"),
+						FText::AsNumber(Stopped), Rate);
+			}
+		}
 		OutColor = CPStyle::StatusNeutral;
 		return LOCTEXT("BalanceNoDemand", "NOTHING IS USING THIS · it is only filling storage right now");
+	}
+	// Before accusing the player of not building enough, check whether they already did.
+	if (Balance.ProducerBuildings == 0 && bProducedElsewhere)
+	{
+		OutColor = CPStyle::StatusAmber;
+		return LOCTEXT("BalanceProducedElsewhere",
+			"PRODUCED ELSEWHERE · this item is made somewhere in your factory, but no belt or pipe route reaches this line. If a teleporter, portal or loader feeds it, that link cannot be followed");
 	}
 	if (bCapacityGap && bProducerIssue)
 	{
@@ -631,14 +731,18 @@ TSharedRef<SWidget> UCPPanelWidget::RebuildWidget()
 		ToolsBand->SetContent(Tools);
 
 		UEditableTextBox* Filter = WidgetTree->ConstructWidget<UEditableTextBox>(UEditableTextBox::StaticClass(), TEXT("BalanceFilter"));
-		Filter->SetHintText(LOCTEXT("BalanceFilterHint", "Filter items or buildings…"));
+		Filter->SetHintText(LOCTEXT("BalanceFilterHint", "Search items or buildings, then press Enter"));
 		Filter->SetText(FText::FromString(BalanceFilter));
 		Filter->WidgetStyle.SetFont(CPStyle::Font(10, false));
 		Filter->WidgetStyle.SetForegroundColor(FSlateColor(CPStyle::TextPrimary));
 		Filter->WidgetStyle.SetFocusedForegroundColor(FSlateColor(CPStyle::TextPrimary));
 		Filter->WidgetStyle.SetBackgroundColor(FSlateColor(CPStyle::RowNested));
 		Filter->WidgetStyle.SetPadding(FMargin(8.0f, 5.0f));
-		Filter->OnTextChanged.AddDynamic(this, &UCPPanelWidget::OnBalanceFilterChanged);
+		// COMMIT, not per-keystroke. Applying the filter rebuilds the row list, and discarded
+		// widgets are not reclaimed until a GC pass runs - so a live filter stacks a full rebuild's
+		// worth of dead UObjects per character typed, which is the same pool that crashed the game.
+		// One rebuild per Enter is a bound; "however fast the player types" is not.
+		Filter->OnTextCommitted.AddDynamic(this, &UCPPanelWidget::OnBalanceFilterCommitted);
 		if (UHorizontalBoxSlot* FilterSlot = Tools->AddChildToHorizontalBox(Filter))
 		{
 			FilterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
@@ -660,6 +764,86 @@ TSharedRef<SWidget> UCPPanelWidget::RebuildWidget()
 		{
 			AugmentSlot->SetPadding(FMargin(8.0f, 0.0f, 0.0f, 0.0f));
 			AugmentSlot->SetVerticalAlignment(VAlign_Fill);
+		}
+
+		// A dropdown, not a cycling button: six states behind one button means hunting for the one
+		// you want, and there is no way to see what the options are without clicking through them.
+		UComboBoxString* ProblemCombo = WidgetTree->ConstructWidget<UComboBoxString>(UComboBoxString::StaticClass(), TEXT("BalanceProblemFilterCombo"));
+		for (int32 Mode = 0; Mode < BalanceProblemFilterModeCount; ++Mode)
+		{
+			ProblemCombo->AddOption(BalanceProblemFilterLabel(Mode).ToString());
+		}
+		ProblemCombo->SetSelectedOption(BalanceProblemFilterLabel(BalanceProblemFilter).ToString());
+		ProblemCombo->Font = CPStyle::Font(9, true);
+		ProblemCombo->ForegroundColor = FSlateColor(CPStyle::Accent);
+		ProblemCombo->ContentPadding = FMargin(8.0f, 3.0f);
+		// Match the sibling filter buttons exactly. Those are plain UButtons calling
+		// SetBackgroundColor(RowNested), which TINTS the engine's default button brush - a real
+		// rounded-box brush with a resource. Building FSlateBrush values from scratch here (no
+		// resource, no rounding) is why this control did not look like its neighbours. Retint the
+		// defaults instead so the geometry stays identical and only the colour changes.
+		{
+			auto Retint = [](FSlateBrush Brush, const FLinearColor& Colour)
+			{
+				Brush.TintColor = FSlateColor(Colour);
+				return Brush;
+			};
+
+			const UComboBoxString* ComboDefaults = GetDefault<UComboBoxString>();
+			FComboBoxStyle ComboStyle = ComboDefaults->WidgetStyle;
+			FButtonStyle& ButtonStyle = ComboStyle.ComboButtonStyle.ButtonStyle;
+			ButtonStyle.SetNormal(Retint(ButtonStyle.Normal, CPStyle::RowNested));
+			ButtonStyle.SetHovered(Retint(ButtonStyle.Hovered, CPStyle::Row));
+			ButtonStyle.SetPressed(Retint(ButtonStyle.Pressed, CPStyle::Row));
+			ButtonStyle.SetNormalForeground(FSlateColor(CPStyle::Accent));
+			ButtonStyle.SetHoveredForeground(FSlateColor(CPStyle::Accent));
+			ButtonStyle.SetPressedForeground(FSlateColor(CPStyle::Accent));
+			// The LIST needs different treatment from the button. Retinting the default table-row
+			// brushes does nothing useful: several are FSlateNoResource or white-image brushes
+			// whose tint does not resolve to a flat colour, which is why the popup kept Slate's
+			// black background and light-grey selection highlight while the button recoloured
+			// correctly. RoundedBox draws a solid colour with no texture at all, so these are
+			// unambiguous.
+			auto Flat = [](const FLinearColor& Colour)
+			{
+				FSlateBrush Brush;
+				Brush.DrawAs = ESlateBrushDrawType::RoundedBox;
+				Brush.OutlineSettings.RoundingType = ESlateBrushRoundingType::FixedRadius;
+				Brush.OutlineSettings.CornerRadii = FVector4(2.0f, 2.0f, 2.0f, 2.0f);
+				Brush.TintColor = FSlateColor(Colour);
+				return Brush;
+			};
+
+			ComboStyle.ComboButtonStyle.MenuBorderBrush = Flat(CPStyle::Surface);
+			ComboStyle.ComboButtonStyle.MenuBorderPadding = FMargin(1.0f);
+			ProblemCombo->WidgetStyle = ComboStyle;
+
+			FTableRowStyle RowStyle = ComboDefaults->ItemStyle;
+			RowStyle.SetEvenRowBackgroundBrush(Flat(CPStyle::Surface));
+			RowStyle.SetOddRowBackgroundBrush(Flat(CPStyle::Surface));
+			RowStyle.SetEvenRowBackgroundHoveredBrush(Flat(CPStyle::Row));
+			RowStyle.SetOddRowBackgroundHoveredBrush(Flat(CPStyle::Row));
+			RowStyle.SetActiveBrush(Flat(CPStyle::Divider));
+			RowStyle.SetActiveHoveredBrush(Flat(CPStyle::Divider));
+			RowStyle.SetInactiveBrush(Flat(CPStyle::Divider));
+			RowStyle.SetInactiveHoveredBrush(Flat(CPStyle::Row));
+			RowStyle.SetSelectorFocusedBrush(Flat(CPStyle::Divider));
+			// The CURRENTLY SELECTED row draws from the *Highlighted* pair, not Active/Inactive.
+			// Missing these is why the open list kept a pale grey band on the selected entry after
+			// everything else had recoloured - and it is only visible when the list is open, so it
+			// survives a casual look at the closed control.
+			RowStyle.SetActiveHighlightedBrush(Flat(CPStyle::Divider));
+			RowStyle.SetInactiveHighlightedBrush(Flat(CPStyle::Divider));
+			RowStyle.SetTextColor(FSlateColor(CPStyle::Accent));
+			RowStyle.SetSelectedTextColor(FSlateColor(CPStyle::TextPrimary));
+			ProblemCombo->ItemStyle = RowStyle;
+		}
+		ProblemCombo->OnSelectionChanged.AddDynamic(this, &UCPPanelWidget::OnBalanceProblemFilterSelected);
+		BalanceProblemFilterCombo = ProblemCombo;
+		if (UHorizontalBoxSlot* ProblemSlot = Tools->AddChildToHorizontalBox(ProblemCombo))
+		{
+			ProblemSlot->SetPadding(FMargin(8.0f, 0.0f, 0.0f, 0.0f));
+			ProblemSlot->SetVerticalAlignment(VAlign_Center);
 		}
 
 		UButton* SortButton = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), TEXT("BalanceSortButton"));
@@ -1096,12 +1280,21 @@ void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& Dat
 		SummaryText->SetText(FText::Join(FText::FromString(TEXT("  ·  ")), Segments));
 	}
 
-	// Truncation/staleness honesty (lifecycle states)
+	// Truncation/staleness honesty (lifecycle states).
+	// bAnyCapHit covers seven separate caps, only one of which is the building scan. Keyed on the
+	// shared flag, a storage or recipe-breadth trip rendered as "only 8,808 of 8,808 checked - too
+	// many to scan" on a save where every building WAS scanned. Report the building scan as short
+	// only when it is short, and say something true about the other caps otherwise.
 	FText Age = DataAgeText;
-	if (Result.Truncation.bAnyCapHit)
+	if (Result.Truncation.BuildingsScanned < Result.Truncation.BuildingsAvailable)
 	{
 		Age = FText::Format(LOCTEXT("TruncFmt", "{0}  ·  only {1} of {2} checked - too many to scan"), Age,
 			FText::AsNumber(Result.Truncation.BuildingsScanned), FText::AsNumber(Result.Truncation.BuildingsAvailable));
+	}
+	else if (Result.Truncation.bAnyCapHit)
+	{
+		Age = FText::Format(LOCTEXT("TruncDetailFmt", "{0}  ·  {1} checked - some supporting detail limited"), Age,
+			FText::AsNumber(Result.Truncation.BuildingsScanned));
 	}
 	DataAgeTextBlock->SetText(Age);
 
@@ -1158,10 +1351,24 @@ void UCPPanelWidget::ShowPlanTab()
 	SetActiveTab(2);
 }
 
-void UCPPanelWidget::OnBalanceFilterChanged(const FText& Text)
+void UCPPanelWidget::OnBalanceFilterCommitted(const FText& Text, ETextCommit::Type CommitMethod)
 {
-	BalanceFilter = Text.ToString().TrimStartAndEnd();
-	ApplyBalanceFilter();
+	// Enter applies the search; clearing the box (Esc) restores the unfiltered list. Losing focus
+	// deliberately does NOT apply, so clicking away from a half-typed word costs nothing.
+	if (CommitMethod != ETextCommit::OnEnter && CommitMethod != ETextCommit::OnCleared)
+	{
+		return;
+	}
+	const FString Trimmed = Text.ToString().TrimStartAndEnd();
+	if (Trimmed.Equals(BalanceFilter, ESearchCase::CaseSensitive))
+	{
+		return;
+	}
+	BalanceFilter = Trimmed;
+	// A full rebuild, not a visibility pass: the filter selects from every line in the report
+	// rather than from the capped set that happens to be on screen, so the rows themselves change.
+	// Queued so the tree is not rewritten inside the text box's commit handling.
+	bBalanceRebuildQueued = true;
 }
 
 void UCPPanelWidget::ToggleBalanceSort()
@@ -1173,7 +1380,7 @@ void UCPPanelWidget::ToggleBalanceSort()
 			? LOCTEXT("BalanceSortNeedFirst", "NEED FIRST")
 			: LOCTEXT("BalanceSortAlphabetical", "A–Z"));
 	}
-	RebuildBalanceRows();
+	bBalanceRebuildQueued = true; // See NativeTick: never rewrite the tree inside a click handler.
 }
 
 void UCPPanelWidget::ToggleBalanceAugmentFilter()
@@ -1187,7 +1394,100 @@ void UCPPanelWidget::ToggleBalanceAugmentFilter()
 				? LOCTEXT("BalanceAugmentSloops", "SOMERSLOOPS")
 				: LOCTEXT("BalanceAugmentAll", "ALL AUGMENTS")));
 	}
-	RebuildBalanceRows();
+	bBalanceRebuildQueued = true; // See NativeTick: never rewrite the tree inside a click handler.
+}
+
+void UCPPanelWidget::BuildEndpointSections(int32 BalanceIndex, UVerticalBox* Target)
+{
+	if (!Target || !WidgetTree || !CachedReport.ItemBalances.IsValidIndex(BalanceIndex))
+	{
+		return;
+	}
+	const FCPItemBalance& Balance = CachedReport.ItemBalances[BalanceIndex];
+
+	auto AddEndpointSection = [&](bool bProducers, const FText& Heading)
+	{
+		TArray<const FCPBalanceLocation*> Endpoints;
+		for (const FCPBalanceLocation& Location : Balance.Locations)
+		{
+			if (Location.bProducer == bProducers &&
+				BalanceLocationMatchesAugmentFilter(Location, BalanceAugmentFilter))
+			{
+				Endpoints.Add(&Location);
+			}
+		}
+		Endpoints.Sort([](const FCPBalanceLocation& A, const FCPBalanceLocation& B)
+		{
+			const int32 RankA = BalanceLocationRank(A);
+			const int32 RankB = BalanceLocationRank(B);
+			return RankA != RankB ? RankA < RankB : A.ActorName < B.ActorName;
+		});
+		if (Endpoints.Num() == 0) { return; }
+		Target->AddChildToVerticalBox(MakeText(WidgetTree, Heading, 9, CPStyle::Accent, true))
+			->SetPadding(FMargin(10.0f, 4.0f, 0.0f, 2.0f));
+		// Sorted worst-first above, so the cap keeps the endpoints worth looking at and drops the
+		// tail. Uncapped, a megabase line renders thousands of rows (see MaxEndpointRowsPerSection).
+		const int32 EndpointsShown = FMath::Min(Endpoints.Num(), MaxEndpointRowsPerSection);
+		for (int32 EndpointIndex = 0; EndpointIndex < EndpointsShown; ++EndpointIndex)
+		{
+			const FCPBalanceLocation& Location = *Endpoints[EndpointIndex];
+			UHorizontalBox* EndpointLine = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass());
+			if (Location.PowerShardCount > 0)
+			{
+				AddItemIcon(EndpointLine, Location.PowerShardItem, 16.0f);
+				EndpointLine->AddChildToHorizontalBox(MakeText(WidgetTree, FText::AsNumber(Location.PowerShardCount),
+					8, CPStyle::StatusBlue, true))->SetVerticalAlignment(VAlign_Center);
+			}
+			if (Location.SomersloopCount > 0)
+			{
+				AddItemIcon(EndpointLine, Location.SomersloopItem, 16.0f);
+				EndpointLine->AddChildToHorizontalBox(MakeText(WidgetTree, FText::AsNumber(Location.SomersloopCount),
+					8, CPStyle::StatusViolet, true))->SetVerticalAlignment(VAlign_Center);
+			}
+			const FText EndpointText = FText::Format(LOCTEXT("BalanceEndpointFmt", "{0}. {1} - {2}"),
+				FText::AsNumber(EndpointIndex + 1), FText::FromString(Location.Label),
+				BalanceLocationStatus(Location, Balance.bFluid));
+			UTextBlock* EndpointLabel = MakeText(WidgetTree, EndpointText, 9,
+				BalanceLocationHasProblem(Location) ? CPStyle::StatusRed
+					: (Location.bOutputBlocked ? CPStyle::StatusNeutral : CPStyle::TextSecondary));
+			EndpointLabel->SetAutoWrapText(true);
+			if (UHorizontalBoxSlot* LabelSlot = EndpointLine->AddChildToHorizontalBox(EndpointLabel))
+			{
+				LabelSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+				LabelSlot->SetVerticalAlignment(VAlign_Center);
+			}
+			UCPBalanceLocator* EndpointLocator = NewObject<UCPBalanceLocator>(this);
+			EndpointLocator->Owner = this;
+			EndpointLocator->Location = Location.Location;
+			EndpointLocator->IconItem = Location.BuildingItem.DescriptorClassPath.IsEmpty()
+				? Balance.Item : Location.BuildingItem;
+			EndpointLocator->Label = FText::Format(LOCTEXT("BalanceEndpointPingFmt", "{0} - {1} - {2}"),
+				FText::FromString(Location.Label), FText::FromString(Balance.Item.Name),
+				FText::AsNumber(EndpointIndex + 1));
+			BalanceLocators.Add(EndpointLocator);
+			UButton* EndpointLocate = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass());
+			EndpointLocate->SetBackgroundColor(CPStyle::Surface);
+			EndpointLocate->SetContent(MakeText(WidgetTree, LOCTEXT("LocateEndpoint", "LOCATE"), 8, CPStyle::Accent, true));
+			EndpointLocate->OnClicked.AddDynamic(EndpointLocator, &UCPBalanceLocator::Locate);
+			if (UHorizontalBoxSlot* LocateSlot = EndpointLine->AddChildToHorizontalBox(EndpointLocate))
+			{
+				LocateSlot->SetPadding(FMargin(8.0f, 0.0f, 0.0f, 0.0f));
+				LocateSlot->SetVerticalAlignment(VAlign_Center);
+			}
+			Target->AddChildToVerticalBox(EndpointLine)->SetPadding(FMargin(16.0f, 2.0f, 0.0f, 2.0f));
+		}
+		if (Endpoints.Num() > EndpointsShown)
+		{
+			// Say what is being withheld. A silently short list reads as "that is all of them".
+			Target->AddChildToVerticalBox(MakeText(WidgetTree,
+				FText::Format(LOCTEXT("BalanceEndpointsTruncatedFmt",
+					"Showing {0} of {1} - the rest are counted in the totals above but not listed."),
+					FText::AsNumber(EndpointsShown), FText::AsNumber(Endpoints.Num())),
+				9, CPStyle::TextSecondary))->SetPadding(FMargin(16.0f, 2.0f, 0.0f, 2.0f));
+		}
+	};
+	AddEndpointSection(true, LOCTEXT("BalanceProducersHeading", "PRODUCERS"));
+	AddEndpointSection(false, LOCTEXT("BalanceConsumersHeading", "CONSUMERS"));
 }
 
 void UCPPanelWidget::RebuildBalanceRows()
@@ -1196,8 +1496,120 @@ void UCPPanelWidget::RebuildBalanceRows()
 	{
 		BalanceList->ClearChildren();
 		BalanceLocators.Reset();
+		// ChainToggles was NOT reset here, so every rebuild left behind toggles still pointing at
+		// the discarded rows. They kept dead subtrees reachable (so the widget budget never came
+		// back) and, worse, a stale toggle could still be asked to lazily populate a Target that
+		// is no longer in the tree. A pending endpoint build against those rows is stale too.
+		ChainToggles.Reset();
+		PendingEndpointTarget = nullptr;
+		PendingEndpointBalanceIndex = INDEX_NONE;
 		AddBalanceRows(CachedReport, bCachedBalancePending);
 	}
+}
+
+FText UCPPanelWidget::BalanceProblemFilterLabel(int32 Mode)
+{
+	switch (Mode)
+	{
+	case 1:  return LOCTEXT("BalanceProblemAttention", "NEEDS ATTENTION");
+	case 2:  return LOCTEXT("BalanceProblemNoPower", "NO POWER");
+	case 3:  return LOCTEXT("BalanceProblemStarved", "MISSING INPUT");
+	case 4:  return LOCTEXT("BalanceProblemJammed", "JAMMED");
+	case 5:  return LOCTEXT("BalanceProblemPaused", "PAUSED");
+	default: return LOCTEXT("BalanceProblemAll", "ALL LINES");
+	}
+}
+
+bool UCPPanelWidget::BalanceMatchesProblemFilter(const FCPItemBalance& Balance) const
+{
+	switch (BalanceProblemFilter)
+	{
+	case 1:
+	{
+		// "Needs attention" is the same test the NEED FIRST sort already uses to rank a line
+		// first: a machine in a bad state, or measured supply that does not meet demand.
+		const bool bMachineIssue = Balance.MissingInputProducerBuildings > 0 ||
+			Balance.NoPowerProducerBuildings > 0 || Balance.PausedProducerBuildings > 0 ||
+			Balance.OutputBlockedProducerBuildings > 0 || Balance.MissingInputConsumerBuildings > 0;
+		if (bMachineIssue)
+		{
+			return true;
+		}
+		if (!Balance.Current.bKnown)
+		{
+			return false; // Unmeasured is not the same as broken; do not cry wolf.
+		}
+		const float EvidenceRate = Balance.MachineStateConsumerBuildings > 0
+			? Balance.EstimatedCurrentUsePerMinute : Balance.Current.DeliveredPerMinute;
+		return Balance.Current.DemandPerMinute > KINDA_SMALL_NUMBER &&
+			EvidenceRate + KINDA_SMALL_NUMBER < Balance.Current.DemandPerMinute;
+	}
+	case 2: return Balance.NoPowerProducerBuildings > 0;
+	case 3: return Balance.MissingInputProducerBuildings > 0 || Balance.MissingInputConsumerBuildings > 0;
+	case 4: return Balance.OutputBlockedProducerBuildings > 0;
+	case 5: return Balance.PausedProducerBuildings > 0;
+	default: return true;
+	}
+}
+
+void UCPPanelWidget::OnBalanceProblemFilterSelected(FString SelectedItem, ESelectInfo::Type SelectionType)
+{
+	if (SelectionType == ESelectInfo::Direct)
+	{
+		return; // Programmatic SetSelectedOption during construction, not a player choice.
+	}
+	for (int32 Mode = 0; Mode < BalanceProblemFilterModeCount; ++Mode)
+	{
+		if (BalanceProblemFilterLabel(Mode).ToString().Equals(SelectedItem, ESearchCase::IgnoreCase))
+		{
+			if (BalanceProblemFilter != Mode)
+			{
+				BalanceProblemFilter = Mode;
+				// Queued, not immediate: this fires from the combo's selection handling.
+				bBalanceRebuildQueued = true;
+			}
+			return;
+		}
+	}
+}
+
+void UCPPanelWidget::QueueEndpointBuild(int32 BalanceIndex, UVerticalBox* Target)
+{
+	PendingEndpointBalanceIndex = BalanceIndex;
+	PendingEndpointTarget = Target;
+}
+
+bool UCPPanelWidget::BalanceMatchesFilter(const FCPItemBalance& Balance) const
+{
+	if (BalanceFilter.IsEmpty())
+	{
+		return true;
+	}
+	if (Balance.Item.Name.Contains(BalanceFilter, ESearchCase::IgnoreCase))
+	{
+		return true;
+	}
+	// Machine names live on the locations, and searching for one (a modded machine, a named
+	// station) is a normal thing to do — so the filter has to reach them even though the row that
+	// would display them may never be rendered.
+	for (const FCPBalanceLocation& Location : Balance.Locations)
+	{
+		if (Location.Label.Contains(BalanceFilter, ESearchCase::IgnoreCase))
+		{
+			return true;
+		}
+		if (Location.PowerShardCount > 0 &&
+			FString(TEXT("power shard overclock")).Contains(BalanceFilter, ESearchCase::IgnoreCase))
+		{
+			return true;
+		}
+		if (Location.SomersloopCount > 0 &&
+			FString(TEXT("somersloop production boost")).Contains(BalanceFilter, ESearchCase::IgnoreCase))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void UCPPanelWidget::ApplyBalanceFilter()
@@ -1225,6 +1637,17 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 	BalanceFilterRows.Reset();
 	BalanceFilterKeys.Reset();
 	BalanceNoMatchesRow = nullptr;
+
+	// Which items are produced ANYWHERE in the report, regardless of domain. Built from the whole
+	// result, not the filtered/capped candidate set, so the answer does not change with the view.
+	ItemsProducedSomewhere.Reset();
+	for (const FCPItemBalance& Candidate : Result.ItemBalances)
+	{
+		if (Candidate.ProducerBuildings > 0)
+		{
+			ItemsProducedSomewhere.Add(Candidate.Item.Name);
+		}
+	}
 	TSet<FString> RelevantItems;
 	auto AddPartItems = [&RelevantItems](const FCPPartReport& Part)
 	{
@@ -1292,6 +1715,21 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 		{
 			continue;
 		}
+		// The text filter MUST be applied here, before the row cap. Filtering rendered rows only
+		// searches whatever survived the cap, so on a factory with 22,184 lines a search for an
+		// item that is not in the top 60 finds nothing and reports "no matches" — which reads as
+		// "you do not have one" about a line the player is looking straight at.
+		if (!BalanceMatchesFilter(Candidate))
+		{
+			continue;
+		}
+		// Problem filter sits alongside the text filter, before the cap, so "concrete" plus
+		// NEEDS ATTENTION narrows to the one line the player is actually chasing instead of
+		// hoping it placed inside the render budget.
+		if (!BalanceMatchesProblemFilter(Candidate))
+		{
+			continue;
+		}
 		Candidates.Add(&Candidate);
 		DomainTotals.FindOrAdd(Candidate.Item.Name)++;
 	}
@@ -1328,6 +1766,12 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 	});
 	TMap<FString, int32> DomainOrdinal;
 	int32 RowsAdded = 0;
+	// Candidates is sorted worst-first, so truncating keeps the lines that need attention.
+	const int32 TotalCandidates = Candidates.Num();
+	if (TotalCandidates > MaxBalanceRowsRendered)
+	{
+		Candidates.SetNum(MaxBalanceRowsRendered);
+	}
 	for (const FCPItemBalance* BalancePtr : Candidates)
 	{
 		const FCPItemBalance& Balance = *BalancePtr;
@@ -1384,6 +1828,10 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 		UCPChainToggle* EndpointToggle = NewObject<UCPChainToggle>(this);
 		EndpointToggle->Target = EndpointDetails;
 		EndpointToggle->Chevron = EndpointChevron;
+		// Index into CachedReport (assigned before this runs), so the toggle can find its balance
+		// again when the player expands the row.
+		EndpointToggle->LazyOwner = this;
+		EndpointToggle->LazyBalanceIndex = static_cast<int32>(BalancePtr - Result.ItemBalances.GetData());
 		ChainToggles.Add(EndpointToggle);
 		TitleClick->OnMouseButtonDownEvent.BindDynamic(EndpointToggle, &UCPChainToggle::OnRowMouseDown);
 		RowStack->AddChildToVerticalBox(TitleClick)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
@@ -1449,84 +1897,16 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 		}
 		RowStack->AddChildToVerticalBox(IdentityBox)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
 
-		auto AddEndpointSection = [&](bool bProducers, const FText& Heading)
-		{
-			TArray<const FCPBalanceLocation*> Endpoints;
-			for (const FCPBalanceLocation& Location : Balance.Locations)
-			{
-				if (Location.bProducer == bProducers &&
-					BalanceLocationMatchesAugmentFilter(Location, BalanceAugmentFilter))
-				{
-					Endpoints.Add(&Location);
-				}
-			}
-			Endpoints.Sort([](const FCPBalanceLocation& A, const FCPBalanceLocation& B)
-			{
-				const int32 RankA = BalanceLocationRank(A);
-				const int32 RankB = BalanceLocationRank(B);
-				return RankA != RankB ? RankA < RankB : A.ActorName < B.ActorName;
-			});
-			if (Endpoints.Num() == 0) { return; }
-			EndpointDetails->AddChildToVerticalBox(MakeText(WidgetTree, Heading, 9, CPStyle::Accent, true))
-				->SetPadding(FMargin(10.0f, 4.0f, 0.0f, 2.0f));
-			for (int32 EndpointIndex = 0; EndpointIndex < Endpoints.Num(); ++EndpointIndex)
-			{
-				const FCPBalanceLocation& Location = *Endpoints[EndpointIndex];
-				UHorizontalBox* EndpointLine = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass());
-				if (Location.PowerShardCount > 0)
-				{
-					AddItemIcon(EndpointLine, Location.PowerShardItem, 16.0f);
-					EndpointLine->AddChildToHorizontalBox(MakeText(WidgetTree, FText::AsNumber(Location.PowerShardCount),
-						8, CPStyle::StatusBlue, true))->SetVerticalAlignment(VAlign_Center);
-				}
-				if (Location.SomersloopCount > 0)
-				{
-					AddItemIcon(EndpointLine, Location.SomersloopItem, 16.0f);
-					EndpointLine->AddChildToHorizontalBox(MakeText(WidgetTree, FText::AsNumber(Location.SomersloopCount),
-						8, CPStyle::StatusViolet, true))->SetVerticalAlignment(VAlign_Center);
-				}
-				const FText EndpointText = FText::Format(LOCTEXT("BalanceEndpointFmt", "{0}. {1} - {2}"),
-					FText::AsNumber(EndpointIndex + 1), FText::FromString(Location.Label),
-					BalanceLocationStatus(Location, Balance.bFluid));
-				UTextBlock* EndpointLabel = MakeText(WidgetTree, EndpointText, 9,
-					BalanceLocationHasProblem(Location) ? CPStyle::StatusRed
-						: (Location.bOutputBlocked ? CPStyle::StatusNeutral : CPStyle::TextSecondary));
-				EndpointLabel->SetAutoWrapText(true);
-				if (UHorizontalBoxSlot* LabelSlot = EndpointLine->AddChildToHorizontalBox(EndpointLabel))
-				{
-					LabelSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-					LabelSlot->SetVerticalAlignment(VAlign_Center);
-				}
-				UCPBalanceLocator* EndpointLocator = NewObject<UCPBalanceLocator>(this);
-				EndpointLocator->Owner = this;
-				EndpointLocator->Location = Location.Location;
-				EndpointLocator->IconItem = Location.BuildingItem.DescriptorClassPath.IsEmpty()
-					? Balance.Item : Location.BuildingItem;
-				EndpointLocator->Label = FText::Format(LOCTEXT("BalanceEndpointPingFmt", "{0} - {1} - {2}"),
-					FText::FromString(Location.Label), FText::FromString(Balance.Item.Name),
-					FText::AsNumber(EndpointIndex + 1));
-				BalanceLocators.Add(EndpointLocator);
-				UButton* EndpointLocate = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass());
-				EndpointLocate->SetBackgroundColor(CPStyle::Surface);
-				EndpointLocate->SetContent(MakeText(WidgetTree, LOCTEXT("LocateEndpoint", "LOCATE"), 8, CPStyle::Accent, true));
-				EndpointLocate->OnClicked.AddDynamic(EndpointLocator, &UCPBalanceLocator::Locate);
-				if (UHorizontalBoxSlot* LocateSlot = EndpointLine->AddChildToHorizontalBox(EndpointLocate))
-				{
-					LocateSlot->SetPadding(FMargin(8.0f, 0.0f, 0.0f, 0.0f));
-					LocateSlot->SetVerticalAlignment(VAlign_Center);
-				}
-				EndpointDetails->AddChildToVerticalBox(EndpointLine)->SetPadding(FMargin(16.0f, 2.0f, 0.0f, 2.0f));
-			}
-		};
-		AddEndpointSection(true, LOCTEXT("BalanceProducersHeading", "PRODUCERS"));
-		AddEndpointSection(false, LOCTEXT("BalanceConsumersHeading", "CONSUMERS"));
+		// Endpoint rows are deliberately NOT built here. EndpointToggle populates them on first
+		// expand (see UCPChainToggle::LazyOwner), so a row the player never opens costs nothing
+		// beyond its header. This is the difference between ~390 and ~40 UObjects per row.
 		EndpointDetails->SetVisibility(ESlateVisibility::Collapsed);
 		EndpointChevron->SetRenderTransformAngle(-90.0f);
 		RowStack->AddChildToVerticalBox(EndpointDetails)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
 
 		if (!Balance.Current.bKnown)
 		{
-			RowStack->AddChildToVerticalBox(MakeText(WidgetTree,
+			RowStack->AddChildToVerticalBox(MakeWrappedText(WidgetTree,
 				LOCTEXT("BalanceUnknown", "Delivery rates are not available right now. Machine status and built capacity are shown below."),
 				10, CPStyle::StatusAmber));
 		}
@@ -1535,7 +1915,9 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			UBorder* DiagnosisStrip = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
 			DiagnosisStrip->SetBrushColor(CPStyle::RowNested);
 			DiagnosisStrip->SetPadding(FMargin(7.0f, 4.0f));
-			DiagnosisStrip->SetContent(MakeText(WidgetTree, BalanceDiagnosis(Balance, DiagnosisColor), 9, DiagnosisColor, true));
+			DiagnosisStrip->SetContent(MakeWrappedText(WidgetTree,
+				BalanceDiagnosis(Balance, ItemsProducedSomewhere.Contains(Balance.Item.Name), DiagnosisColor),
+				9, DiagnosisColor, true));
 			RowStack->AddChildToVerticalBox(DiagnosisStrip)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
 
 			const float Maximum = FMath::Max(1.0f, FMath::Max(
@@ -1579,7 +1961,7 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			}
 			if (Balance.Current.bKnown)
 			{
-				RowStack->AddChildToVerticalBox(MakeText(WidgetTree,
+				RowStack->AddChildToVerticalBox(MakeWrappedText(WidgetTree,
 					FText::Format(LOCTEXT("BalanceModelFmt", "SUPPLY LINE  can send {0}  ·  actually arriving {1}"),
 						BalanceRateText(Balance.Current.SustainablePerMinute, Balance.bFluid),
 						BalanceRateText(Balance.Current.DeliveredPerMinute, Balance.bFluid)),
@@ -1587,7 +1969,7 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			}
 			if (Balance.Design.bKnown)
 			{
-				RowStack->AddChildToVerticalBox(MakeText(WidgetTree,
+				RowStack->AddChildToVerticalBox(MakeWrappedText(WidgetTree,
 					FText::Format(LOCTEXT("BalanceDesignFmt", "AT FULL SPEED  needs {0}  ·  ingredients allow {1}  ·  would deliver {2}"),
 						BalanceRateText(Balance.Design.DemandPerMinute, Balance.bFluid),
 						BalanceRateText(Balance.Design.SustainablePerMinute, Balance.bFluid),
@@ -1607,12 +1989,12 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 					FText::AsNumber(Balance.BufferRunwayMinutes, &RunwayFormat))
 				: FText::Format(LOCTEXT("BufferAmountFmt", "BUFFER  {0} {1} reachable"),
 					FText::AsNumber(FMath::RoundToInt(Balance.BufferedAmount)), BufferUnit);
-			BufferStrip->SetContent(MakeText(WidgetTree, BufferText, 9, CPStyle::StatusViolet, true));
+			BufferStrip->SetContent(MakeWrappedText(WidgetTree, BufferText, 9, CPStyle::StatusViolet, true));
 			RowStack->AddChildToVerticalBox(BufferStrip)->SetPadding(FMargin(0.0f, 5.0f, 0.0f, 0.0f));
 
 			if (Balance.bUsesTransport && !Balance.bTransportRateKnown)
 			{
-				RowStack->AddChildToVerticalBox(MakeText(WidgetTree,
+				RowStack->AddChildToVerticalBox(MakeWrappedText(WidgetTree,
 					LOCTEXT("TransportTopologyOnly", "Transport route is known; vehicle throughput is not yet measured."),
 					9, CPStyle::StatusAmber))->SetPadding(FMargin(0.0f, 4.0f, 0.0f, 0.0f));
 			}
@@ -1634,7 +2016,47 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 		BalanceFilterKeys.Add(MoveTemp(FilterKey));
 	}
 
-	if (RowsAdded == 0)
+	if (TotalCandidates > RowsAdded)
+	{
+		UBorder* Truncated = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+		Truncated->SetBrushColor(CPStyle::RowNested);
+		Truncated->SetPadding(FMargin(10.0f, 7.0f));
+		UTextBlock* TruncatedText = MakeText(WidgetTree,
+			(BalanceFilter.IsEmpty() && BalanceProblemFilter == 0 && BalanceAugmentFilter == 0)
+				? FText::Format(LOCTEXT("BalanceRowsTruncatedFmt",
+					"Showing the {0} lines needing the most attention, of {1} feeding your objective. Search, or filter by problem, to narrow this down."),
+					FText::AsNumber(RowsAdded), FText::AsNumber(TotalCandidates))
+				: FText::Format(LOCTEXT("BalanceRowsTruncatedFilteredFmt",
+					"Showing the {0} lines needing the most attention, of {1} matching your filter."),
+					FText::AsNumber(RowsAdded), FText::AsNumber(TotalCandidates)),
+			10, CPStyle::StatusAmber, true);
+		TruncatedText->SetAutoWrapText(true);
+		Truncated->SetContent(TruncatedText);
+		BalanceList->AddChildToVerticalBox(Truncated)->SetPadding(FMargin(0.0f, 2.0f, 0.0f, 4.0f));
+	}
+
+	const bool bAnyFilterActive = !BalanceFilter.IsEmpty() || BalanceProblemFilter != 0 || BalanceAugmentFilter != 0;
+	if (RowsAdded == 0 && bAnyFilterActive && !bBalancePending)
+	{
+		// A filter that matched nothing is not the same as having no production. Saying "nothing
+		// has a production line yet" to someone who just selected NO POWER is a lie about their
+		// factory - and for the problem filter it is the single most valuable answer the panel can
+		// give, so it has to be stated as the good news it is.
+		UBorder* NoMatches = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
+		NoMatches->SetBrushColor(CPStyle::Row);
+		NoMatches->SetPadding(FMargin(10.0f, 8.0f));
+		UTextBlock* NoMatchesText = MakeText(WidgetTree,
+			(BalanceProblemFilter != 0 && BalanceFilter.IsEmpty())
+				? FText::Format(LOCTEXT("BalanceNoProblemMatches",
+					"No line feeding your objective is in this state ({0}). Nothing to fix here."),
+					BalanceProblemFilterLabel(BalanceProblemFilter))
+				: LOCTEXT("BalanceNoMatchesSearch", "No line feeding your objective matches this filter."),
+			11, CPStyle::TextSecondary);
+		NoMatchesText->SetAutoWrapText(true);
+		NoMatches->SetContent(NoMatchesText);
+		BalanceList->AddChildToVerticalBox(NoMatches);
+	}
+	else if (RowsAdded == 0)
 	{
 		UBorder* Empty = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
 		Empty->SetBrushColor(CPStyle::Row);
@@ -2726,6 +3148,14 @@ FEventReply UCPChainToggle::OnRowMouseDown(FGeometry InGeometry, const FPointerE
 	if (Target)
 	{
 		const bool bNowVisible = Target->GetVisibility() == ESlateVisibility::Collapsed;
+		// Populate on the first expand only, and QUEUE it rather than building here: this runs
+		// inside Slate's mouse-down dispatch, and adding children mid-event is what makes the
+		// following paint fault. The panel services it on the next tick.
+		if (bNowVisible && !bLazyBuilt && LazyOwner && LazyBalanceIndex != INDEX_NONE)
+		{
+			bLazyBuilt = true;
+			LazyOwner->QueueEndpointBuild(LazyBalanceIndex, Cast<UVerticalBox>(Target.Get()));
+		}
 		Target->SetVisibility(bNowVisible ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed);
 		if (Chevron)
 		{
@@ -2915,6 +3345,26 @@ FText UCPPanelWidget::MakeVerdict(const FCPAnalysisResult& Result) const
 void UCPPanelWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	// Widget-tree edits are serviced HERE, never inside an input handler. Rebuilding the balance
+	// list from a click or a text commit destroys widgets while Slate is still holding arranged
+	// children for the event it is dispatching; the next paint then walks a border whose UMG
+	// object is gone and faults on a poisoned pointer inside IsResourceObjectValid. Deferring by
+	// one frame costs nothing visible and makes the mutation safe by construction.
+	if (bBalanceRebuildQueued)
+	{
+		bBalanceRebuildQueued = false;
+		RebuildBalanceRows();
+	}
+	if (PendingEndpointTarget && CachedReport.ItemBalances.IsValidIndex(PendingEndpointBalanceIndex))
+	{
+		UVerticalBox* Target = PendingEndpointTarget;
+		const int32 Index = PendingEndpointBalanceIndex;
+		PendingEndpointTarget = nullptr;
+		PendingEndpointBalanceIndex = INDEX_NONE;
+		BuildEndpointSections(Index, Target);
+	}
+
 	if (Spinners.Num() == 0)
 	{
 		return;

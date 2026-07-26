@@ -9,6 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2026-07-26
+
+> *Critical Path now works on a finished factory. The first release was sized for a mid-game base and quietly stopped measuring long before an endgame save was covered, which made it both wrong and, on a large enough factory, fatal.*
+
+### Added
+
+- **Critical Path now speaks 20 languages** - The whole panel is translated: German, Spanish, French, Italian, Japanese, Korean, Polish, Brazilian Portuguese, Russian, Turkish, Simplified and Traditional Chinese, Bulgarian, Hungarian, Norwegian, Ukrainian, Vietnamese, Arabic, Persian, and Thai. Game terms follow Satisfactory's own wording in each language rather than a dictionary translation, so a belt is called what the game calls it. Counted text uses each language's real plural rules instead of an English-shaped guess. Item and building names are left alone, since the base game already translates those. Spot something that reads wrong in your language? Corrections are very welcome on the GitHub Issues page. (Issue #1, requested by dmeyster on the Smart! Discord for friends who do not read English)
+
+- **Filter BALANCE by what is actually wrong** - A new dropdown filters the list to **ALL LINES**, **NEEDS ATTENTION**, **NO POWER**, **MISSING INPUT**, **JAMMED** or **PAUSED**. On a finished factory thousands of lines feed your objective and almost all of them are fine, so scrolling for the broken one is the wrong job to give a person. Pick a state and you get only the lines in it, and it stacks with the search box, so "concrete" plus NEEDS ATTENTION goes straight to the concrete line that is underperforming. If nothing matches, it says so plainly rather than leaving you wondering whether it looked. (Requested by Dead-Again on the Smart! Discord)
+
+- **The search box applies on Enter** - Searching now waits for you to finish typing instead of rebuilding the list on every keystroke, which on a large factory was both slow and a real risk of running the game out of memory.
+
+### Fixed
+
+- **Opening the panel on a large factory no longer crashes the game** - On an endgame base, pressing `F10` could take the game to desktop with "Maximum number of UObjects exceeded". Every line in the BALANCE tab was building a row for each of its producers and consumers up front, then hiding them behind the expand arrow, so a factory with thousands of machines on one item paid for thousands of rows nobody had asked to see. Those lists are now built to a fixed budget, and when a list is shortened the row says how many it is not showing rather than pretending that is all of them. (Reported by Dead-Again on the Satisfactory Modding Discord)
+
+- **Your whole factory is measured now, not the first slice of it** - Critical Path stopped after 2,000 machines. On a normal endgame save that is roughly a quarter of the base, and everything past the cut-off simply did not exist as far as the analysis was concerned: lines you had built for hours were reported as "nothing produces it", and the plan told you to build them again. The limits are now set well above the size of a finished factory, and the parts of the analysis that map out how your factory is connected were raised to match. On the save this was found with, the number of dependencies it could not account for dropped from 90 to 17. (Reported by Dead-Again on the Satisfactory Modding Discord)
+
+- **The header no longer claims a partial scan when nothing was skipped** - The panel could report "only 8,808 of 8,808 checked - too many to scan", which is both self-contradictory and alarming. Several separate limits shared one warning, so hitting any of them told you your factory was too big to read even when every machine had been counted. The header now only says the scan was cut short when it actually was, and says something accurate about the other limits otherwise.
+
+- **A stopped machine is no longer reported as "nothing is using this"** - When the only machine drawing from a line was stalled, backed up, unpowered or starved, it drew nothing, so Critical Path concluded nothing was connected and told you the line was just filling storage. Both halves of that were wrong: something was using it, and nothing was being stored. The row now says the consumers are stopped, how much they would draw if they ran, and when the cause is their own output backing up it says that too.
+
+- **Lines fed by a teleporter are no longer reported as missing** - If something carries an item to a line without a belt or pipe, a teleporter, portal, or a modded loader, Critical Path could not follow that route and concluded nothing produced the item. It then told you to build more machines you had already built and which were running perfectly well at the other end of the link. It now recognises that the item is produced elsewhere in your factory and says so, instead of inventing a shortage. (Found on Dead-Again's save, where a Fluid Teleporter feeds a line 650 m from its source)
+
+- **Recipe coverage no longer runs out on modded saves** - The recipe map behind the plan was capped low enough that a modded recipe set could exhaust it, which reads downstream as a missing production path. On heavily modded saves this showed up as advice to build a machine you would never build, including modded catch-all machines standing in for basic parts.
+
+---
+
 ## [1.0.0] - 2026-07-25
 
 > *First release. Critical Path reads the factory you are standing in and answers one question: what is actually stopping your current objective?*

@@ -1,0 +1,1227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CriticalPath\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Key:	AB46CACF4C402D0A0C2BBD8FB7B2500A
+msgctxt ",AB46CACF4C402D0A0C2BBD8FB7B2500A"
+msgid "1× Assembler · 2.5/min of 12.5 needed"
+msgstr ""
+
+#. Key:	3AE89A3A41716D0C1158828D998F52A4
+msgctxt ",3AE89A3A41716D0C1158828D998F52A4"
+msgid "1× Manufacturer · 2.5/min"
+msgstr ""
+
+#. Key:	650C25414036AC525E39C79183343F3B
+msgctxt ",650C25414036AC525E39C79183343F3B"
+msgid "2,000 needed  ·  2,000 banked  ·  deliver now"
+msgstr ""
+
+#. Key:	FE02FE6043275C5F429266A6F006A805
+msgctxt ",FE02FE6043275C5F429266A6F006A805"
+msgid "2× Assembler · 25/min"
+msgstr ""
+
+#. Key:	9614FDD644BF8B9EE29DE8A6D6732B2C
+msgctxt ",9614FDD644BF8B9EE29DE8A6D6732B2C"
+msgid "2× Manufacturer · 5.0/min"
+msgstr ""
+
+#. Key:	7F101E664166DBC1D99692B19B5313F2
+msgctxt ",7F101E664166DBC1D99692B19B5313F2"
+msgid "3 parts required  ·  1 ready to deliver  ·  1 blocked  ·  earliest completion ~72 min"
+msgstr ""
+
+#. Key:	E8ACA03D49EB7261E197659531E32B6F
+msgctxt ",E8ACA03D49EB7261E197659531E32B6F"
+msgid "480 needed  ·  120 banked  ·  360 to produce  ·  ~72 min"
+msgstr ""
+
+#. Key:	3BE554254D343A7BBCA2B7B5A00AF90C
+msgctxt ",3BE554254D343A7BBCA2B7B5A00AF90C"
+msgid "99 needed  ·  7 banked  ·  92 to produce  ·  blocked"
+msgstr ""
+
+#. Key:	08EBECCB41804E37453A4AAA1FD5F3E3
+msgctxt ",08EBECCB41804E37453A4AAA1FD5F3E3"
+msgid "Adaptive Control Unit"
+msgstr ""
+
+#. Key:	9EF74FE34AE569C38CA64E9D82C844A8
+msgctxt ",9EF74FE34AE569C38CA64E9D82C844A8"
+msgid "Automated Wiring"
+msgstr ""
+
+#. Key:	043B5BBC45C8B0568744889832C5FD6B
+msgctxt ",043B5BBC45C8B0568744889832C5FD6B"
+msgid "CRITICAL PATH"
+msgstr ""
+
+#. Key:	E3B96B684DA94C6196E53B9E5EF65A3E
+msgctxt ",E3B96B684DA94C6196E53B9E5EF65A3E"
+msgid "Modular Engine"
+msgstr ""
+
+#. Key:	2523207949D893471F1C63BF2314EACE
+msgctxt ",2523207949D893471F1C63BF2314EACE"
+msgid "Space Elevator: Main Body"
+msgstr ""
+
+#. Key:	F616D3404E39FA0AE068C5AD74FA8243
+msgctxt ",F616D3404E39FA0AE068C5AD74FA8243"
+msgid "Stator"
+msgstr ""
+
+#. Key:	73F3C0684140FD63EC7EBF898F7BE8AD
+msgctxt ",73F3C0684140FD63EC7EBF898F7BE8AD"
+msgid "Versatile Framework"
+msgstr ""
+
+#. Key:	B4DE02E8428694AE136D48822BF08AE1
+msgctxt ",B4DE02E8428694AE136D48822BF08AE1"
+msgid "no producer configured"
+msgstr ""
+
+#. Key:	1A0751FB44AC4366F8DF2BBCAF1BFF20
+msgctxt ",1A0751FB44AC4366F8DF2BBCAF1BFF20"
+msgid "×"
+msgstr ""
+
+#. Key:	C00C970340D208F8A377D2B6647BE15D
+msgctxt ",C00C970340D208F8A377D2B6647BE15D"
+msgid "× BLOCKED — Adaptive Control Unit is stalled. Build a Stator line: it gates Automated Wiring → Adaptive Control Unit → Main Body."
+msgstr ""
+
+#. Key:	916D7FF44FD10ADF39543CA075B7F49A
+msgctxt ",916D7FF44FD10ADF39543CA075B7F49A"
+msgid "■"
+msgstr ""
+
+#. Key:	B93CDE3745A0108F118915A3EB4B3B18
+msgctxt ",B93CDE3745A0108F118915A3EB4B3B18"
+msgid "▲"
+msgstr ""
+
+#. Key:	3D920FAE42B1D930C642E6933107B5CB
+msgctxt ",3D920FAE42B1D930C642E6933107B5CB"
+msgid "▲"
+msgstr ""
+
+#. Key:	29308E89411226D839FFDD9CFE508DF0
+msgctxt ",29308E89411226D839FFDD9CFE508DF0"
+msgid "●"
+msgstr ""
+
+#. Key:	BalanceDistanceFmt
+msgctxt "CriticalPath,BalanceDistanceFmt"
+msgid "  ·  nearest endpoint {0} m away"
+msgstr "  ·  가장 가까운 끝점 {0} m 거리"
+
+#. Key:	BalanceAugmentAll
+msgctxt "CriticalPath,BalanceAugmentAll"
+msgid "ALL AUGMENTS"
+msgstr "전체 증강"
+
+#. Key:	BalanceProblemAll
+msgctxt "CriticalPath,BalanceProblemAll"
+msgid "ALL LINES"
+msgstr "전체 라인"
+
+#. Key:	BalanceDesignFmt
+msgctxt "CriticalPath,BalanceDesignFmt"
+msgid "AT FULL SPEED  needs {0}  ·  ingredients allow {1}  ·  would deliver {2}"
+msgstr "최대 속도 시  필요 {0}  ·  재료 허용 {1}  ·  공급 가능 {2}"
+
+#. Key:	SrcShop
+msgctxt "CriticalPath,SrcShop"
+msgid "AWESOME Shop"
+msgstr "AWESOME Shop"
+
+#. Key:	LimiterNetFmt
+msgctxt "CriticalPath,LimiterNetFmt"
+msgid "Across the whole factory only {0}/min is available against {1}/min needed ({2}%) - this may be a different line"
+msgstr "공장 전체에서 필요한 {1}/min 대비 {0}/min만 사용할 수 있습니다({2}%) - 다른 라인일 수 있습니다"
+
+#. Key:	PlanGraft
+msgctxt "CriticalPath,PlanGraft"
+msgid "Already produced"
+msgstr "이미 생산됨"
+
+#. Key:	PlanGraftFmt
+msgctxt "CriticalPath,PlanGraftFmt"
+msgid "Already produced - {0}"
+msgstr "이미 생산됨 - {0}"
+
+#. Key:	LimiterInputConstraintFmt
+msgctxt "CriticalPath,LimiterInputConstraintFmt"
+msgid "Arriving ingredients only support {0} of the {1} these machines could make"
+msgstr "도착하는 재료로는 이 기계들이 만들 수 있는 {1} 중 {0}만 감당할 수 있습니다"
+
+#. Key:	AskingHostHeadline
+msgctxt "CriticalPath,AskingHostHeadline"
+msgid "Asking the host for a report"
+msgstr "호스트에 보고서를 요청하는 중"
+
+#. Key:	PlanTipFmt
+msgctxt "CriticalPath,PlanTipFmt"
+msgid "Assumed recipe: {0}"
+msgstr "추정 레시피: {0}"
+
+#. Key:	BalanceSortAlphabetical
+msgctxt "CriticalPath,BalanceSortAlphabetical"
+msgid "A–Z"
+msgstr "A–Z"
+
+#. Key:	TabBalance
+msgctxt "CriticalPath,TabBalance"
+msgid "BALANCE"
+msgstr "수급"
+
+#. Key:	BalanceJammedFmt
+msgctxt "CriticalPath,BalanceJammedFmt"
+msgid "BELT JAMMED · {0} machine(s) blocked by {1} on the feeding belt - remove it; this is not a supply shortage"
+msgstr "벨트 막힘 · 공급 벨트의 {1} 때문에 기계 {0}대가 막혔습니다 - 제거하세요; 공급 부족이 아닙니다"
+
+#. Key:	VerdictPlanBlockedFmt
+msgctxt "CriticalPath,VerdictPlanBlockedFmt"
+msgid "BLOCKED - the plan ({0} step(s)):"
+msgstr "차단됨 - 계획 ({0}단계):"
+
+#. Key:	VerdictPlanBlockedDeliverFmt
+msgctxt "CriticalPath,VerdictPlanBlockedDeliverFmt"
+msgid "BLOCKED - {0} step(s) to deliver {1}"
+msgstr "차단됨 - {1} 납품까지 {0}단계"
+
+#. Key:	VerdictBlockedFmt
+msgctxt "CriticalPath,VerdictBlockedFmt"
+msgid "BLOCKED - {0}: {1}."
+msgstr "차단됨 - {0}: {1}."
+
+#. Key:	BufferAmountFmt
+msgctxt "CriticalPath,BufferAmountFmt"
+msgid "BUFFER  {0} {1} reachable"
+msgstr "버퍼  도달 가능 {0} {1}"
+
+#. Key:	BufferRunwayFmt
+msgctxt "CriticalPath,BufferRunwayFmt"
+msgid "BUFFER  {0} {1} reachable  ·  about {2} min at the current shortfall"
+msgstr "버퍼  도달 가능 {0} {1}  ·  현재 부족분 기준 약 {2}분"
+
+#. Key:	BalanceInstalled
+msgctxt "CriticalPath,BalanceInstalled"
+msgid "BUILT CAPACITY"
+msgstr "건설 용량"
+
+#. Key:	LimiterBeltConstraintFmt
+msgctxt "CriticalPath,LimiterBeltConstraintFmt"
+msgid "Belt bottleneck: {0} → {1} carries {2} of {3}"
+msgstr "벨트 병목: {0} → {1} 구간이 {3} 중 {2} 운반"
+
+#. Key:	LimiterNameFmt
+msgctxt "CriticalPath,LimiterNameFmt"
+msgid "Bottleneck: {0}"
+msgstr "병목: {0}"
+
+#. Key:	ClearPings
+msgctxt "CriticalPath,ClearPings"
+msgid "CLEAR PINGS"
+msgstr "핑 지우기"
+
+#. Key:	BalanceDemand
+msgctxt "CriticalPath,BalanceDemand"
+msgid "CONSUMER NEED"
+msgstr "소비처 수요"
+
+#. Key:	BalanceConsumersHeading
+msgctxt "CriticalPath,BalanceConsumersHeading"
+msgid "CONSUMERS"
+msgstr "소비처"
+
+#. Key:	BalanceConsumersStoppedFmt
+msgctxt "CriticalPath,BalanceConsumersStoppedFmt"
+msgid "CONSUMERS STOPPED · {0} machine(s) here would use {1}, but none of them are running"
+msgstr "소비 기계 정지 · 여기 기계 {0}대가 {1}을(를) 사용하지만, 어느 것도 가동 중이 아닙니다"
+
+#. Key:	BalanceConsumersBlockedFmt
+msgctxt "CriticalPath,BalanceConsumersBlockedFmt"
+msgid "CONSUMERS STOPPED · {0} machine(s) here would use {1}, but their own output is backed up"
+msgstr "소비 기계 정지 · 여기 기계 {0}대가 {1}을(를) 사용하지만, 자체 출력이 막혀 있습니다"
+
+#. Key:	PanelTitle
+msgctxt "CriticalPath,PanelTitle"
+msgid "CRITICAL PATH"
+msgstr ""
+
+#. Key:	BalancePending
+msgctxt "CriticalPath,BalancePending"
+msgid "Checking your factory…"
+msgstr "공장을 확인하는 중…"
+
+#. Key:	TipChainHint
+msgctxt "CriticalPath,TipChainHint"
+msgid "Click to show/hide the blocker chain"
+msgstr "클릭하여 차단 체인 표시/숨기기"
+
+#. Key:	BlockSolvedConnectivityUnknown
+msgctxt "CriticalPath,BlockSolvedConnectivityUnknown"
+msgid "Could not measure what is arriving - check the belts and pipes feeding this"
+msgstr "도착량을 측정할 수 없습니다 - 여기로 공급하는 벨트와 파이프를 확인하세요"
+
+#. Key:	NoControllerDetail
+msgctxt "CriticalPath,NoControllerDetail"
+msgid "Critical Path could not find a player to ask the host on behalf of."
+msgstr "Critical Path가 호스트에 요청을 대신할 플레이어를 찾지 못했습니다."
+
+#. Key:	MilestonePaid
+msgctxt "CriticalPath,MilestonePaid"
+msgid "Current milestone is fully paid - collect it and select the next one at the HUB."
+msgstr "현재 마일스톤의 납품이 끝났습니다 - HUB에서 수령하고 다음 마일스톤을 선택하세요."
+
+#. Key:	StatusDelivered
+msgctxt "CriticalPath,StatusDelivered"
+msgid "Delivered"
+msgstr "납품 완료"
+
+#. Key:	TipDeliveredFmt
+msgctxt "CriticalPath,TipDeliveredFmt"
+msgid "Delivered: all {0}"
+msgstr "납품 완료: {0} 전부"
+
+#. Key:	BalanceUnknown
+msgctxt "CriticalPath,BalanceUnknown"
+msgid "Delivery rates are not available right now. Machine status and built capacity are shown below."
+msgstr "현재 공급 속도를 확인할 수 없습니다. 아래에 기계 상태와 건설 용량이 표시됩니다."
+
+#. Key:	BalanceEstimatedOutput
+msgctxt "CriticalPath,BalanceEstimatedOutput"
+msgid "EST. CURRENT OUTPUT"
+msgstr "예상 생산량"
+
+#. Key:	BalanceEstimatedUse
+msgctxt "CriticalPath,BalanceEstimatedUse"
+msgid "EST. CURRENT USE"
+msgstr "예상 소비량"
+
+#. Key:	SectionElevatorNone
+msgctxt "CriticalPath,SectionElevatorNone"
+msgid "Elevator"
+msgstr "엘리베이터"
+
+#. Key:	SectionElevatorFmt
+msgctxt "CriticalPath,SectionElevatorFmt"
+msgid "Elevator: {0}"
+msgstr "엘리베이터: {0}"
+
+#. Key:	BalanceIntro
+msgctxt "CriticalPath,BalanceIntro"
+msgid "Every line feeding your objective: what it makes, what arrives, and how long your stock lasts."
+msgstr "목표에 공급하는 모든 라인: 무엇을 생산하고, 무엇이 도착하며, 재고가 얼마나 버티는지."
+
+#. Key:	BlockExtractFmt
+msgctxt "CriticalPath,BlockExtractFmt"
+msgid "Extraction {0}/min vs demand {1}/min - add or upgrade extractors"
+msgstr "추출 {0}/min 대 수요 {1}/min - 추출기를 추가하거나 업그레이드하세요"
+
+#. Key:	SrcTutorial
+msgctxt "CriticalPath,SrcTutorial"
+msgid "HUB"
+msgstr "HUB"
+
+#. Key:	BlockNotConnected
+msgctxt "CriticalPath,BlockNotConnected"
+msgid "It is being made, but no belt or pipe connects it to what needs it"
+msgstr "생산되고는 있지만, 벨트나 파이프가 필요한 곳까지 연결되어 있지 않습니다"
+
+#. Key:	BalanceProblemJammed
+msgctxt "CriticalPath,BalanceProblemJammed"
+msgid "JAMMED"
+msgstr "막힘"
+
+#. Key:	LocateEndpoint
+msgctxt "CriticalPath,LocateEndpoint"
+msgid "LOCATE"
+msgstr "위치 표시"
+
+#. Key:	LocateConsumer
+msgctxt "CriticalPath,LocateConsumer"
+msgid "LOCATE CONSUMER"
+msgstr "소비처 위치 표시"
+
+#. Key:	LocateProducer
+msgctxt "CriticalPath,LocateProducer"
+msgid "LOCATE PRODUCER"
+msgstr "생산처 위치 표시"
+
+#. Key:	PlanGraftStopped
+msgctxt "CriticalPath,PlanGraftStopped"
+msgid "Line exists but is STOPPED - fix it"
+msgstr "라인은 있지만 정지 상태입니다 - 해결하세요"
+
+#. Key:	PlanGraftStoppedFmt
+msgctxt "CriticalPath,PlanGraftStoppedFmt"
+msgid "Line exists but is STOPPED - fix the {0}"
+msgstr "라인은 있지만 정지 상태입니다 - {0}을(를) 해결하세요"
+
+#. Key:	BalancePartialEvidence
+msgctxt "CriticalPath,BalancePartialEvidence"
+msgid "MACHINE STATUS ONLY · delivery rates are not available right now"
+msgstr "기계 상태만 표시 · 현재 공급 속도를 확인할 수 없습니다"
+
+#. Key:	BalanceObservedUseGapFmt
+msgctxt "CriticalPath,BalanceObservedUseGapFmt"
+msgid "MACHINES RUNNING SLOW · using about {0} of {1}; {2} machine(s) are short of ingredients"
+msgstr "기계 저속 가동 · {1} 중 약 {0} 사용 중; 기계 {2}대가 재료 부족"
+
+#. Key:	SrcMAM
+msgctxt "CriticalPath,SrcMAM"
+msgid "MAM"
+msgstr "MAM"
+
+#. Key:	BalanceProblemStarved
+msgctxt "CriticalPath,BalanceProblemStarved"
+msgid "MISSING INPUT"
+msgstr "재료 없음"
+
+#. Key:	AskingHostDetail
+msgctxt "CriticalPath,AskingHostDetail"
+msgid "Machine contents and storage are tracked by the host, so Critical Path is requesting the report from there. This can take a few seconds on a large factory."
+msgstr "기계 내용물과 저장 상태는 호스트가 관리하므로 Critical Path가 호스트에 보고서를 요청합니다. 큰 공장에서는 몇 초가 걸릴 수 있습니다."
+
+#. Key:	LimiterInstalledConstraintFmt
+msgctxt "CriticalPath,LimiterInstalledConstraintFmt"
+msgid "Machines here can make {0}; the machines using it need {1}"
+msgstr "여기 기계들은 {0}을(를) 만들 수 있지만, 이를 사용하는 기계들은 {1}이(가) 필요합니다"
+
+#. Key:	SectionMilestoneNone
+msgctxt "CriticalPath,SectionMilestoneNone"
+msgid "Milestone"
+msgstr "마일스톤"
+
+#. Key:	SectionMilestoneFmt
+msgctxt "CriticalPath,SectionMilestoneFmt"
+msgid "Milestone: {0}"
+msgstr "마일스톤: {0}"
+
+#. Key:	BalanceSortNeedFirst
+msgctxt "CriticalPath,BalanceSortNeedFirst"
+msgid "NEED FIRST"
+msgstr "필요량 순"
+
+#. Key:	BalanceProblemAttention
+msgctxt "CriticalPath,BalanceProblemAttention"
+msgid "NEEDS ATTENTION"
+msgstr "조치 필요"
+
+#. Key:	VerdictNextFmt
+msgctxt "CriticalPath,VerdictNextFmt"
+msgid "NEXT - {0}: {1}."
+msgstr "다음 - {0}: {1}."
+
+#. Key:	VerdictPlanHeadFmt
+msgctxt "CriticalPath,VerdictPlanHeadFmt"
+msgid "NEXT STEPS - the plan ({0} step(s)):"
+msgstr "다음 단계 - 계획 ({0}단계):"
+
+#. Key:	VerdictPlanDeliverFmt
+msgctxt "CriticalPath,VerdictPlanDeliverFmt"
+msgid "NEXT STEPS - {0} step(s) to deliver {1}"
+msgstr "다음 단계 - {1} 납품까지 {0}단계"
+
+#. Key:	BalanceProblemNoPower
+msgctxt "CriticalPath,BalanceProblemNoPower"
+msgid "NO POWER"
+msgstr "전력 없음"
+
+#. Key:	BalanceModeledDeliveryGapFmt
+msgctxt "CriticalPath,BalanceModeledDeliveryGapFmt"
+msgid "NOT ENOUGH ARRIVING · {0} is getting through; {1} is needed"
+msgstr "도착량 부족 · {0} 도착 중; {1} 필요"
+
+#. Key:	BalanceCapacityGapFmt
+msgctxt "CriticalPath,BalanceCapacityGapFmt"
+msgid "NOT ENOUGH MACHINES · build at least {0} more production"
+msgstr "기계 부족 · 최소 {0}만큼 생산 설비를 더 지으세요"
+
+#. Key:	BalanceCapacityMachineGapsFmt
+msgctxt "CriticalPath,BalanceCapacityMachineGapsFmt"
+msgid "NOT ENOUGH MACHINES · {0} short, and some machines are stopped as well"
+msgstr "기계 부족 · {0} 부족, 일부 기계도 정지 상태입니다"
+
+#. Key:	BalanceNoDemand
+msgctxt "CriticalPath,BalanceNoDemand"
+msgid "NOTHING IS USING THIS · it is only filling storage right now"
+msgstr "사용처 없음 · 현재 저장고만 채우고 있습니다"
+
+#. Key:	StatusNeedsFix
+msgctxt "CriticalPath,StatusNeedsFix"
+msgid "Needs a fix"
+msgstr "조치 필요"
+
+#. Key:	BalanceNoMatches
+msgctxt "CriticalPath,BalanceNoMatches"
+msgid "No balance rows match this filter."
+msgstr "이 필터와 일치하는 수급 항목이 없습니다."
+
+#. Key:	BlockInputsStarved
+msgctxt "CriticalPath,BlockInputsStarved"
+msgid "No inputs arriving (check connections and supply)"
+msgstr "도착하는 재료 없음 (연결과 공급을 확인하세요)"
+
+#. Key:	BlockInputsStarvedFmt
+msgctxt "CriticalPath,BlockInputsStarvedFmt"
+msgid "No inputs arriving - {0} of {1} machine(s) starved (check connections and supply)"
+msgstr "도착하는 재료 없음 - 기계 {1}대 중 {0}대가 재료 부족 (연결과 공급을 확인하세요)"
+
+#. Key:	PlanUnknown
+msgctxt "CriticalPath,PlanUnknown"
+msgid "No known source"
+msgstr "알려진 공급원 없음"
+
+#. Key:	PlanLine
+msgctxt "CriticalPath,PlanLine"
+msgid "No line - build one"
+msgstr "라인 없음 - 하나 지으세요"
+
+#. Key:	PlanLineFmt
+msgctxt "CriticalPath,PlanLineFmt"
+msgid "No line - build: {0}"
+msgstr "라인 없음 - 건설: {0}"
+
+#. Key:	BalanceNoProblemMatches
+msgctxt "CriticalPath,BalanceNoProblemMatches"
+msgid "No line feeding your objective is in this state ({0}). Nothing to fix here."
+msgstr "목표에 공급하는 라인 중 이 상태({0})인 라인이 없습니다. 여기서 조치할 것이 없습니다."
+
+#. Key:	BalanceNoMatchesSearch
+msgctxt "CriticalPath,BalanceNoMatchesSearch"
+msgid "No line feeding your objective matches this filter."
+msgstr "목표에 공급하는 라인 중 이 필터와 일치하는 라인이 없습니다."
+
+#. Key:	MilestoneNoneSelectedFmt
+msgctxt "CriticalPath,MilestoneNoneSelectedFmt"
+msgid "No milestone selected - {0} available. Choose one at the HUB."
+msgstr "선택된 마일스톤 없음 - {0} 이용 가능. HUB에서 선택하세요."
+
+#. Key:	MilestoneNoneAvailable
+msgctxt "CriticalPath,MilestoneNoneAvailable"
+msgid "No milestones available in this elevator phase."
+msgstr "이 엘리베이터 단계에는 이용 가능한 마일스톤이 없습니다."
+
+#. Key:	ElevatorNone
+msgctxt "CriticalPath,ElevatorNone"
+msgid "No outstanding Space Elevator phase."
+msgstr "남은 우주 엘리베이터 단계가 없습니다."
+
+#. Key:	VerdictNone
+msgctxt "CriticalPath,VerdictNone"
+msgid "No outstanding objectives."
+msgstr "남은 목표가 없습니다."
+
+#. Key:	BlockNoPowerCountFmt
+msgctxt "CriticalPath,BlockNoPowerCountFmt"
+msgid "No power - {0} of {1} machine(s) dark"
+msgstr "전력 없음 - 기계 {1}대 중 {0}대가 정지"
+
+#. Key:	GapSpentFuelFmt
+msgctxt "CriticalPath,GapSpentFuelFmt"
+msgid "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"
+msgstr "원래 레시피가 없음 - 사용된 연료: 원자력 발전소에서 {0}을(를) 연소하세요"
+
+#. Key:	StatusNotBuilt
+msgctxt "CriticalPath,StatusNotBuilt"
+msgid "Not built yet"
+msgstr "아직 미건설"
+
+#. Key:	StatusNotBuiltDefault
+msgctxt "CriticalPath,StatusNotBuiltDefault"
+msgid "Not built yet"
+msgstr "아직 미건설"
+
+#. Key:	NoControllerHeadline
+msgctxt "CriticalPath,NoControllerHeadline"
+msgid "Not connected to a game"
+msgstr "게임에 연결되지 않음"
+
+#. Key:	BalanceEmpty
+msgctxt "CriticalPath,BalanceEmpty"
+msgid "Nothing on your objective path has a production line yet."
+msgstr "목표 경로에 아직 생산 라인이 있는 항목이 없습니다."
+
+#. Key:	BlockNoProducer
+msgctxt "CriticalPath,BlockNoProducer"
+msgid "Nothing produces it - build a line"
+msgstr "생산하는 곳이 없음 - 라인을 지으세요"
+
+#. Key:	VerdictEtaFmt
+msgctxt "CriticalPath,VerdictEtaFmt"
+msgid "ON TRACK - ~{0} min of production remain ({1} is the long pole)."
+msgstr "정상 진행 - 생산이 약 {0}분 남았습니다 ({1}이(가) 가장 오래 걸립니다)."
+
+#. Key:	LimiterAggFmt
+msgctxt "CriticalPath,LimiterAggFmt"
+msgid "Only {0}/min is available for {1}/min needed ({2}%); some delivery routes could not be checked"
+msgstr "필요한 {1}/min 대비 {0}/min만 사용할 수 있습니다({2}%); 일부 공급 경로는 확인할 수 없었습니다"
+
+#. Key:	LimiterSolvedFmt
+msgctxt "CriticalPath,LimiterSolvedFmt"
+msgid "Only {0}/min is getting through; the machines on this line need {1}/min ({2}%)"
+msgstr "{0}/min만 도착하고 있습니다; 이 라인의 기계들은 {1}/min이 필요합니다({2}%)"
+
+#. Key:	BlockSolvedSupplyFmt
+msgctxt "CriticalPath,BlockSolvedSupplyFmt"
+msgid "Only {0}/min is reaching this line; it needs {1}/min"
+msgstr "이 라인에 {0}/min만 도착합니다; {1}/min이 필요합니다"
+
+#. Key:	BlockSolvedExtractFmt
+msgctxt "CriticalPath,BlockSolvedExtractFmt"
+msgid "Only {0}/min is reaching this line; it needs {1}/min - add or upgrade extraction"
+msgstr "이 라인에 {0}/min만 도착합니다; {1}/min이 필요합니다 - 추출 설비를 추가하거나 업그레이드하세요"
+
+#. Key:	BlockOutputsFull
+msgctxt "CriticalPath,BlockOutputsFull"
+msgid "Outputs full"
+msgstr "출력 가득 참"
+
+#. Key:	BlockByproductFmt
+msgctxt "CriticalPath,BlockByproductFmt"
+msgid "Outputs full - {0} has no connected destination and may be backing up (check its disposal)"
+msgstr "출력 가득 참 - {0}에 연결된 목적지가 없어 적체될 수 있습니다 (처리 방법을 확인하세요)"
+
+#. Key:	BlockOutputsFullFmt
+msgctxt "CriticalPath,BlockOutputsFullFmt"
+msgid "Outputs full - {0} of {1} machine(s) stalled"
+msgstr "출력 가득 참 - 기계 {1}대 중 {0}대가 정지"
+
+#. Key:	TipOwnedFmt
+msgctxt "CriticalPath,TipOwnedFmt"
+msgid "Owned: {0} in storage  ·  {1} in depot  ·  {2} carried"
+msgstr "보유: 저장고 {0}  ·  차원 창고 {1}  ·  소지 {2}"
+
+#. Key:	TabPath
+msgctxt "CriticalPath,TabPath"
+msgid "PATH"
+msgstr "경로"
+
+#. Key:	BalanceProblemPaused
+msgctxt "CriticalPath,BalanceProblemPaused"
+msgid "PAUSED"
+msgstr "일시 정지"
+
+#. Key:	TabPlan
+msgctxt "CriticalPath,TabPlan"
+msgid "PLAN"
+msgstr "계획"
+
+#. Key:	BalanceAugmentShards
+msgctxt "CriticalPath,BalanceAugmentShards"
+msgid "POWER SHARDS"
+msgstr "파워 샤드"
+
+#. Key:	BalanceProducedElsewhere
+msgctxt "CriticalPath,BalanceProducedElsewhere"
+msgid "PRODUCED ELSEWHERE · this item is made somewhere in your factory, but no belt or pipe route reaches this line. If a teleporter, portal or loader feeds it, that link cannot be followed"
+msgstr "다른 곳에서 생산 · 이 품목은 공장 어딘가에서 생산되지만, 이 라인까지 이어지는 벨트나 파이프 경로가 없습니다. 텔레포터, 포털 또는 로더가 공급한다면 그 연결은 추적할 수 없습니다"
+
+#. Key:	BalanceProducerIssueFmt
+msgctxt "CriticalPath,BalanceProducerIssueFmt"
+msgid "PRODUCER ISSUES · {0} missing input · {1} output blocked · {2} no power"
+msgstr "생산처 문제 · {0} 재료 없음 · {1} 출력 막힘 · {2} 전력 없음"
+
+#. Key:	BalanceProducersHeading
+msgctxt "CriticalPath,BalanceProducersHeading"
+msgid "PRODUCERS"
+msgstr "생산처"
+
+#. Key:	LimiterPipeConstraintFmt
+msgctxt "CriticalPath,LimiterPipeConstraintFmt"
+msgid "Pipe bottleneck: {0} → {1} carries {2} of {3}"
+msgstr "파이프 병목: {0} → {1} 구간이 {3} 중 {2} 운반"
+
+#. Key:	BlockNoPower
+msgctxt "CriticalPath,BlockNoPower"
+msgid "Producers have no power"
+msgstr "생산처에 전력이 없습니다"
+
+#. Key:	TipRateFmt
+msgctxt "CriticalPath,TipRateFmt"
+msgid "Producing at {0}/min"
+msgstr "{0}/min으로 생산 중"
+
+#. Key:	BlockSolvedNotConnected
+msgctxt "CriticalPath,BlockSolvedNotConnected"
+msgid "Production exists, but none reaches the machines that need it"
+msgstr "생산은 되고 있지만, 필요한 기계에는 전혀 도달하지 않습니다"
+
+#. Key:	VerdictReady
+msgctxt "CriticalPath,VerdictReady"
+msgid "READY - every remaining part is banked. Delivery is the only step left."
+msgstr "준비 완료 - 남은 부품이 모두 확보되었습니다. 납품만 남았습니다."
+
+#. Key:	RefreshReport
+msgctxt "CriticalPath,RefreshReport"
+msgid "REFRESH"
+msgstr "새로 고침"
+
+#. Key:	PlanRaw
+msgctxt "CriticalPath,PlanRaw"
+msgid "Raw resource - extract it"
+msgstr "원자재 - 채취하세요"
+
+#. Key:	StatusReadyToDeliver
+msgctxt "CriticalPath,StatusReadyToDeliver"
+msgid "Ready to deliver"
+msgstr "납품 준비 완료"
+
+#. Key:	GapNoUnlock
+msgctxt "CriticalPath,GapNoUnlock"
+msgid "Recipe locked - no purchasable research yet"
+msgstr "레시피 잠김 - 아직 구매 가능한 연구가 없습니다"
+
+#. Key:	GapUnlockFmt
+msgctxt "CriticalPath,GapUnlockFmt"
+msgid "Recipe locked - research: {0}"
+msgstr "레시피 잠김 - 연구: {0}"
+
+#. Key:	GapUnlockSrcFmt
+msgctxt "CriticalPath,GapUnlockSrcFmt"
+msgid "Recipe locked - research: {0} ({1})"
+msgstr "레시피 잠김 - 연구: {0} ({1})"
+
+#. Key:	StatusRecipeLocked
+msgctxt "CriticalPath,StatusRecipeLocked"
+msgid "Recipe not researched"
+msgstr "레시피 미연구"
+
+#. Key:	PlanLocked
+msgctxt "CriticalPath,PlanLocked"
+msgid "Recipe not researched"
+msgstr "레시피 미연구"
+
+#. Key:	SectionResearch
+msgctxt "CriticalPath,SectionResearch"
+msgid "Research needed upstream"
+msgstr "상위 공정에 연구 필요"
+
+#. Key:	StatusResearchFmt
+msgctxt "CriticalPath,StatusResearchFmt"
+msgid "Research: {0}"
+msgstr "연구: {0}"
+
+#. Key:	StatusStandbyReserve
+msgctxt "CriticalPath,StatusStandbyReserve"
+msgid "Reserve line (standby)"
+msgstr "예비 라인 (대기)"
+
+#. Key:	StatusRouteUnknown
+msgctxt "CriticalPath,StatusRouteUnknown"
+msgid "Route not measured"
+msgstr "경로 미측정"
+
+#. Key:	BalanceObservedUseHealthyFmt
+msgctxt "CriticalPath,BalanceObservedUseHealthyFmt"
+msgid "SERVING CURRENT USE · consumers are using about {0} against {1} demand"
+msgstr "현재 소비 충족 · 수요 {1} 대비 소비처가 약 {0} 사용 중"
+
+#. Key:	BalanceAugmentSloops
+msgctxt "CriticalPath,BalanceAugmentSloops"
+msgid "SOMERSLOOPS"
+msgstr "소머슬루프"
+
+#. Key:	AgeStaleFmt
+msgctxt "CriticalPath,AgeStaleFmt"
+msgid "STALE - {0}s old (refresh failed)"
+msgstr "오래된 정보 - {0}초 경과 (새로 고침 실패)"
+
+#. Key:	BalanceModelFmt
+msgctxt "CriticalPath,BalanceModelFmt"
+msgid "SUPPLY LINE  can send {0}  ·  actually arriving {1}"
+msgstr "공급 라인  전송 가능 {0}  ·  실제 도착 {1}"
+
+#. Key:	BalanceModeledHealthyFmt
+msgctxt "CriticalPath,BalanceModeledHealthyFmt"
+msgid "SUPPLY MEETS NEED · {0} is reaching consumers; they need {1}"
+msgstr "공급 충족 · 소비처에 {0} 도착 중; 필요량 {1}"
+
+#. Key:	StatusSaturated
+msgctxt "CriticalPath,StatusSaturated"
+msgid "Saturated (surplus)"
+msgstr "포화 (잉여)"
+
+#. Key:	BalanceFilterHint
+msgctxt "CriticalPath,BalanceFilterHint"
+msgid "Search items or buildings, then press Enter"
+msgstr "품목이나 건물을 검색한 뒤 Enter를 누르세요"
+
+#. Key:	PlanExcludedLead
+msgctxt "CriticalPath,PlanExcludedLead"
+msgid "Separate track:"
+msgstr "별도 경로:"
+
+#. Key:	BalanceRowsTruncatedFmt
+msgctxt "CriticalPath,BalanceRowsTruncatedFmt"
+msgid "Showing the {0} lines needing the most attention, of {1} feeding your objective. Search, or filter by problem, to narrow this down."
+msgstr "목표에 공급하는 {1}개 라인 중 조치가 가장 필요한 {0}개를 표시합니다. 검색하거나 문제별로 필터링해 범위를 좁히세요."
+
+#. Key:	BalanceRowsTruncatedFilteredFmt
+msgctxt "CriticalPath,BalanceRowsTruncatedFilteredFmt"
+msgid "Showing the {0} lines needing the most attention, of {1} matching your filter."
+msgstr "필터와 일치하는 {1}개 라인 중 조치가 가장 필요한 {0}개를 표시합니다."
+
+#. Key:	BalanceEndpointsTruncatedFmt
+msgctxt "CriticalPath,BalanceEndpointsTruncatedFmt"
+msgid "Showing {0} of {1} - the rest are counted in the totals above but not listed."
+msgstr "{1}개 중 {0}개 표시 - 나머지는 위 합계에 포함되지만 목록에는 표시되지 않습니다."
+
+#. Key:	PlanSpentFuelFmt
+msgctxt "CriticalPath,PlanSpentFuelFmt"
+msgid "Spent fuel - burn {0} in a Nuclear Power Plant"
+msgstr "사용된 연료 - 원자력 발전소에서 {0}을(를) 연소하세요"
+
+#. Key:	BlockConnectivityUnknown
+msgctxt "CriticalPath,BlockConnectivityUnknown"
+msgid "Starved - the delivery path could not be fully checked; inspect its connections"
+msgstr "재료 부족 - 공급 경로를 완전히 확인할 수 없었습니다; 연결을 점검하세요"
+
+#. Key:	TipNeededFmt
+msgctxt "CriticalPath,TipNeededFmt"
+msgid "Still needed: {0}  (banked {1}, to produce {2})"
+msgstr "추가 필요: {0}  (확보 {1}, 생산 필요 {2})"
+
+#. Key:	BlockSupplyFmt
+msgctxt "CriticalPath,BlockSupplyFmt"
+msgid "Supply {0}/min vs demand {1}/min - add capacity"
+msgstr "공급 {0}/min 대 수요 {1}/min - 생산 능력을 늘리세요"
+
+#. Key:	BlockPathAttributionMissing
+msgctxt "CriticalPath,BlockPathAttributionMissing"
+msgid "The feeding line could not be identified - inspect the connected producers"
+msgstr "공급 라인을 식별할 수 없습니다 - 연결된 생산처를 점검하세요"
+
+#. Key:	NoRelayHeadline
+msgctxt "CriticalPath,NoRelayHeadline"
+msgid "The host cannot send a report"
+msgstr "호스트가 보고서를 보낼 수 없습니다"
+
+#. Key:	HostDeclinedHeadline
+msgctxt "CriticalPath,HostDeclinedHeadline"
+msgid "The host could not produce a report"
+msgstr "호스트가 보고서를 생성하지 못했습니다"
+
+#. Key:	LimiterRoutingConstraintFmt
+msgctxt "CriticalPath,LimiterRoutingConstraintFmt"
+msgid "The machines can supply {0}, but only {1} reaches consumers; inspect the route between them"
+msgstr "기계들은 {0}을(를) 공급할 수 있지만 소비처에는 {1}만 도달합니다; 그 사이 경로를 점검하세요"
+
+#. Key:	NoRelayDetail
+msgctxt "CriticalPath,NoRelayDetail"
+msgid "This client asked the host for a report, but the host is not running a version of Critical Path that can send one. Ask the host to update, or open the panel on the host."
+msgstr "이 클라이언트가 호스트에 보고서를 요청했지만, 호스트의 Critical Path 버전은 보고서를 보낼 수 없습니다. 호스트에 업데이트를 요청하거나 호스트에서 패널을 여세요."
+
+#. Key:	BlockLegacyLogistics
+msgctxt "CriticalPath,BlockLegacyLogistics"
+msgid "This reading is out of date - press REFRESH"
+msgstr "이 측정값은 오래되었습니다 - 새로 고침을 누르세요"
+
+#. Key:	StatusTimeLimited
+msgctxt "CriticalPath,StatusTimeLimited"
+msgid "Time-limited"
+msgstr "기간 한정"
+
+#. Key:	ResearchPlanHeadFmt
+msgctxt "CriticalPath,ResearchPlanHeadFmt"
+msgid "To research {0}  ({1}):"
+msgstr "{0} 연구를 위해  ({1}):"
+
+#. Key:	TransportTopologyOnly
+msgctxt "CriticalPath,TransportTopologyOnly"
+msgid "Transport route is known; vehicle throughput is not yet measured."
+msgstr "운송 경로는 확인되었지만, 차량 처리량은 아직 측정되지 않습니다."
+
+#. Key:	StatusUnderSupplied
+msgctxt "CriticalPath,StatusUnderSupplied"
+msgid "Under-supplied"
+msgstr "공급 부족"
+
+#. Key:	ResearchIsSelectedFmt
+msgctxt "CriticalPath,ResearchIsSelectedFmt"
+msgid "Unlocked by {0} - your SELECTED milestone: its payment progress is the Milestone column →"
+msgstr "{0}(으)로 잠금 해제 - 현재 선택한 마일스톤: 납품 진행도는 마일스톤 열 →"
+
+#. Key:	BlockTransportRateUnknown
+msgctxt "CriticalPath,BlockTransportRateUnknown"
+msgid "Vehicle route connected - delivery rate unknown because throughput is not yet measured"
+msgstr "차량 경로 연결됨 - 처리량이 아직 측정되지 않아 공급 속도를 알 수 없습니다"
+
+#. Key:	EndpointStateJammedFmt
+msgctxt "CriticalPath,EndpointStateJammedFmt"
+msgid "blocked by {0} on the belt"
+msgstr "벨트의 {0} 때문에 막힘"
+
+#. Key:	EndpointBufferFmt
+msgctxt "CriticalPath,EndpointBufferFmt"
+msgid "buffer {0} {1}"
+msgstr "버퍼 {0} {1}"
+
+#. Key:	LimiterEdgeDownstreamFallback
+msgctxt "CriticalPath,LimiterEdgeDownstreamFallback"
+msgid "downstream node"
+msgstr "하류 노드"
+
+#. Key:	AgeHostStale
+msgctxt "CriticalPath,AgeHostStale"
+msgid "from the host, earlier (latest request failed)"
+msgstr "호스트에서 수신, 이전 데이터 (최근 요청 실패)"
+
+#. Key:	AgeFromHost
+msgctxt "CriticalPath,AgeFromHost"
+msgid "from the host, just now"
+msgstr "호스트에서 수신, 방금 전"
+
+#. Key:	SrcHardDrive
+msgctxt "CriticalPath,SrcHardDrive"
+msgid "hard drive"
+msgstr "하드 드라이브"
+
+#. Key:	EndpointStateIdle
+msgctxt "CriticalPath,EndpointStateIdle"
+msgid "idle - no fault reported"
+msgstr "유휴 - 보고된 문제 없음"
+
+#. Key:	PlanExcludedWhyUnknown
+msgctxt "CriticalPath,PlanExcludedWhyUnknown"
+msgid "is not in this plan - its recipe is not unlocked yet"
+msgstr "이 계획에 없음 - 레시피가 아직 잠금 해제되지 않았습니다"
+
+#. Key:	PlanExcludedWhyFmt
+msgctxt "CriticalPath,PlanExcludedWhyFmt"
+msgid "is not in this plan - its recipe unlocks with {0}"
+msgstr "이 계획에 없음 - 레시피는 {0}(으)로 잠금 해제됩니다"
+
+#. Key:	EndpointBufferItems
+msgctxt "CriticalPath,EndpointBufferItems"
+msgid "items"
+msgstr "개"
+
+#. Key:	BufferItems
+msgctxt "CriticalPath,BufferItems"
+msgid "items"
+msgstr "개"
+
+#. Key:	BalanceSolidRateUnit
+msgctxt "CriticalPath,BalanceSolidRateUnit"
+msgid "items/min"
+msgstr "개/min"
+
+#. Key:	AgeJustNow
+msgctxt "CriticalPath,AgeJustNow"
+msgid "just now"
+msgstr "방금 전"
+
+#. Key:	AgeJustNowFlow
+msgctxt "CriticalPath,AgeJustNowFlow"
+msgid "just now"
+msgstr "방금 전"
+
+#. Key:	LimiterMachineFallback
+msgctxt "CriticalPath,LimiterMachineFallback"
+msgid "machine"
+msgstr "기계"
+
+#. Key:	BalanceIdentityFmt
+msgctxt "CriticalPath,BalanceIdentityFmt"
+msgid "made by {0}  ·  used by {1}{2}"
+msgstr "생산 {0}  ·  사용 {1}{2}"
+
+#. Key:	SrcMilestone
+msgctxt "CriticalPath,SrcMilestone"
+msgid "milestone"
+msgstr "마일스톤"
+
+#. Key:	EndpointStateMissingInput
+msgctxt "CriticalPath,EndpointStateMissingInput"
+msgid "missing input"
+msgstr "재료 없음"
+
+#. Key:	BufferM3
+msgctxt "CriticalPath,BufferM3"
+msgid "m³"
+msgstr "m³"
+
+#. Key:	EndpointBufferM3
+msgctxt "CriticalPath,EndpointBufferM3"
+msgid "m³"
+msgstr "m³"
+
+#. Key:	BalanceFluidRateUnit
+msgctxt "CriticalPath,BalanceFluidRateUnit"
+msgid "m³/min"
+msgstr "m³/min"
+
+#. Key:	BalanceNoConsumer
+msgctxt "CriticalPath,BalanceNoConsumer"
+msgid "no connected consumer"
+msgstr "연결된 소비처 없음"
+
+#. Key:	AgeErrorFmt
+msgctxt "CriticalPath,AgeErrorFmt"
+msgid "no data - {0}"
+msgstr "데이터 없음 - {0}"
+
+#. Key:	EndpointStateNoPower
+msgctxt "CriticalPath,EndpointStateNoPower"
+msgid "no power"
+msgstr "전력 없음"
+
+#. Key:	BalanceNoProducer
+msgctxt "CriticalPath,BalanceNoProducer"
+msgid "no producer"
+msgstr "생산처 없음"
+
+#. Key:	EndpointStateOutputBlocked
+msgctxt "CriticalPath,EndpointStateOutputBlocked"
+msgid "output full (nothing taking it)"
+msgstr "출력 가득 참 (가져가는 곳 없음)"
+
+#. Key:	EndpointStatePaused
+msgctxt "CriticalPath,EndpointStatePaused"
+msgid "paused"
+msgstr "일시 정지"
+
+#. Key:	EndpointStateProducing
+msgctxt "CriticalPath,EndpointStateProducing"
+msgid "producing"
+msgstr "생산 중"
+
+#. Key:	AgeRefreshing
+msgctxt "CriticalPath,AgeRefreshing"
+msgid "re-measuring..."
+msgstr "다시 측정 중..."
+
+#. Key:	EndpointStateUnavailable
+msgctxt "CriticalPath,EndpointStateUnavailable"
+msgid "state unavailable"
+msgstr "상태 확인 불가"
+
+#. Key:	PlanForPhaseFmt
+msgctxt "CriticalPath,PlanForPhaseFmt"
+msgid "the {0} elevator phase"
+msgstr "{0} 엘리베이터 단계"
+
+#. Key:	PlanForMilestoneFmt
+msgctxt "CriticalPath,PlanForMilestoneFmt"
+msgid "the {0} milestone"
+msgstr "{0} 마일스톤"
+
+#. Key:	AgeUnavailable
+msgctxt "CriticalPath,AgeUnavailable"
+msgid "unavailable here"
+msgstr "여기서는 사용 불가"
+
+#. Key:	LimiterEdgeUpstreamFallback
+msgctxt "CriticalPath,LimiterEdgeUpstreamFallback"
+msgid "upstream node"
+msgstr "상류 노드"
+
+#. Key:	EndpointStateStarvedFmt
+msgctxt "CriticalPath,EndpointStateStarvedFmt"
+msgid "waiting on {0}"
+msgstr "{0} 대기 중"
+
+#. Key:	LimiterExactMachineMarginalFmt
+msgctxt "CriticalPath,LimiterExactMachineMarginalFmt"
+msgid "{0}  ·  Add 1 average {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  평균 성능의 {1} 1대 추가 → 소비처 도달 약 {2} ({3}%)"
+
+#. Key:	PlanAltFmt
+msgctxt "CriticalPath,PlanAltFmt"
+msgid "{0}  ·  Alt recipes exist"
+msgstr "{0}  ·  대체 레시피 있음"
+
+#. Key:	PlanGraftUnknownFmt
+msgctxt "CriticalPath,PlanGraftUnknownFmt"
+msgid "{0}  ·  Spare capacity unavailable - one or more routes could not be fully measured"
+msgstr "{0}  ·  여유 용량 확인 불가 - 하나 이상의 경로를 완전히 측정할 수 없었습니다"
+
+#. Key:	PlanGraftRatioFmt
+msgctxt "CriticalPath,PlanGraftRatioFmt"
+msgid "{0}  ·  Spare {1}/min, needs {2}/min ({3}%)"
+msgstr "{0}  ·  여유 {1}/min, 필요 {2}/min ({3}%)"
+
+#. Key:	LimiterBufferFmt
+msgctxt "CriticalPath,LimiterBufferFmt"
+msgid "{0}  ·  Stored buffer covers ~{1} min"
+msgstr "{0}  ·  저장 버퍼로 약 {1}분 유지"
+
+#. Key:	LimiterBufferDryFmt
+msgctxt "CriticalPath,LimiterBufferDryFmt"
+msgid "{0}  ·  Stored buffer is dry"
+msgstr "{0}  ·  저장 버퍼가 비었습니다"
+
+#. Key:	LimiterExactBeltMarginalFmt
+msgctxt "CriticalPath,LimiterExactBeltMarginalFmt"
+msgid "{0}  ·  Upgrade this belt to {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  이 벨트를 {1}(으)로 업그레이드 → 소비처 도달 약 {2} ({3}%)"
+
+#. Key:	LimiterExactPipeMarginalFmt
+msgctxt "CriticalPath,LimiterExactPipeMarginalFmt"
+msgid "{0}  ·  Upgrade this pipe to {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  이 파이프를 {1}(으)로 업그레이드 → 소비처 도달 약 {2} ({3}%)"
+
+#. Key:	LimiterUnknownFmt
+msgctxt "CriticalPath,LimiterUnknownFmt"
+msgid "{0}  ·  delivery rate unknown on {1} route(s)"
+msgstr "{0}  ·  경로 {1}개는 공급 속도 알 수 없음"
+
+#. Key:	BalanceTitleMultiFmt
+msgctxt "CriticalPath,BalanceTitleMultiFmt"
+msgid "{0}  ·  line {1}"
+msgstr "{0}  ·  라인 {1}"
+
+#. Key:	PlanTruncFmt
+msgctxt "CriticalPath,PlanTruncFmt"
+msgid "{0}  ·  more not shown"
+msgstr "{0}  ·  그 외 표시되지 않음"
+
+#. Key:	LimiterMarginalFmt
+msgctxt "CriticalPath,LimiterMarginalFmt"
+msgid "{0}  ·  one more {1} would reach {2}%"
+msgstr "{0}  ·  {1} 1대를 더 추가하면 {2}% 도달"
+
+#. Key:	TruncFmt
+msgctxt "CriticalPath,TruncFmt"
+msgid "{0}  ·  only {1} of {2} checked - too many to scan"
+msgstr "{0}  ·  {2}개 중 {1}개만 확인 - 검사할 대상이 너무 많습니다"
+
+#. Key:	LimiterConstraintJoinFmt
+msgctxt "CriticalPath,LimiterConstraintJoinFmt"
+msgid "{0}  ·  {1}"
+msgstr "{0}  ·  {1}"
+
+#. Key:	TruncDetailFmt
+msgctxt "CriticalPath,TruncDetailFmt"
+msgid "{0}  ·  {1} checked - some supporting detail limited"
+msgstr "{0}  ·  {1} 확인 - 일부 상세 정보가 제한됩니다"
+
+#. Key:	VerdictPlanFaultFmt
+msgctxt "CriticalPath,VerdictPlanFaultFmt"
+msgid "{0}  ·  {1}: {2}"
+msgstr "{0}  ·  {1}: {2}"
+
+#. Key:	PlanUnlockNameFmt
+msgctxt "CriticalPath,PlanUnlockNameFmt"
+msgid "{0} ({1})"
+msgstr "{0} ({1})"
+
+#. Key:	BalanceAnchorPingFmt
+msgctxt "CriticalPath,BalanceAnchorPingFmt"
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#. Key:	BalanceEndpointPingFmt
+msgctxt "CriticalPath,BalanceEndpointPingFmt"
+msgid "{0} - {1} - {2}"
+msgstr "{0} - {1} - {2}"
+
+#. Key:	LedgerDeliveredFmt
+msgctxt "CriticalPath,LedgerDeliveredFmt"
+msgid "{0} delivered"
+msgstr "{0} 납품 완료"
+
+#. Key:	SummaryDoneFmt
+msgctxt "CriticalPath,SummaryDoneFmt"
+msgid "{0} delivered"
+msgstr "{0} 납품 완료"
+
+#. Key:	SummaryBlockedFmt
+msgctxt "CriticalPath,SummaryBlockedFmt"
+msgid "{0} need a fix"
+msgstr "{0} 조치 필요"
+
+#. Key:	LedgerBankedFmt
+msgctxt "CriticalPath,LedgerBankedFmt"
+msgid "{0} needed  ·  {0} banked  ·  {1}"
+msgstr "필요 {0}  ·  확보 {0}  ·  {1}"
+
+#. Key:	LedgerNoBankFmt
+msgctxt "CriticalPath,LedgerNoBankFmt"
+msgid "{0} needed  ·  {1}"
+msgstr "필요 {0}  ·  {1}"
+
+#. Key:	ResearchCostLedgerFmt
+msgctxt "CriticalPath,ResearchCostLedgerFmt"
+msgid "{0} needed  ·  {1} banked  ·  {2}"
+msgstr "필요 {0}  ·  확보 {1}  ·  {2}"
+
+#. Key:	LedgerFullFmt
+msgctxt "CriticalPath,LedgerFullFmt"
+msgid "{0} needed  ·  {1} banked  ·  {2} to produce  ·  {3}"
+msgstr "필요 {0}  ·  확보 {1}  ·  생산 {2}  ·  {3}"
+
+#. Key:	SummaryReadyFmt
+msgctxt "CriticalPath,SummaryReadyFmt"
+msgid "{0} ready to deliver"
+msgstr "{0} 납품 준비 완료"
+
+#. Key:	SummaryToBuildFmt
+msgctxt "CriticalPath,SummaryToBuildFmt"
+msgid "{0} still to build"
+msgstr "{0} 건설 필요"
+
+#. Key:	SummaryPartsFmt
+msgctxt "CriticalPath,SummaryPartsFmt"
+msgid "{0} {0}|plural(one=part,other=parts)"
+msgstr "부품 {0}개"
+
+#. Key:	BalanceRateWithUnitFmt
+msgctxt "CriticalPath,BalanceRateWithUnitFmt"
+msgid "{0} {1}"
+msgstr "{0} {1}"
+
+#. Key:	EndpointProductivityFmt
+msgctxt "CriticalPath,EndpointProductivityFmt"
+msgid "{0}% productivity"
+msgstr "{0}% 생산성"
+
+#. Key:	PlanStepBuildFmt
+msgctxt "CriticalPath,PlanStepBuildFmt"
+msgid "{0})  Build:"
+msgstr "{0})  건설:"
+
+#. Key:	PlanStepFixFmt
+msgctxt "CriticalPath,PlanStepFixFmt"
+msgid "{0})  Fix:"
+msgstr "{0})  해결:"
+
+#. Key:	PlanStepUnlockFmt
+msgctxt "CriticalPath,PlanStepUnlockFmt"
+msgid "{0})  Unlock:"
+msgstr "{0})  잠금 해제:"
+
+#. Key:	BalanceEndpointFmt
+msgctxt "CriticalPath,BalanceEndpointFmt"
+msgid "{0}. {1} - {2}"
+msgstr "{0}. {1} - {2}"
+
+#. Key:	StatusEtaFmt
+msgctxt "CriticalPath,StatusEtaFmt"
+msgid "~{0} min remaining"
+msgstr "약 {0}분 남음"
+
+#. Key:	PlanItemForFmt
+msgctxt "CriticalPath,PlanItemForFmt"
+msgid "→ for {0}"
+msgstr "→ {0}용"
+
+#. Key:	PlanUnlockMakesFmt
+msgctxt "CriticalPath,PlanUnlockMakesFmt"
+msgid "→ makes {0} buildable"
+msgstr "→ {0} 건설 가능"
+
+#. Key:	BalanceExpandChevron
+msgctxt "CriticalPath,BalanceExpandChevron"
+msgid "▼"
+msgstr ""

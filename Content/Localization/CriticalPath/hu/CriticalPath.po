@@ -1,0 +1,1227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CriticalPath\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Key:	AB46CACF4C402D0A0C2BBD8FB7B2500A
+msgctxt ",AB46CACF4C402D0A0C2BBD8FB7B2500A"
+msgid "1× Assembler · 2.5/min of 12.5 needed"
+msgstr ""
+
+#. Key:	3AE89A3A41716D0C1158828D998F52A4
+msgctxt ",3AE89A3A41716D0C1158828D998F52A4"
+msgid "1× Manufacturer · 2.5/min"
+msgstr ""
+
+#. Key:	650C25414036AC525E39C79183343F3B
+msgctxt ",650C25414036AC525E39C79183343F3B"
+msgid "2,000 needed  ·  2,000 banked  ·  deliver now"
+msgstr ""
+
+#. Key:	FE02FE6043275C5F429266A6F006A805
+msgctxt ",FE02FE6043275C5F429266A6F006A805"
+msgid "2× Assembler · 25/min"
+msgstr ""
+
+#. Key:	9614FDD644BF8B9EE29DE8A6D6732B2C
+msgctxt ",9614FDD644BF8B9EE29DE8A6D6732B2C"
+msgid "2× Manufacturer · 5.0/min"
+msgstr ""
+
+#. Key:	7F101E664166DBC1D99692B19B5313F2
+msgctxt ",7F101E664166DBC1D99692B19B5313F2"
+msgid "3 parts required  ·  1 ready to deliver  ·  1 blocked  ·  earliest completion ~72 min"
+msgstr ""
+
+#. Key:	E8ACA03D49EB7261E197659531E32B6F
+msgctxt ",E8ACA03D49EB7261E197659531E32B6F"
+msgid "480 needed  ·  120 banked  ·  360 to produce  ·  ~72 min"
+msgstr ""
+
+#. Key:	3BE554254D343A7BBCA2B7B5A00AF90C
+msgctxt ",3BE554254D343A7BBCA2B7B5A00AF90C"
+msgid "99 needed  ·  7 banked  ·  92 to produce  ·  blocked"
+msgstr ""
+
+#. Key:	08EBECCB41804E37453A4AAA1FD5F3E3
+msgctxt ",08EBECCB41804E37453A4AAA1FD5F3E3"
+msgid "Adaptive Control Unit"
+msgstr ""
+
+#. Key:	9EF74FE34AE569C38CA64E9D82C844A8
+msgctxt ",9EF74FE34AE569C38CA64E9D82C844A8"
+msgid "Automated Wiring"
+msgstr ""
+
+#. Key:	043B5BBC45C8B0568744889832C5FD6B
+msgctxt ",043B5BBC45C8B0568744889832C5FD6B"
+msgid "CRITICAL PATH"
+msgstr ""
+
+#. Key:	E3B96B684DA94C6196E53B9E5EF65A3E
+msgctxt ",E3B96B684DA94C6196E53B9E5EF65A3E"
+msgid "Modular Engine"
+msgstr ""
+
+#. Key:	2523207949D893471F1C63BF2314EACE
+msgctxt ",2523207949D893471F1C63BF2314EACE"
+msgid "Space Elevator: Main Body"
+msgstr ""
+
+#. Key:	F616D3404E39FA0AE068C5AD74FA8243
+msgctxt ",F616D3404E39FA0AE068C5AD74FA8243"
+msgid "Stator"
+msgstr ""
+
+#. Key:	73F3C0684140FD63EC7EBF898F7BE8AD
+msgctxt ",73F3C0684140FD63EC7EBF898F7BE8AD"
+msgid "Versatile Framework"
+msgstr ""
+
+#. Key:	B4DE02E8428694AE136D48822BF08AE1
+msgctxt ",B4DE02E8428694AE136D48822BF08AE1"
+msgid "no producer configured"
+msgstr ""
+
+#. Key:	1A0751FB44AC4366F8DF2BBCAF1BFF20
+msgctxt ",1A0751FB44AC4366F8DF2BBCAF1BFF20"
+msgid "×"
+msgstr ""
+
+#. Key:	C00C970340D208F8A377D2B6647BE15D
+msgctxt ",C00C970340D208F8A377D2B6647BE15D"
+msgid "× BLOCKED — Adaptive Control Unit is stalled. Build a Stator line: it gates Automated Wiring → Adaptive Control Unit → Main Body."
+msgstr ""
+
+#. Key:	916D7FF44FD10ADF39543CA075B7F49A
+msgctxt ",916D7FF44FD10ADF39543CA075B7F49A"
+msgid "■"
+msgstr ""
+
+#. Key:	B93CDE3745A0108F118915A3EB4B3B18
+msgctxt ",B93CDE3745A0108F118915A3EB4B3B18"
+msgid "▲"
+msgstr ""
+
+#. Key:	3D920FAE42B1D930C642E6933107B5CB
+msgctxt ",3D920FAE42B1D930C642E6933107B5CB"
+msgid "▲"
+msgstr ""
+
+#. Key:	29308E89411226D839FFDD9CFE508DF0
+msgctxt ",29308E89411226D839FFDD9CFE508DF0"
+msgid "●"
+msgstr ""
+
+#. Key:	BalanceDistanceFmt
+msgctxt "CriticalPath,BalanceDistanceFmt"
+msgid "  ·  nearest endpoint {0} m away"
+msgstr "  ·  legközelebbi végpont {0} m távolságra"
+
+#. Key:	BalanceAugmentAll
+msgctxt "CriticalPath,BalanceAugmentAll"
+msgid "ALL AUGMENTS"
+msgstr "MINDEN ERŐSÍTŐ"
+
+#. Key:	BalanceProblemAll
+msgctxt "CriticalPath,BalanceProblemAll"
+msgid "ALL LINES"
+msgstr "MINDEN GYÁRTÓSOR"
+
+#. Key:	BalanceDesignFmt
+msgctxt "CriticalPath,BalanceDesignFmt"
+msgid "AT FULL SPEED  needs {0}  ·  ingredients allow {1}  ·  would deliver {2}"
+msgstr "TELJES SEBESSÉGEN  igény {0}  ·  az alapanyagok {1} tesznek lehetővé  ·  {2} érkezne"
+
+#. Key:	SrcShop
+msgctxt "CriticalPath,SrcShop"
+msgid "AWESOME Shop"
+msgstr "AWESOME Shop"
+
+#. Key:	LimiterNetFmt
+msgctxt "CriticalPath,LimiterNetFmt"
+msgid "Across the whole factory only {0}/min is available against {1}/min needed ({2}%) - this may be a different line"
+msgstr "Az egész gyárban csak {0}/min érhető el a szükséges {1}/min helyett ({2}%) - lehet, hogy ez egy másik gyártósor"
+
+#. Key:	PlanGraft
+msgctxt "CriticalPath,PlanGraft"
+msgid "Already produced"
+msgstr "Már legyártva"
+
+#. Key:	PlanGraftFmt
+msgctxt "CriticalPath,PlanGraftFmt"
+msgid "Already produced - {0}"
+msgstr "Már legyártva - {0}"
+
+#. Key:	LimiterInputConstraintFmt
+msgctxt "CriticalPath,LimiterInputConstraintFmt"
+msgid "Arriving ingredients only support {0} of the {1} these machines could make"
+msgstr "Az érkező alapanyagok csak {0} gyártását fedezik abból a {1} mennyiségből, amit ezek a gépek elő tudnának állítani"
+
+#. Key:	AskingHostHeadline
+msgctxt "CriticalPath,AskingHostHeadline"
+msgid "Asking the host for a report"
+msgstr "Jelentés kérése a hosttól"
+
+#. Key:	PlanTipFmt
+msgctxt "CriticalPath,PlanTipFmt"
+msgid "Assumed recipe: {0}"
+msgstr "Feltételezett recept: {0}"
+
+#. Key:	BalanceSortAlphabetical
+msgctxt "CriticalPath,BalanceSortAlphabetical"
+msgid "A–Z"
+msgstr "A–Z"
+
+#. Key:	TabBalance
+msgctxt "CriticalPath,TabBalance"
+msgid "BALANCE"
+msgstr "MÉRLEG"
+
+#. Key:	BalanceJammedFmt
+msgctxt "CriticalPath,BalanceJammedFmt"
+msgid "BELT JAMMED · {0} machine(s) blocked by {1} on the feeding belt - remove it; this is not a supply shortage"
+msgstr "SZALAG ELAKADT · {0} gépet blokkol a betápláló szalagon lévő {1} - távolítsd el; ez nem ellátási hiány"
+
+#. Key:	VerdictPlanBlockedFmt
+msgctxt "CriticalPath,VerdictPlanBlockedFmt"
+msgid "BLOCKED - the plan ({0} step(s)):"
+msgstr "BLOKKOLVA - a terv ({0} lépés):"
+
+#. Key:	VerdictPlanBlockedDeliverFmt
+msgctxt "CriticalPath,VerdictPlanBlockedDeliverFmt"
+msgid "BLOCKED - {0} step(s) to deliver {1}"
+msgstr "BLOKKOLVA - {0} lépés {1} leszállításáig"
+
+#. Key:	VerdictBlockedFmt
+msgctxt "CriticalPath,VerdictBlockedFmt"
+msgid "BLOCKED - {0}: {1}."
+msgstr "BLOKKOLVA - {0}: {1}."
+
+#. Key:	BufferAmountFmt
+msgctxt "CriticalPath,BufferAmountFmt"
+msgid "BUFFER  {0} {1} reachable"
+msgstr "PUFFER  {0} {1} elérhető"
+
+#. Key:	BufferRunwayFmt
+msgctxt "CriticalPath,BufferRunwayFmt"
+msgid "BUFFER  {0} {1} reachable  ·  about {2} min at the current shortfall"
+msgstr "PUFFER  {0} {1} elérhető  ·  kb. {2} perc a jelenlegi hiánynál"
+
+#. Key:	BalanceInstalled
+msgctxt "CriticalPath,BalanceInstalled"
+msgid "BUILT CAPACITY"
+msgstr "KIÉPÍTETT KAPACITÁS"
+
+#. Key:	LimiterBeltConstraintFmt
+msgctxt "CriticalPath,LimiterBeltConstraintFmt"
+msgid "Belt bottleneck: {0} → {1} carries {2} of {3}"
+msgstr "Szalag szűk keresztmetszet: {0} → {1} szállít: {2} / {3}"
+
+#. Key:	LimiterNameFmt
+msgctxt "CriticalPath,LimiterNameFmt"
+msgid "Bottleneck: {0}"
+msgstr "Szűk keresztmetszet: {0}"
+
+#. Key:	ClearPings
+msgctxt "CriticalPath,ClearPings"
+msgid "CLEAR PINGS"
+msgstr "JELÖLŐK TÖRLÉSE"
+
+#. Key:	BalanceDemand
+msgctxt "CriticalPath,BalanceDemand"
+msgid "CONSUMER NEED"
+msgstr "FOGYASZTÓI IGÉNY"
+
+#. Key:	BalanceConsumersHeading
+msgctxt "CriticalPath,BalanceConsumersHeading"
+msgid "CONSUMERS"
+msgstr "FOGYASZTÓK"
+
+#. Key:	BalanceConsumersStoppedFmt
+msgctxt "CriticalPath,BalanceConsumersStoppedFmt"
+msgid "CONSUMERS STOPPED · {0} machine(s) here would use {1}, but none of them are running"
+msgstr "A FOGYASZTÓK LEÁLLTAK · itt {0} gép használna {1} mennyiséget, de egyik sem működik"
+
+#. Key:	BalanceConsumersBlockedFmt
+msgctxt "CriticalPath,BalanceConsumersBlockedFmt"
+msgid "CONSUMERS STOPPED · {0} machine(s) here would use {1}, but their own output is backed up"
+msgstr "A FOGYASZTÓK LEÁLLTAK · itt {0} gép használna {1} mennyiséget, de a saját kimenetük eldugult"
+
+#. Key:	PanelTitle
+msgctxt "CriticalPath,PanelTitle"
+msgid "CRITICAL PATH"
+msgstr ""
+
+#. Key:	BalancePending
+msgctxt "CriticalPath,BalancePending"
+msgid "Checking your factory…"
+msgstr "A gyárad ellenőrzése…"
+
+#. Key:	TipChainHint
+msgctxt "CriticalPath,TipChainHint"
+msgid "Click to show/hide the blocker chain"
+msgstr "Kattints a blokkolólánc megjelenítéséhez/elrejtéséhez"
+
+#. Key:	BlockSolvedConnectivityUnknown
+msgctxt "CriticalPath,BlockSolvedConnectivityUnknown"
+msgid "Could not measure what is arriving - check the belts and pipes feeding this"
+msgstr "Nem sikerült megmérni, mi érkezik - ellenőrizd az ide vezető szalagokat és csöveket"
+
+#. Key:	NoControllerDetail
+msgctxt "CriticalPath,NoControllerDetail"
+msgid "Critical Path could not find a player to ask the host on behalf of."
+msgstr "A Critical Path nem talált játékost, akinek a nevében megkérdezhetné a hostot."
+
+#. Key:	MilestonePaid
+msgctxt "CriticalPath,MilestonePaid"
+msgid "Current milestone is fully paid - collect it and select the next one at the HUB."
+msgstr "A jelenlegi mérföldkő teljesen ki van fizetve - vedd át, és válaszd ki a következőt a HUB-ban."
+
+#. Key:	StatusDelivered
+msgctxt "CriticalPath,StatusDelivered"
+msgid "Delivered"
+msgstr "Leszállítva"
+
+#. Key:	TipDeliveredFmt
+msgctxt "CriticalPath,TipDeliveredFmt"
+msgid "Delivered: all {0}"
+msgstr "Leszállítva: mind a {0}"
+
+#. Key:	BalanceUnknown
+msgctxt "CriticalPath,BalanceUnknown"
+msgid "Delivery rates are not available right now. Machine status and built capacity are shown below."
+msgstr "A szállítási ráták jelenleg nem érhetők el. A gépek állapota és a kiépített kapacitás alább látható."
+
+#. Key:	BalanceEstimatedOutput
+msgctxt "CriticalPath,BalanceEstimatedOutput"
+msgid "EST. CURRENT OUTPUT"
+msgstr "BECS. JELENL. KIMENET"
+
+#. Key:	BalanceEstimatedUse
+msgctxt "CriticalPath,BalanceEstimatedUse"
+msgid "EST. CURRENT USE"
+msgstr "BECS. JELENL. FELHASZN."
+
+#. Key:	SectionElevatorNone
+msgctxt "CriticalPath,SectionElevatorNone"
+msgid "Elevator"
+msgstr "Űrfelvonó"
+
+#. Key:	SectionElevatorFmt
+msgctxt "CriticalPath,SectionElevatorFmt"
+msgid "Elevator: {0}"
+msgstr "Űrfelvonó: {0}"
+
+#. Key:	BalanceIntro
+msgctxt "CriticalPath,BalanceIntro"
+msgid "Every line feeding your objective: what it makes, what arrives, and how long your stock lasts."
+msgstr "Minden gyártósor, amely a célodat táplálja: mit gyárt, mi érkezik meg, és meddig tart ki a készleted."
+
+#. Key:	BlockExtractFmt
+msgctxt "CriticalPath,BlockExtractFmt"
+msgid "Extraction {0}/min vs demand {1}/min - add or upgrade extractors"
+msgstr "Kitermelés {0}/min, igény {1}/min - építs vagy fejlessz kitermelőket"
+
+#. Key:	SrcTutorial
+msgctxt "CriticalPath,SrcTutorial"
+msgid "HUB"
+msgstr "HUB"
+
+#. Key:	BlockNotConnected
+msgctxt "CriticalPath,BlockNotConnected"
+msgid "It is being made, but no belt or pipe connects it to what needs it"
+msgstr "Készül, de nincs szalag vagy cső, ami összekötné azzal, ami igényli"
+
+#. Key:	BalanceProblemJammed
+msgctxt "CriticalPath,BalanceProblemJammed"
+msgid "JAMMED"
+msgstr "ELAKADT"
+
+#. Key:	LocateEndpoint
+msgctxt "CriticalPath,LocateEndpoint"
+msgid "LOCATE"
+msgstr "MEGKERESÉS"
+
+#. Key:	LocateConsumer
+msgctxt "CriticalPath,LocateConsumer"
+msgid "LOCATE CONSUMER"
+msgstr "FOGYASZTÓ MEGKERESÉSE"
+
+#. Key:	LocateProducer
+msgctxt "CriticalPath,LocateProducer"
+msgid "LOCATE PRODUCER"
+msgstr "GYÁRTÓ MEGKERESÉSE"
+
+#. Key:	PlanGraftStopped
+msgctxt "CriticalPath,PlanGraftStopped"
+msgid "Line exists but is STOPPED - fix it"
+msgstr "A gyártósor létezik, de LEÁLLT - javítsd meg"
+
+#. Key:	PlanGraftStoppedFmt
+msgctxt "CriticalPath,PlanGraftStoppedFmt"
+msgid "Line exists but is STOPPED - fix the {0}"
+msgstr "A gyártósor létezik, de LEÁLLT - javítsd meg ezt: {0}"
+
+#. Key:	BalancePartialEvidence
+msgctxt "CriticalPath,BalancePartialEvidence"
+msgid "MACHINE STATUS ONLY · delivery rates are not available right now"
+msgstr "CSAK GÉPÁLLAPOT · a szállítási ráták jelenleg nem érhetők el"
+
+#. Key:	BalanceObservedUseGapFmt
+msgctxt "CriticalPath,BalanceObservedUseGapFmt"
+msgid "MACHINES RUNNING SLOW · using about {0} of {1}; {2} machine(s) are short of ingredients"
+msgstr "A GÉPEK LASSAN JÁRNAK · kb. {0} a lehetséges {1} helyett; {2} gépnek nincs elég alapanyaga"
+
+#. Key:	SrcMAM
+msgctxt "CriticalPath,SrcMAM"
+msgid "MAM"
+msgstr "MAM"
+
+#. Key:	BalanceProblemStarved
+msgctxt "CriticalPath,BalanceProblemStarved"
+msgid "MISSING INPUT"
+msgstr "HIÁNYZÓ BEMENET"
+
+#. Key:	AskingHostDetail
+msgctxt "CriticalPath,AskingHostDetail"
+msgid "Machine contents and storage are tracked by the host, so Critical Path is requesting the report from there. This can take a few seconds on a large factory."
+msgstr "A gépek tartalmát és a tárolókat a host kezeli, ezért a Critical Path onnan kéri le a jelentést. Nagy gyárnál ez több másodpercig is tarthat."
+
+#. Key:	LimiterInstalledConstraintFmt
+msgctxt "CriticalPath,LimiterInstalledConstraintFmt"
+msgid "Machines here can make {0}; the machines using it need {1}"
+msgstr "Az itteni gépek {0} mennyiséget tudnak gyártani; az ezt használó gépeknek {1} kell"
+
+#. Key:	SectionMilestoneNone
+msgctxt "CriticalPath,SectionMilestoneNone"
+msgid "Milestone"
+msgstr "Mérföldkő"
+
+#. Key:	SectionMilestoneFmt
+msgctxt "CriticalPath,SectionMilestoneFmt"
+msgid "Milestone: {0}"
+msgstr "Mérföldkő: {0}"
+
+#. Key:	BalanceSortNeedFirst
+msgctxt "CriticalPath,BalanceSortNeedFirst"
+msgid "NEED FIRST"
+msgstr "IGÉNY SZERINT"
+
+#. Key:	BalanceProblemAttention
+msgctxt "CriticalPath,BalanceProblemAttention"
+msgid "NEEDS ATTENTION"
+msgstr "FIGYELMET IGÉNYEL"
+
+#. Key:	VerdictNextFmt
+msgctxt "CriticalPath,VerdictNextFmt"
+msgid "NEXT - {0}: {1}."
+msgstr "KÖVETKEZŐ - {0}: {1}."
+
+#. Key:	VerdictPlanHeadFmt
+msgctxt "CriticalPath,VerdictPlanHeadFmt"
+msgid "NEXT STEPS - the plan ({0} step(s)):"
+msgstr "KÖVETKEZŐ LÉPÉSEK - a terv ({0} lépés):"
+
+#. Key:	VerdictPlanDeliverFmt
+msgctxt "CriticalPath,VerdictPlanDeliverFmt"
+msgid "NEXT STEPS - {0} step(s) to deliver {1}"
+msgstr "KÖVETKEZŐ LÉPÉSEK - {0} lépés {1} leszállításáig"
+
+#. Key:	BalanceProblemNoPower
+msgctxt "CriticalPath,BalanceProblemNoPower"
+msgid "NO POWER"
+msgstr "NINCS ÁRAM"
+
+#. Key:	BalanceModeledDeliveryGapFmt
+msgctxt "CriticalPath,BalanceModeledDeliveryGapFmt"
+msgid "NOT ENOUGH ARRIVING · {0} is getting through; {1} is needed"
+msgstr "TÚL KEVÉS ÉRKEZIK · {0} jut át; {1} szükséges"
+
+#. Key:	BalanceCapacityGapFmt
+msgctxt "CriticalPath,BalanceCapacityGapFmt"
+msgid "NOT ENOUGH MACHINES · build at least {0} more production"
+msgstr "TÚL KEVÉS GÉP · építs még legalább {0} termelést"
+
+#. Key:	BalanceCapacityMachineGapsFmt
+msgctxt "CriticalPath,BalanceCapacityMachineGapsFmt"
+msgid "NOT ENOUGH MACHINES · {0} short, and some machines are stopped as well"
+msgstr "TÚL KEVÉS GÉP · {0} hiányzik, és néhány gép is le van állítva"
+
+#. Key:	BalanceNoDemand
+msgctxt "CriticalPath,BalanceNoDemand"
+msgid "NOTHING IS USING THIS · it is only filling storage right now"
+msgstr "EZT SEMMI NEM HASZNÁLJA · jelenleg csak a tárolót tölti"
+
+#. Key:	StatusNeedsFix
+msgctxt "CriticalPath,StatusNeedsFix"
+msgid "Needs a fix"
+msgstr "Javításra szorul"
+
+#. Key:	BalanceNoMatches
+msgctxt "CriticalPath,BalanceNoMatches"
+msgid "No balance rows match this filter."
+msgstr "Egyetlen mérlegsor sem felel meg ennek a szűrőnek."
+
+#. Key:	BlockInputsStarved
+msgctxt "CriticalPath,BlockInputsStarved"
+msgid "No inputs arriving (check connections and supply)"
+msgstr "Nem érkezik bemenet (ellenőrizd a csatlakozásokat és az ellátást)"
+
+#. Key:	BlockInputsStarvedFmt
+msgctxt "CriticalPath,BlockInputsStarvedFmt"
+msgid "No inputs arriving - {0} of {1} machine(s) starved (check connections and supply)"
+msgstr "Nem érkezik bemenet - {1} gépből {0} éhezik (ellenőrizd a csatlakozásokat és az ellátást)"
+
+#. Key:	PlanUnknown
+msgctxt "CriticalPath,PlanUnknown"
+msgid "No known source"
+msgstr "Nincs ismert forrás"
+
+#. Key:	PlanLine
+msgctxt "CriticalPath,PlanLine"
+msgid "No line - build one"
+msgstr "Nincs gyártósor - építs egyet"
+
+#. Key:	PlanLineFmt
+msgctxt "CriticalPath,PlanLineFmt"
+msgid "No line - build: {0}"
+msgstr "Nincs gyártósor - építsd meg: {0}"
+
+#. Key:	BalanceNoProblemMatches
+msgctxt "CriticalPath,BalanceNoProblemMatches"
+msgid "No line feeding your objective is in this state ({0}). Nothing to fix here."
+msgstr "A célodat tápláló gyártósorok közül egyik sincs ebben az állapotban ({0}). Itt nincs mit javítani."
+
+#. Key:	BalanceNoMatchesSearch
+msgctxt "CriticalPath,BalanceNoMatchesSearch"
+msgid "No line feeding your objective matches this filter."
+msgstr "A célodat tápláló gyártósorok közül egyik sem felel meg ennek a szűrőnek."
+
+#. Key:	MilestoneNoneSelectedFmt
+msgctxt "CriticalPath,MilestoneNoneSelectedFmt"
+msgid "No milestone selected - {0} available. Choose one at the HUB."
+msgstr "Nincs kiválasztott mérföldkő - {0} elérhető. Válassz egyet a HUB-ban."
+
+#. Key:	MilestoneNoneAvailable
+msgctxt "CriticalPath,MilestoneNoneAvailable"
+msgid "No milestones available in this elevator phase."
+msgstr "Ebben az űrfelvonó-fázisban nincs elérhető mérföldkő."
+
+#. Key:	ElevatorNone
+msgctxt "CriticalPath,ElevatorNone"
+msgid "No outstanding Space Elevator phase."
+msgstr "Nincs függőben lévő űrfelvonó-fázis."
+
+#. Key:	VerdictNone
+msgctxt "CriticalPath,VerdictNone"
+msgid "No outstanding objectives."
+msgstr "Nincs függőben lévő cél."
+
+#. Key:	BlockNoPowerCountFmt
+msgctxt "CriticalPath,BlockNoPowerCountFmt"
+msgid "No power - {0} of {1} machine(s) dark"
+msgstr "Nincs áram - {1} gépből {0} nem kap áramot"
+
+#. Key:	GapSpentFuelFmt
+msgctxt "CriticalPath,GapSpentFuelFmt"
+msgid "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"
+msgstr "Szándékosan nincs recept - kiégett fűtőanyag: {0} elégetése atomerőműben"
+
+#. Key:	StatusNotBuilt
+msgctxt "CriticalPath,StatusNotBuilt"
+msgid "Not built yet"
+msgstr "Még nincs megépítve"
+
+#. Key:	StatusNotBuiltDefault
+msgctxt "CriticalPath,StatusNotBuiltDefault"
+msgid "Not built yet"
+msgstr "Még nincs megépítve"
+
+#. Key:	NoControllerHeadline
+msgctxt "CriticalPath,NoControllerHeadline"
+msgid "Not connected to a game"
+msgstr "Nincs kapcsolat játékkal"
+
+#. Key:	BalanceEmpty
+msgctxt "CriticalPath,BalanceEmpty"
+msgid "Nothing on your objective path has a production line yet."
+msgstr "A célútvonaladon még semmihez nincs gyártósor."
+
+#. Key:	BlockNoProducer
+msgctxt "CriticalPath,BlockNoProducer"
+msgid "Nothing produces it - build a line"
+msgstr "Semmi nem gyártja - építs egy gyártósort"
+
+#. Key:	VerdictEtaFmt
+msgctxt "CriticalPath,VerdictEtaFmt"
+msgid "ON TRACK - ~{0} min of production remain ({1} is the long pole)."
+msgstr "ÜTEMBEN - még kb. {0} perc gyártás van hátra ({1} a szűk keresztmetszet)."
+
+#. Key:	LimiterAggFmt
+msgctxt "CriticalPath,LimiterAggFmt"
+msgid "Only {0}/min is available for {1}/min needed ({2}%); some delivery routes could not be checked"
+msgstr "Csak {0}/min érhető el a szükséges {1}/min helyett ({2}%); néhány szállítási útvonalat nem sikerült ellenőrizni"
+
+#. Key:	LimiterSolvedFmt
+msgctxt "CriticalPath,LimiterSolvedFmt"
+msgid "Only {0}/min is getting through; the machines on this line need {1}/min ({2}%)"
+msgstr "Csak {0}/min jut át; a gyártósor gépeinek {1}/min kell ({2}%)"
+
+#. Key:	BlockSolvedSupplyFmt
+msgctxt "CriticalPath,BlockSolvedSupplyFmt"
+msgid "Only {0}/min is reaching this line; it needs {1}/min"
+msgstr "Csak {0}/min éri el ezt a gyártósort; {1}/min kellene"
+
+#. Key:	BlockSolvedExtractFmt
+msgctxt "CriticalPath,BlockSolvedExtractFmt"
+msgid "Only {0}/min is reaching this line; it needs {1}/min - add or upgrade extraction"
+msgstr "Csak {0}/min éri el ezt a gyártósort; {1}/min kellene - bővítsd vagy fejleszd a kitermelést"
+
+#. Key:	BlockOutputsFull
+msgctxt "CriticalPath,BlockOutputsFull"
+msgid "Outputs full"
+msgstr "Kimenetek tele"
+
+#. Key:	BlockByproductFmt
+msgctxt "CriticalPath,BlockByproductFmt"
+msgid "Outputs full - {0} has no connected destination and may be backing up (check its disposal)"
+msgstr "Kimenetek tele - {0} nincs célponthoz csatlakoztatva, és feltorlódhat (ellenőrizd az elvezetését)"
+
+#. Key:	BlockOutputsFullFmt
+msgctxt "CriticalPath,BlockOutputsFullFmt"
+msgid "Outputs full - {0} of {1} machine(s) stalled"
+msgstr "Kimenetek tele - {1} gépből {0} leállt"
+
+#. Key:	TipOwnedFmt
+msgctxt "CriticalPath,TipOwnedFmt"
+msgid "Owned: {0} in storage  ·  {1} in depot  ·  {2} carried"
+msgstr "Birtokolt: {0} raktárban  ·  {1} depóban  ·  {2} nálad"
+
+#. Key:	TabPath
+msgctxt "CriticalPath,TabPath"
+msgid "PATH"
+msgstr "ÚTVONAL"
+
+#. Key:	BalanceProblemPaused
+msgctxt "CriticalPath,BalanceProblemPaused"
+msgid "PAUSED"
+msgstr "SZÜNETELTETVE"
+
+#. Key:	TabPlan
+msgctxt "CriticalPath,TabPlan"
+msgid "PLAN"
+msgstr "TERV"
+
+#. Key:	BalanceAugmentShards
+msgctxt "CriticalPath,BalanceAugmentShards"
+msgid "POWER SHARDS"
+msgstr "ENERGIASZILÁNKOK"
+
+#. Key:	BalanceProducedElsewhere
+msgctxt "CriticalPath,BalanceProducedElsewhere"
+msgid "PRODUCED ELSEWHERE · this item is made somewhere in your factory, but no belt or pipe route reaches this line. If a teleporter, portal or loader feeds it, that link cannot be followed"
+msgstr "MÁSHOL GYÁRTVA · ez a tárgy készül valahol a gyáradban, de nem vezet ide szalag- vagy csőútvonal. Ha teleporter, portál vagy rakodó táplálja, az a kapcsolat nem követhető"
+
+#. Key:	BalanceProducerIssueFmt
+msgctxt "CriticalPath,BalanceProducerIssueFmt"
+msgid "PRODUCER ISSUES · {0} missing input · {1} output blocked · {2} no power"
+msgstr "GYÁRTÓI PROBLÉMÁK · {0} hiányzó bemenet · {1} blokkolt kimenet · {2} áram nélkül"
+
+#. Key:	BalanceProducersHeading
+msgctxt "CriticalPath,BalanceProducersHeading"
+msgid "PRODUCERS"
+msgstr "GYÁRTÓK"
+
+#. Key:	LimiterPipeConstraintFmt
+msgctxt "CriticalPath,LimiterPipeConstraintFmt"
+msgid "Pipe bottleneck: {0} → {1} carries {2} of {3}"
+msgstr "Cső szűk keresztmetszet: {0} → {1} szállít: {2} / {3}"
+
+#. Key:	BlockNoPower
+msgctxt "CriticalPath,BlockNoPower"
+msgid "Producers have no power"
+msgstr "A gyártóknak nincs áramuk"
+
+#. Key:	TipRateFmt
+msgctxt "CriticalPath,TipRateFmt"
+msgid "Producing at {0}/min"
+msgstr "Gyártás {0}/min ütemben"
+
+#. Key:	BlockSolvedNotConnected
+msgctxt "CriticalPath,BlockSolvedNotConnected"
+msgid "Production exists, but none reaches the machines that need it"
+msgstr "Van gyártás, de semmi nem jut el az azt igénylő gépekhez"
+
+#. Key:	VerdictReady
+msgctxt "CriticalPath,VerdictReady"
+msgid "READY - every remaining part is banked. Delivery is the only step left."
+msgstr "KÉSZ - minden hátralévő alkatrész készleten van. Már csak a leszállítás van hátra."
+
+#. Key:	RefreshReport
+msgctxt "CriticalPath,RefreshReport"
+msgid "REFRESH"
+msgstr "FRISSÍTÉS"
+
+#. Key:	PlanRaw
+msgctxt "CriticalPath,PlanRaw"
+msgid "Raw resource - extract it"
+msgstr "Nyersanyag - termeld ki"
+
+#. Key:	StatusReadyToDeliver
+msgctxt "CriticalPath,StatusReadyToDeliver"
+msgid "Ready to deliver"
+msgstr "Leszállításra kész"
+
+#. Key:	GapNoUnlock
+msgctxt "CriticalPath,GapNoUnlock"
+msgid "Recipe locked - no purchasable research yet"
+msgstr "A recept zárolt - még nincs megvásárolható kutatás"
+
+#. Key:	GapUnlockFmt
+msgctxt "CriticalPath,GapUnlockFmt"
+msgid "Recipe locked - research: {0}"
+msgstr "A recept zárolt - kutatás: {0}"
+
+#. Key:	GapUnlockSrcFmt
+msgctxt "CriticalPath,GapUnlockSrcFmt"
+msgid "Recipe locked - research: {0} ({1})"
+msgstr "A recept zárolt - kutatás: {0} ({1})"
+
+#. Key:	StatusRecipeLocked
+msgctxt "CriticalPath,StatusRecipeLocked"
+msgid "Recipe not researched"
+msgstr "A recept nincs kikutatva"
+
+#. Key:	PlanLocked
+msgctxt "CriticalPath,PlanLocked"
+msgid "Recipe not researched"
+msgstr "A recept nincs kikutatva"
+
+#. Key:	SectionResearch
+msgctxt "CriticalPath,SectionResearch"
+msgid "Research needed upstream"
+msgstr "Feljebb a láncban kutatás szükséges"
+
+#. Key:	StatusResearchFmt
+msgctxt "CriticalPath,StatusResearchFmt"
+msgid "Research: {0}"
+msgstr "Kutatás: {0}"
+
+#. Key:	StatusStandbyReserve
+msgctxt "CriticalPath,StatusStandbyReserve"
+msgid "Reserve line (standby)"
+msgstr "Tartalék gyártósor (készenlét)"
+
+#. Key:	StatusRouteUnknown
+msgctxt "CriticalPath,StatusRouteUnknown"
+msgid "Route not measured"
+msgstr "Az útvonal nincs megmérve"
+
+#. Key:	BalanceObservedUseHealthyFmt
+msgctxt "CriticalPath,BalanceObservedUseHealthyFmt"
+msgid "SERVING CURRENT USE · consumers are using about {0} against {1} demand"
+msgstr "FEDEZI A JELENLEGI FELHASZNÁLÁST · a fogyasztók kb. {0} mennyiséget használnak {1} igény mellett"
+
+#. Key:	BalanceAugmentSloops
+msgctxt "CriticalPath,BalanceAugmentSloops"
+msgid "SOMERSLOOPS"
+msgstr "SOMERSLOOPS"
+
+#. Key:	AgeStaleFmt
+msgctxt "CriticalPath,AgeStaleFmt"
+msgid "STALE - {0}s old (refresh failed)"
+msgstr "ELAVULT - {0} mp régi (a frissítés nem sikerült)"
+
+#. Key:	BalanceModelFmt
+msgctxt "CriticalPath,BalanceModelFmt"
+msgid "SUPPLY LINE  can send {0}  ·  actually arriving {1}"
+msgstr "ELLÁTÓSOR  küldhet {0}  ·  ténylegesen érkezik {1}"
+
+#. Key:	BalanceModeledHealthyFmt
+msgctxt "CriticalPath,BalanceModeledHealthyFmt"
+msgid "SUPPLY MEETS NEED · {0} is reaching consumers; they need {1}"
+msgstr "AZ ELLÁTÁS FEDEZI AZ IGÉNYT · {0} jut el a fogyasztókhoz; {1} kell nekik"
+
+#. Key:	StatusSaturated
+msgctxt "CriticalPath,StatusSaturated"
+msgid "Saturated (surplus)"
+msgstr "Telített (többlet)"
+
+#. Key:	BalanceFilterHint
+msgctxt "CriticalPath,BalanceFilterHint"
+msgid "Search items or buildings, then press Enter"
+msgstr "Keress tárgyak vagy épületek között, majd nyomj Entert"
+
+#. Key:	PlanExcludedLead
+msgctxt "CriticalPath,PlanExcludedLead"
+msgid "Separate track:"
+msgstr "Külön útvonal:"
+
+#. Key:	BalanceRowsTruncatedFmt
+msgctxt "CriticalPath,BalanceRowsTruncatedFmt"
+msgid "Showing the {0} lines needing the most attention, of {1} feeding your objective. Search, or filter by problem, to narrow this down."
+msgstr "A legtöbb figyelmet igénylő {0} gyártósor látható a célodat tápláló {1} közül. Szűkítsd kereséssel vagy probléma szerinti szűréssel."
+
+#. Key:	BalanceRowsTruncatedFilteredFmt
+msgctxt "CriticalPath,BalanceRowsTruncatedFilteredFmt"
+msgid "Showing the {0} lines needing the most attention, of {1} matching your filter."
+msgstr "A legtöbb figyelmet igénylő {0} gyártósor látható a szűrődnek megfelelő {1} közül."
+
+#. Key:	BalanceEndpointsTruncatedFmt
+msgctxt "CriticalPath,BalanceEndpointsTruncatedFmt"
+msgid "Showing {0} of {1} - the rest are counted in the totals above but not listed."
+msgstr "{1} elemből {0} látható - a többi benne van a fenti összesítésben, de nincs felsorolva."
+
+#. Key:	PlanSpentFuelFmt
+msgctxt "CriticalPath,PlanSpentFuelFmt"
+msgid "Spent fuel - burn {0} in a Nuclear Power Plant"
+msgstr "Kiégett fűtőanyag - {0} elégetése atomerőműben"
+
+#. Key:	BlockConnectivityUnknown
+msgctxt "CriticalPath,BlockConnectivityUnknown"
+msgid "Starved - the delivery path could not be fully checked; inspect its connections"
+msgstr "Éhezik - a szállítási útvonalat nem sikerült teljesen ellenőrizni; nézd át a csatlakozásait"
+
+#. Key:	TipNeededFmt
+msgctxt "CriticalPath,TipNeededFmt"
+msgid "Still needed: {0}  (banked {1}, to produce {2})"
+msgstr "Még szükséges: {0}  (készleten {1}, gyártandó {2})"
+
+#. Key:	BlockSupplyFmt
+msgctxt "CriticalPath,BlockSupplyFmt"
+msgid "Supply {0}/min vs demand {1}/min - add capacity"
+msgstr "Ellátás {0}/min, igény {1}/min - növeld a kapacitást"
+
+#. Key:	BlockPathAttributionMissing
+msgctxt "CriticalPath,BlockPathAttributionMissing"
+msgid "The feeding line could not be identified - inspect the connected producers"
+msgstr "A betápláló gyártósort nem sikerült azonosítani - nézd át a csatlakoztatott gyártókat"
+
+#. Key:	NoRelayHeadline
+msgctxt "CriticalPath,NoRelayHeadline"
+msgid "The host cannot send a report"
+msgstr "A host nem tud jelentést küldeni"
+
+#. Key:	HostDeclinedHeadline
+msgctxt "CriticalPath,HostDeclinedHeadline"
+msgid "The host could not produce a report"
+msgstr "A host nem tudott jelentést készíteni"
+
+#. Key:	LimiterRoutingConstraintFmt
+msgctxt "CriticalPath,LimiterRoutingConstraintFmt"
+msgid "The machines can supply {0}, but only {1} reaches consumers; inspect the route between them"
+msgstr "A gépek {0} mennyiséget tudnának adni, de csak {1} jut el a fogyasztókhoz; nézd át a köztük lévő útvonalat"
+
+#. Key:	NoRelayDetail
+msgctxt "CriticalPath,NoRelayDetail"
+msgid "This client asked the host for a report, but the host is not running a version of Critical Path that can send one. Ask the host to update, or open the panel on the host."
+msgstr "Ez a kliens jelentést kért a hosttól, de a hoston futó Critical Path verzió nem tud ilyet küldeni. Kérd meg a hostot, hogy frissítsen, vagy nyisd meg a panelt a hoston."
+
+#. Key:	BlockLegacyLogistics
+msgctxt "CriticalPath,BlockLegacyLogistics"
+msgid "This reading is out of date - press REFRESH"
+msgstr "Ez a mérés elavult - nyomd meg a FRISSÍTÉS gombot"
+
+#. Key:	StatusTimeLimited
+msgctxt "CriticalPath,StatusTimeLimited"
+msgid "Time-limited"
+msgstr "Időkorlátos"
+
+#. Key:	ResearchPlanHeadFmt
+msgctxt "CriticalPath,ResearchPlanHeadFmt"
+msgid "To research {0}  ({1}):"
+msgstr "{0} kikutatásához  ({1}):"
+
+#. Key:	TransportTopologyOnly
+msgctxt "CriticalPath,TransportTopologyOnly"
+msgid "Transport route is known; vehicle throughput is not yet measured."
+msgstr "A szállítási útvonal ismert; a járművek átbocsátóképessége még nincs megmérve."
+
+#. Key:	StatusUnderSupplied
+msgctxt "CriticalPath,StatusUnderSupplied"
+msgid "Under-supplied"
+msgstr "Alulellátott"
+
+#. Key:	ResearchIsSelectedFmt
+msgctxt "CriticalPath,ResearchIsSelectedFmt"
+msgid "Unlocked by {0} - your SELECTED milestone: its payment progress is the Milestone column →"
+msgstr "{0} oldja fel - ez a KIVÁLASZTOTT mérföldkőved: a fizetési előrehaladása a Mérföldkő oszlopban →"
+
+#. Key:	BlockTransportRateUnknown
+msgctxt "CriticalPath,BlockTransportRateUnknown"
+msgid "Vehicle route connected - delivery rate unknown because throughput is not yet measured"
+msgstr "Jármű-útvonal csatlakoztatva - a szállítási ráta ismeretlen, mert az átbocsátóképesség még nincs megmérve"
+
+#. Key:	EndpointStateJammedFmt
+msgctxt "CriticalPath,EndpointStateJammedFmt"
+msgid "blocked by {0} on the belt"
+msgstr "a szalagon lévő {0} blokkolja"
+
+#. Key:	EndpointBufferFmt
+msgctxt "CriticalPath,EndpointBufferFmt"
+msgid "buffer {0} {1}"
+msgstr "puffer {0} {1}"
+
+#. Key:	LimiterEdgeDownstreamFallback
+msgctxt "CriticalPath,LimiterEdgeDownstreamFallback"
+msgid "downstream node"
+msgstr "lefelé eső csomópont"
+
+#. Key:	AgeHostStale
+msgctxt "CriticalPath,AgeHostStale"
+msgid "from the host, earlier (latest request failed)"
+msgstr "a hosttól, korábban (a legutóbbi kérés sikertelen)"
+
+#. Key:	AgeFromHost
+msgctxt "CriticalPath,AgeFromHost"
+msgid "from the host, just now"
+msgstr "a hosttól, épp most"
+
+#. Key:	SrcHardDrive
+msgctxt "CriticalPath,SrcHardDrive"
+msgid "hard drive"
+msgstr "merevlemez"
+
+#. Key:	EndpointStateIdle
+msgctxt "CriticalPath,EndpointStateIdle"
+msgid "idle - no fault reported"
+msgstr "üresjárat - nincs jelentett hiba"
+
+#. Key:	PlanExcludedWhyUnknown
+msgctxt "CriticalPath,PlanExcludedWhyUnknown"
+msgid "is not in this plan - its recipe is not unlocked yet"
+msgstr "nincs benne ebben a tervben - a receptje még nincs feloldva"
+
+#. Key:	PlanExcludedWhyFmt
+msgctxt "CriticalPath,PlanExcludedWhyFmt"
+msgid "is not in this plan - its recipe unlocks with {0}"
+msgstr "nincs benne ebben a tervben - a receptje ezzel oldódik fel: {0}"
+
+#. Key:	EndpointBufferItems
+msgctxt "CriticalPath,EndpointBufferItems"
+msgid "items"
+msgstr "tárgy"
+
+#. Key:	BufferItems
+msgctxt "CriticalPath,BufferItems"
+msgid "items"
+msgstr "tárgy"
+
+#. Key:	BalanceSolidRateUnit
+msgctxt "CriticalPath,BalanceSolidRateUnit"
+msgid "items/min"
+msgstr "tárgy/min"
+
+#. Key:	AgeJustNow
+msgctxt "CriticalPath,AgeJustNow"
+msgid "just now"
+msgstr "épp most"
+
+#. Key:	AgeJustNowFlow
+msgctxt "CriticalPath,AgeJustNowFlow"
+msgid "just now"
+msgstr "épp most"
+
+#. Key:	LimiterMachineFallback
+msgctxt "CriticalPath,LimiterMachineFallback"
+msgid "machine"
+msgstr "gép"
+
+#. Key:	BalanceIdentityFmt
+msgctxt "CriticalPath,BalanceIdentityFmt"
+msgid "made by {0}  ·  used by {1}{2}"
+msgstr "gyártja {0}  ·  használja {1}{2}"
+
+#. Key:	SrcMilestone
+msgctxt "CriticalPath,SrcMilestone"
+msgid "milestone"
+msgstr "mérföldkő"
+
+#. Key:	EndpointStateMissingInput
+msgctxt "CriticalPath,EndpointStateMissingInput"
+msgid "missing input"
+msgstr "hiányzó bemenet"
+
+#. Key:	BufferM3
+msgctxt "CriticalPath,BufferM3"
+msgid "m³"
+msgstr "m³"
+
+#. Key:	EndpointBufferM3
+msgctxt "CriticalPath,EndpointBufferM3"
+msgid "m³"
+msgstr "m³"
+
+#. Key:	BalanceFluidRateUnit
+msgctxt "CriticalPath,BalanceFluidRateUnit"
+msgid "m³/min"
+msgstr "m³/min"
+
+#. Key:	BalanceNoConsumer
+msgctxt "CriticalPath,BalanceNoConsumer"
+msgid "no connected consumer"
+msgstr "nincs csatlakoztatott fogyasztó"
+
+#. Key:	AgeErrorFmt
+msgctxt "CriticalPath,AgeErrorFmt"
+msgid "no data - {0}"
+msgstr "nincs adat - {0}"
+
+#. Key:	EndpointStateNoPower
+msgctxt "CriticalPath,EndpointStateNoPower"
+msgid "no power"
+msgstr "nincs áram"
+
+#. Key:	BalanceNoProducer
+msgctxt "CriticalPath,BalanceNoProducer"
+msgid "no producer"
+msgstr "nincs gyártó"
+
+#. Key:	EndpointStateOutputBlocked
+msgctxt "CriticalPath,EndpointStateOutputBlocked"
+msgid "output full (nothing taking it)"
+msgstr "a kimenet tele (semmi nem viszi el)"
+
+#. Key:	EndpointStatePaused
+msgctxt "CriticalPath,EndpointStatePaused"
+msgid "paused"
+msgstr "szüneteltetve"
+
+#. Key:	EndpointStateProducing
+msgctxt "CriticalPath,EndpointStateProducing"
+msgid "producing"
+msgstr "gyárt"
+
+#. Key:	AgeRefreshing
+msgctxt "CriticalPath,AgeRefreshing"
+msgid "re-measuring..."
+msgstr "újramérés…"
+
+#. Key:	EndpointStateUnavailable
+msgctxt "CriticalPath,EndpointStateUnavailable"
+msgid "state unavailable"
+msgstr "az állapot nem érhető el"
+
+#. Key:	PlanForPhaseFmt
+msgctxt "CriticalPath,PlanForPhaseFmt"
+msgid "the {0} elevator phase"
+msgstr "a(z) {0} űrfelvonó-fázis"
+
+#. Key:	PlanForMilestoneFmt
+msgctxt "CriticalPath,PlanForMilestoneFmt"
+msgid "the {0} milestone"
+msgstr "a(z) {0} mérföldkő"
+
+#. Key:	AgeUnavailable
+msgctxt "CriticalPath,AgeUnavailable"
+msgid "unavailable here"
+msgstr "itt nem érhető el"
+
+#. Key:	LimiterEdgeUpstreamFallback
+msgctxt "CriticalPath,LimiterEdgeUpstreamFallback"
+msgid "upstream node"
+msgstr "felfelé eső csomópont"
+
+#. Key:	EndpointStateStarvedFmt
+msgctxt "CriticalPath,EndpointStateStarvedFmt"
+msgid "waiting on {0}"
+msgstr "erre vár: {0}"
+
+#. Key:	LimiterExactMachineMarginalFmt
+msgctxt "CriticalPath,LimiterExactMachineMarginalFmt"
+msgid "{0}  ·  Add 1 average {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  Még 1 átlagos {1} → kb. {2} jutna el a fogyasztókhoz ({3}%)"
+
+#. Key:	PlanAltFmt
+msgctxt "CriticalPath,PlanAltFmt"
+msgid "{0}  ·  Alt recipes exist"
+msgstr "{0}  ·  Léteznek alternatív receptek"
+
+#. Key:	PlanGraftUnknownFmt
+msgctxt "CriticalPath,PlanGraftUnknownFmt"
+msgid "{0}  ·  Spare capacity unavailable - one or more routes could not be fully measured"
+msgstr "{0}  ·  A szabad kapacitás nem érhető el - egy vagy több útvonalat nem sikerült teljesen megmérni"
+
+#. Key:	PlanGraftRatioFmt
+msgctxt "CriticalPath,PlanGraftRatioFmt"
+msgid "{0}  ·  Spare {1}/min, needs {2}/min ({3}%)"
+msgstr "{0}  ·  Szabad {1}/min, igény {2}/min ({3}%)"
+
+#. Key:	LimiterBufferFmt
+msgctxt "CriticalPath,LimiterBufferFmt"
+msgid "{0}  ·  Stored buffer covers ~{1} min"
+msgstr "{0}  ·  A tárolt puffer kb. {1} percre elég"
+
+#. Key:	LimiterBufferDryFmt
+msgctxt "CriticalPath,LimiterBufferDryFmt"
+msgid "{0}  ·  Stored buffer is dry"
+msgstr "{0}  ·  A tárolt puffer kiürült"
+
+#. Key:	LimiterExactBeltMarginalFmt
+msgctxt "CriticalPath,LimiterExactBeltMarginalFmt"
+msgid "{0}  ·  Upgrade this belt to {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  Fejleszd ezt a szalagot erre: {1} → kb. {2} jutna el a fogyasztókhoz ({3}%)"
+
+#. Key:	LimiterExactPipeMarginalFmt
+msgctxt "CriticalPath,LimiterExactPipeMarginalFmt"
+msgid "{0}  ·  Upgrade this pipe to {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  Fejleszd ezt a csövet erre: {1} → kb. {2} jutna el a fogyasztókhoz ({3}%)"
+
+#. Key:	LimiterUnknownFmt
+msgctxt "CriticalPath,LimiterUnknownFmt"
+msgid "{0}  ·  delivery rate unknown on {1} route(s)"
+msgstr "{0}  ·  a szállítási ráta ismeretlen {1} útvonalon"
+
+#. Key:	BalanceTitleMultiFmt
+msgctxt "CriticalPath,BalanceTitleMultiFmt"
+msgid "{0}  ·  line {1}"
+msgstr "{0}  ·  gyártósor {1}"
+
+#. Key:	PlanTruncFmt
+msgctxt "CriticalPath,PlanTruncFmt"
+msgid "{0}  ·  more not shown"
+msgstr "{0}  ·  továbbiak nem láthatók"
+
+#. Key:	LimiterMarginalFmt
+msgctxt "CriticalPath,LimiterMarginalFmt"
+msgid "{0}  ·  one more {1} would reach {2}%"
+msgstr "{0}  ·  még egy {1} elérné a {2}%-ot"
+
+#. Key:	TruncFmt
+msgctxt "CriticalPath,TruncFmt"
+msgid "{0}  ·  only {1} of {2} checked - too many to scan"
+msgstr "{0}  ·  {2} elemből csak {1} ellenőrizve - túl sok az átvizsgáláshoz"
+
+#. Key:	LimiterConstraintJoinFmt
+msgctxt "CriticalPath,LimiterConstraintJoinFmt"
+msgid "{0}  ·  {1}"
+msgstr "{0}  ·  {1}"
+
+#. Key:	TruncDetailFmt
+msgctxt "CriticalPath,TruncDetailFmt"
+msgid "{0}  ·  {1} checked - some supporting detail limited"
+msgstr "{0}  ·  {1} ellenőrizve - néhány kiegészítő részlet korlátozott"
+
+#. Key:	VerdictPlanFaultFmt
+msgctxt "CriticalPath,VerdictPlanFaultFmt"
+msgid "{0}  ·  {1}: {2}"
+msgstr "{0}  ·  {1}: {2}"
+
+#. Key:	PlanUnlockNameFmt
+msgctxt "CriticalPath,PlanUnlockNameFmt"
+msgid "{0} ({1})"
+msgstr "{0} ({1})"
+
+#. Key:	BalanceAnchorPingFmt
+msgctxt "CriticalPath,BalanceAnchorPingFmt"
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#. Key:	BalanceEndpointPingFmt
+msgctxt "CriticalPath,BalanceEndpointPingFmt"
+msgid "{0} - {1} - {2}"
+msgstr "{0} - {1} - {2}"
+
+#. Key:	LedgerDeliveredFmt
+msgctxt "CriticalPath,LedgerDeliveredFmt"
+msgid "{0} delivered"
+msgstr "{0} leszállítva"
+
+#. Key:	SummaryDoneFmt
+msgctxt "CriticalPath,SummaryDoneFmt"
+msgid "{0} delivered"
+msgstr "{0} leszállítva"
+
+#. Key:	SummaryBlockedFmt
+msgctxt "CriticalPath,SummaryBlockedFmt"
+msgid "{0} need a fix"
+msgstr "{0} javításra szorul"
+
+#. Key:	LedgerBankedFmt
+msgctxt "CriticalPath,LedgerBankedFmt"
+msgid "{0} needed  ·  {0} banked  ·  {1}"
+msgstr "{0} szükséges  ·  {0} készleten  ·  {1}"
+
+#. Key:	LedgerNoBankFmt
+msgctxt "CriticalPath,LedgerNoBankFmt"
+msgid "{0} needed  ·  {1}"
+msgstr "{0} szükséges  ·  {1}"
+
+#. Key:	ResearchCostLedgerFmt
+msgctxt "CriticalPath,ResearchCostLedgerFmt"
+msgid "{0} needed  ·  {1} banked  ·  {2}"
+msgstr "{0} szükséges  ·  {1} készleten  ·  {2}"
+
+#. Key:	LedgerFullFmt
+msgctxt "CriticalPath,LedgerFullFmt"
+msgid "{0} needed  ·  {1} banked  ·  {2} to produce  ·  {3}"
+msgstr "{0} szükséges  ·  {1} készleten  ·  {2} gyártandó  ·  {3}"
+
+#. Key:	SummaryReadyFmt
+msgctxt "CriticalPath,SummaryReadyFmt"
+msgid "{0} ready to deliver"
+msgstr "{0} leszállításra kész"
+
+#. Key:	SummaryToBuildFmt
+msgctxt "CriticalPath,SummaryToBuildFmt"
+msgid "{0} still to build"
+msgstr "{0} még megépítendő"
+
+#. Key:	SummaryPartsFmt
+msgctxt "CriticalPath,SummaryPartsFmt"
+msgid "{0} {0}|plural(one=part,other=parts)"
+msgstr "{0} {0}|plural(one=alkatrész,other=alkatrész)"
+
+#. Key:	BalanceRateWithUnitFmt
+msgctxt "CriticalPath,BalanceRateWithUnitFmt"
+msgid "{0} {1}"
+msgstr "{0} {1}"
+
+#. Key:	EndpointProductivityFmt
+msgctxt "CriticalPath,EndpointProductivityFmt"
+msgid "{0}% productivity"
+msgstr "{0}% termelékenység"
+
+#. Key:	PlanStepBuildFmt
+msgctxt "CriticalPath,PlanStepBuildFmt"
+msgid "{0})  Build:"
+msgstr "{0})  Építs:"
+
+#. Key:	PlanStepFixFmt
+msgctxt "CriticalPath,PlanStepFixFmt"
+msgid "{0})  Fix:"
+msgstr "{0})  Javítsd:"
+
+#. Key:	PlanStepUnlockFmt
+msgctxt "CriticalPath,PlanStepUnlockFmt"
+msgid "{0})  Unlock:"
+msgstr "{0})  Oldd fel:"
+
+#. Key:	BalanceEndpointFmt
+msgctxt "CriticalPath,BalanceEndpointFmt"
+msgid "{0}. {1} - {2}"
+msgstr "{0}. {1} - {2}"
+
+#. Key:	StatusEtaFmt
+msgctxt "CriticalPath,StatusEtaFmt"
+msgid "~{0} min remaining"
+msgstr "még kb. {0} perc"
+
+#. Key:	PlanItemForFmt
+msgctxt "CriticalPath,PlanItemForFmt"
+msgid "→ for {0}"
+msgstr "→ ehhez: {0}"
+
+#. Key:	PlanUnlockMakesFmt
+msgctxt "CriticalPath,PlanUnlockMakesFmt"
+msgid "→ makes {0} buildable"
+msgstr "→ ettől {0} megépíthetővé válik"
+
+#. Key:	BalanceExpandChevron
+msgctxt "CriticalPath,BalanceExpandChevron"
+msgid "▼"
+msgstr ""

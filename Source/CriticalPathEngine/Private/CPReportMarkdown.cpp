@@ -142,10 +142,20 @@ FString FCPReportMarkdown::Build(const FCPAnalysisResult& Result, const FString&
 	FString Md;
 	Md += TEXT("# Critical Path Report\n\n");
 	Md += FString::Printf(TEXT("_Captured: %s_\n\n"), *CapturedAtIso);
-	if (Result.Truncation.bAnyCapHit)
+	// bAnyCapHit is set by SEVEN different caps (buildings, extractors, connectivity, states,
+	// recipe edges, storage containers, catalog recipes). Reporting building counts whenever ANY
+	// of them trips produced the nonsense line "8808 of 8808 buildings scanned - too many to
+	// scan": the building scan finished, a different cap tripped, and the player was told their
+	// factory was too big. Only claim a partial building scan when the BUILDING scan is short.
+	if (Result.Truncation.BuildingsScanned < Result.Truncation.BuildingsAvailable)
 	{
 		Md += FString::Printf(TEXT("> **Partial scan**: %d of %d buildings scanned - treat totals as lower bounds.\n\n"),
 			Result.Truncation.BuildingsScanned, Result.Truncation.BuildingsAvailable);
+	}
+	else if (Result.Truncation.bAnyCapHit)
+	{
+		Md += TEXT("> **Partial detail**: every building was scanned, but some supporting detail ")
+			TEXT("(storage, recipe or connectivity breadth) hit a collection limit - treat totals as lower bounds.\n\n");
 	}
 
 	bool bAnyChain = false;

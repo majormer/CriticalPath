@@ -53,6 +53,13 @@ only the items it can actually carry - accounts for the difference. The panel ru
 the thread pool, so the game-thread cost is roughly 95 ms on an explicit open or refresh. See
 `Validation.md` §7 for the full breakdown and the remaining exposure.
 
+Re-measured 2026-07-26 on a community endgame save (Dead-Again's, 8,808 manufacturers / 65,868
+buildings / 20,683 storage containers, 39,245 nodes / 19,840 edges, `bAnyCapHit: false` after the
+1.0.1 cap raise): collect 171 ms, flow capture 183 ms, dual solve 406 ms, total 760 ms, of which
+354 ms is game thread. That is the number to quote for a finished factory - the 21,888-building
+figures above came from a save with only 948 production buildings, and the old caps were bailing
+out early on anything larger, so they flattered the result.
+
 ## 3. The solver (Layer 1 - pure, UObject-free, unit-testable)
 
 ### Semantics
