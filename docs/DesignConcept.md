@@ -1,4 +1,4 @@
-# Critical Path — Product and Interface Concept
+# Critical Path - Product and Interface Concept
 
 Critical Path is a live-factory diagnostic, not a recipe-tree viewer. It begins with a player's
 real objective and real configured factory, explains why progress is or is not happening, turns
@@ -85,16 +85,16 @@ comparison until Phase C proves and removes it.
 ## Visible information architecture
 
 The current panel is a centred modal workspace opened by the configured key. Phase C organizes its
-increasingly rich evidence into one report-level tab strip—**Path · Balance · Plan**—rather than
+increasingly rich evidence into one report-level tab strip - **Path · Balance · Plan** - rather than
 extending the old M2 body indefinitely:
 
-1. **Header** — title, data age, refresh/close affordances, and lifecycle state.
-2. **Path** — Space Elevator phase and selected HUB milestone side by side; part rows, concurrent
+1. **Header** - title, data age, refresh/close affordances, and lifecycle state.
+2. **Path** - Space Elevator phase and selected HUB milestone side by side; part rows, concurrent
    issues, blocker path, limiter, and concise verdict remain the five-second default.
-3. **Balance** — the ingredient selected from Path; four-rate balance, supply-domain identity,
+3. **Balance** - the ingredient selected from Path; four-rate balance, supply-domain identity,
    producer/consumer evidence, buffer composition, and runway. It is objective-scoped in Phase C.
-4. **Plan** — research payments, prospective chains, and deduplicated bottom-up build tiers.
-5. **Verdict band** — the highest-value present-factory action or trustworthy completion estimate
+4. **Plan** - research payments, prospective chains, and deduplicated bottom-up build tiers.
+5. **Verdict band** - the highest-value present-factory action or trustworthy completion estimate
    remains visible across tabs.
 
 The tab strip is navigation within one report, not three independent dashboards. Selecting an
@@ -125,7 +125,7 @@ world mutation.
 
 - Delivered objective progress is authoritative and never double-counted with banked output.
 - Pocket and dimensional-depot stock is player-available, not machine-reachable.
-- An exactly funded batch is “funded — reaches zero at completion,” not an alarming drain.
+- An exactly funded batch is “funded - reaches zero at completion,” not an alarming drain.
 - Storage containers are transparent routing nodes at steady state; their contents explain
   runway, collection errands, and transient resilience.
 - Manual transfer is a truthful plan step only when owned stock covers the remaining need and
@@ -133,8 +133,8 @@ world mutation.
 
 ## Scope boundary
 
-Critical Path names the present gap—insufficient installed production, unsupported producers, or
-delivery loss—and may identify the existing machine or route responsible. It does not project a
+Critical Path names the present gap - insufficient installed production, unsupported producers, or
+delivery loss - and may identify the existing machine or route responsible. It does not project a
 hypothetical new factory, design layouts, or build anything. It reports only facts the player could
 discover by auditing the same factory.
 

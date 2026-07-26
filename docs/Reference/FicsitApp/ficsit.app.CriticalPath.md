@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Released-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.0-blue) ![Satisfactory](https://img.shields.io/badge/Satisfactory-1.2-blue) ![Engine](https://img.shields.io/badge/Engine-UE%205.6-blue) ![SML](https://img.shields.io/badge/SML-3.12-blue) ![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-brightgreen) ![AI Assisted Development Used](https://img.shields.io/badge/AI%20Assisted%20Development%20Used-Disclosure%20Below-blue)
 
-> **Multiplayer:** Critical Path works in single-player and multiplayer, including dedicated servers. The **host** measures the factory and sends the report to joined clients, so everyone sees the same answer — labelled as the host's reading.
+> **Multiplayer:** Critical Path works in single-player and multiplayer, including dedicated servers. The **host** measures the factory and sends the report to joined clients, so everyone sees the same answer - labelled as the host's reading.
 
 **Quick links:** [What is it?](#-what-is-critical-path) • [The three tabs](#-the-three-tabs) • [Should you install?](#-should-you-install-critical-path) • [Controls](#-controls) • [Wiki](https://github.com/majormer/CriticalPath/wiki) • [Source](https://github.com/majormer/CriticalPath) • [Issues](https://github.com/majormer/CriticalPath/issues) • [Discord](https://discord.gg/SgXY4CwXYw)
 
@@ -14,7 +14,7 @@ Production planners are excellent at designing factories. Save-aware web tools c
 
 **What is stopping this objective, in the factory that is running right now?**
 
-Press `F10` and it reads the live world — machines, recipes, clocks, inventories, belts, pipes, splitters, storage and vehicle routes — then shows your current Space Elevator phase and HUB milestone side by side, with the reason each outstanding part is not finished.
+Press `F10` and it reads the live world - machines, recipes, clocks, inventories, belts, pipes, splitters, storage and vehicle routes - then shows your current Space Elevator phase and HUB milestone side by side, with the reason each outstanding part is not finished.
 
 Because it runs in game, changing a recipe, restoring a connection, adjusting a clock or repairing a line is reflected on the next refresh. No saving, uploading and re-reading somebody else's snapshot.
 
@@ -26,7 +26,7 @@ Because it runs in game, changing a recipe, restoring a connection, adjusting a 
 
 </div>
 
-Critical Path is **read-only**. It never builds, dismantles, configures or moves anything, and it stores nothing in your save. It is **deterministic** — the same save produces the same answer — and **no AI model is involved at runtime**.
+Critical Path is **read-only**. It never builds, dismantles, configures or moves anything, and it stores nothing in your save. It is **deterministic** - the same save produces the same answer - and **no AI model is involved at runtime**.
 
 It is a **Finalomega Labs** mod and it is **standalone**: it does not require, and does not interact with, any other mod.
 
@@ -34,13 +34,13 @@ It is a **Finalomega Labs** mod and it is **standalone**: it does not require, a
 
 ## 📊 The three tabs
 
-### PATH — what is stopping each objective part
+### PATH - what is stopping each objective part
 
 Expand any part to walk its dependency chain down to the deepest cause. Blockers are attributed to a **specific machine**, not to the product, so you are sent to the thing that is actually wrong rather than the thing that looks wrong. A machine that is unpowered *and* unfed *and* clogged reports all three, rather than only the first condition the game mentions.
 
 It also catches the failure people miss most often: a machine fed by a **full belt** that still starves, because the item at the head of that belt is something it cannot use and nothing behind it can pass. Critical Path names the offending item instead of reporting a vague shortage.
 
-### PLAN — an ordered build sequence
+### PLAN - an ordered build sequence
 
 <div align="center">
 
@@ -52,9 +52,9 @@ It also catches the failure people miss most often: a machine fed by a **full be
 
 Steps are grouped by dependency depth, so everything inside a step is independent of everything else in it and **step 1 is always buildable today** against what you already produce. Each item states what it is for individually.
 
-Research that gates a later part appears as its own numbered **Unlock** step, in order — including the case where one milestone unlocks both a part *and* an ingredient that part needs, so the second production line is not a surprise after you finish researching.
+Research that gates a later part appears as its own numbered **Unlock** step, in order - including the case where one milestone unlocks both a part *and* an ingredient that part needs, so the second production line is not a surprise after you finish researching.
 
-### BALANCE — what each line needs, and what is actually flowing
+### BALANCE - what each line needs, and what is actually flowing
 
 <div align="center">
 
@@ -64,7 +64,7 @@ Research that gates a later part appears as its own numbered **Unlock** step, in
 
 </div>
 
-Built capacity does not shrink when a machine stalls — it describes what you placed, not what it is doing this second — so the gap between capacity and current output *is* the problem, stated plainly. Rows also show the supply route, what the line would manage at full speed, and roughly how long stored stock covers the shortfall.
+Built capacity does not shrink when a machine stalls - it describes what you placed, not what it is doing this second - so the gap between capacity and current output *is* the problem, stated plainly. Rows also show the supply route, what the line would manage at full speed, and roughly how long stored stock covers the shortfall.
 
 ---
 
@@ -122,17 +122,17 @@ Some things people expect to be fuzzy are not: pipe feasibility is a hard pass/f
 
 </div>
 
-Critical Path works in multiplayer and on **dedicated servers**. The host measures the factory and sends the report to joined clients, so a client gets the complete report — PATH, BALANCE and PLAN — rather than a reduced summary.
+Critical Path works in multiplayer and on **dedicated servers**. The host measures the factory and sends the report to joined clients, so a client gets the complete report - PATH, BALANCE and PLAN - rather than a reduced summary.
 
-Why the host does the measuring: machine inventories, storage levels, station contents and fluid buffers are all server-side. A client can see buildings but reads empty values for their contents, so a client-side analysis would solve perfectly cleanly and be completely wrong — every machine would look starved. Rather than guess, the client asks the host and displays what comes back, labelled as the host's reading.
+Why the host does the measuring: machine inventories, storage levels, station contents and fluid buffers are all server-side. A client can see buildings but reads empty values for their contents, so a client-side analysis would solve perfectly cleanly and be completely wrong - every machine would look starved. Rather than guess, the client asks the host and displays what comes back, labelled as the host's reading.
 
 The host shares one measurement with everyone asking at around the same time, so several players refreshing at once costs it no more than one would. The honesty rules travel with the report: if the host's scan hit its limits, your copy says so too.
 
-Install it on the server as well as on clients, and keep the versions matched — a host on a build too old to send reports will say exactly that.
+Install it on the server as well as on clients, and keep the versions matched - a host on a build too old to send reports will say exactly that.
 
 ## ⚡ Performance
 
-Opening or refreshing the panel reads the world on the game thread and then does the heavy work in the background. On a **21,888-building** factory that read costs roughly a tenth of a second, with nothing truncated. Nothing re-runs on a timer — a report is produced only when you ask for one.
+Opening or refreshing the panel reads the world on the game thread and then does the heavy work in the background. On a **21,888-building** factory that read costs roughly a tenth of a second, with nothing truncated. Nothing re-runs on a timer - a report is produced only when you ask for one.
 
 ---
 
@@ -148,7 +148,7 @@ Opening or refreshing the panel reads the world on the game thread and then does
 
 Critical Path is a **Finalomega Labs** mod, targeting **Satisfactory 1.2** on **Unreal Engine 5.6** with **SML 3.12**. Its analysis engine is native C++.
 
-Finalomega also develops the **Smart!** build-assist mod and **Air Build**. Critical Path is a separate, standalone project — it shares no code with them and does not require them.
+Finalomega also develops the **Smart!** build-assist mod and **Air Build**. Critical Path is a separate, standalone project - it shares no code with them and does not require them.
 
 ---
 
@@ -164,7 +164,7 @@ AI assistance does not replace community testing. Critical Path is validated thr
 
 ## 💬 Getting Help
 
-Critical Path is **v1.0.0** — its first release. If something behaves unexpectedly, please report it with your Satisfactory version, SML version, session type (single-player, hosting, or joined), and clear reproduction steps. A screenshot of the panel is enormously helpful.
+Critical Path is **v1.0.0** - its first release. If something behaves unexpectedly, please report it with your Satisfactory version, SML version, session type (single-player, hosting, or joined), and clear reproduction steps. A screenshot of the panel is enormously helpful.
 
 - **Wiki:** https://github.com/majormer/CriticalPath/wiki
 - **Report bugs / track issues:** https://github.com/majormer/CriticalPath/issues

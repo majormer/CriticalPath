@@ -37,8 +37,8 @@ prescription surfaces, followed by the remaining awareness and release-polish wo
 
 The plugin has two modules:
 
-- **CriticalPathEngine** — live-game capture plus UObject-free analysis and structured results.
-- **CriticalPath** — the in-game interface consuming those results.
+- **CriticalPathEngine** - live-game capture plus UObject-free analysis and structured results.
+- **CriticalPath** - the in-game interface consuming those results.
 
 See [PRD.md](PRD.md) for product scope and roadmap, [docs/AnalysisModel.md](docs/AnalysisModel.md)
 for the decision model, [docs/FlowModel.md](docs/FlowModel.md) for the solver contract, and

@@ -1,4 +1,4 @@
-# Critical Path — Analysis Model
+# Critical Path - Analysis Model
 
 This document defines how Critical Path turns a live Satisfactory factory into an objective
 verdict, a causal explanation, and an actionable plan. It is the durable contract between
@@ -13,9 +13,9 @@ longer manufactures quantitative fallbacks from overlapping connectivity islands
 
 Critical Path has three layers with one-way dependencies:
 
-1. **Capture, on the game thread** — reads UObjects and produces bounded plain-data snapshots.
-2. **Analysis and flow solving** — UObject-free deterministic code over those snapshots.
-3. **Presentation and consumers** — panel, Markdown export, tracker, and public API.
+1. **Capture, on the game thread** - reads UObjects and produces bounded plain-data snapshots.
+2. **Analysis and flow solving** - UObject-free deterministic code over those snapshots.
+3. **Presentation and consumers** - panel, Markdown export, tracker, and public API.
 
 UObject access never leaks into analysis. Presentation never recomputes facts from game objects.
 Every cap, missing context, non-converged solve, or server-only field remains explicit in the
@@ -52,10 +52,10 @@ prospective chain needed to make those inputs.
 
 Owned stock is partitioned by how it can be used:
 
-- **machine-reachable** — storage, buffers, and in-transit stock on the feeding graph;
-- **player-available** — pockets and dimensional depot, requiring manual delivery;
-- **orphaned** — finite stock with no automated route to a consumer;
-- **objective-delivered** — already paid and never counted again.
+- **machine-reachable** - storage, buffers, and in-transit stock on the feeding graph;
+- **player-available** - pockets and dimensional depot, requiring manual delivery;
+- **orphaned** - finite stock with no automated route to a consumer;
+- **objective-delivered** - already paid and never counted again.
 
 Dimensional-depot stock is never treated as belt supply. Exactly funded batches remain funded
 even when their buffers reach zero at the same moment the objective completes.
@@ -78,8 +78,8 @@ litres to cubic metres.
 
 Each producer and consumer carries two rate sets:
 
-- **Current rates** — unavailable machines contribute zero.
-- **Design rates** — configured rates regardless of current machine state.
+- **Current rates** - unavailable machines contribute zero.
+- **Design rates** - configured rates regardless of current machine state.
 
 ### Edges
 
@@ -229,8 +229,8 @@ steady-state routing with a momentary fill-rate guess.
 
 A nuclear generator is the one power source that produces something, and its waste matters twice:
 it must leave the reactor or the reactor stops, and it is a real ingredient downstream. It is
-captured exactly like a manufacturer's output side — a Producer node paired to the fuel Consumer
-node — so output edges originate from it and the solver ties waste production to fuel supply. A
+captured exactly like a manufacturer's output side - a Producer node paired to the fuel Consumer
+node - so output edges originate from it and the solver ties waste production to fuel supply. A
 reactor with no fuel produces no waste, without a special case.
 
 The waste item and its per-fuel-item count are read from the fuel descriptor
@@ -240,7 +240,7 @@ burners have no spent-fuel class and remain consumer-only nodes.
 
 Note that waste **supply** and the spent-fuel **explanation** are separate mechanisms and both
 apply. If a chain needs waste and no reactor produces it, the research walk still says "no recipe
-by design — burn its fuel in a Nuclear Power Plant" rather than sending the player to look for an
+by design - burn its fuel in a Nuclear Power Plant" rather than sending the player to look for an
 unlock that does not exist.
 
 ### Byproducts
@@ -252,7 +252,7 @@ based only on output-full state and absence of configured consumers.
 ## 6. Fluids and head lift
 
 Critical Path solves fluids at steady state and does not reproduce Satisfactory's transient fluid
-simulation — priming, sloshing and junction settling are outside the model. That is the same
+simulation - priming, sloshing and junction settling are outside the model. That is the same
 basis solids are solved on, so **a fluid rate is not softer than a belt rate** and is not hedged
 in presentation. An earlier revision of this document described fluid rates as "approximate and
 labeled"; nothing was ever labeled, and the hedge was not earned.
@@ -307,13 +307,13 @@ visible while the row also says to fix the stopped machine.
 
 A locked recipe used to end the walk: the item was known to be locked and nothing more. Anything
 the plan placed after the unlock therefore implied the unlock was the last obstacle, which is
-frequently false — one milestone commonly gates a part **and** an ingredient that part consumes,
+frequently false - one milestone commonly gates a part **and** an ingredient that part consumes,
 which is an entire additional line to build.
 
 Locked recipes are now captured too, flagged `bRecipeLocked`, and the research-gap walk descends
 through them. Everything is read from `AFGRecipeManager` at runtime (`FindRecipesByProduct` with
 `onlyAvailableRecipes = false`, plus `IsRecipeAvailable`), so modded recipes behind modded
-research behave identically — nothing is hardcoded or table-driven.
+research behave identically - nothing is hardcoded or table-driven.
 
 **Captured knowledge of a future line is never evidence of a buildable one.** Chain nodes for a
 locked recipe stay `ResearchLocked`, so every consumer keeps treating them as gated; the capture
@@ -324,7 +324,7 @@ exists only so the plan can answer "what will this need once it unlocks" *before
 When the research gating a locked part is **itself one of the tracked objectives**, the ordering
 is fully determined: build that objective's outstanding lines, the research completes, the part
 becomes buildable. The plan emits an `FCPUnlockStep` in sequence rather than describing the
-research as separate work, because it is not separate — it is a link in the same chain.
+research as separate work, because it is not separate - it is a link in the same chain.
 
 The guard is deliberately strict. An unlock step is emitted **only** when the gating research is a
 tracked objective *and* every outstanding requirement of that objective is already a line in this
@@ -338,8 +338,8 @@ ingredient of that part, which must be ordered relative to each other.
 
 Two distinct relationships, kept apart because they answer different questions:
 
-- `NeededFor` — items that consume this step's output; derived from ingredient→parent chain edges.
-- `NeededForObjectives` — objectives this step directly satisfies.
+- `NeededFor` - items that consume this step's output; derived from ingredient→parent chain edges.
+- `NeededForObjectives` - objectives this step directly satisfies.
 
 The second exists because a part an objective asks for is a chain **root**, not anyone's
 ingredient, so it never appears in `NeededFor`. Without it, a terminal deliverable rendered with
@@ -354,9 +354,9 @@ so a terminal deliverable read as an ingredient of its neighbours.
 
 The augment audit is a planned consumer of the same model:
 
-- **wasted** — placed in a stopped, saturated, or standby machine;
-- **permanent-value** — compounds finite world-gathered inputs and is protected;
-- **throughput** — renewable chain placement ranked against the objective's marginal value.
+- **wasted** - placed in a stopped, saturated, or standby machine;
+- **permanent-value** - compounds finite world-gathered inputs and is protected;
+- **throughput** - renewable chain placement ranked against the objective's marginal value.
 
 Scarcity is derived from recipe availability. Power Shards cease to be treated as finite when a
 producing recipe is unlocked.
@@ -371,7 +371,7 @@ Rows remain concise; detail is progressive:
   annotations, item balance, and runway;
 - action: expand/collapse, refresh, and locate/ping where coordinates exist.
 
-Unknown, approximate, current, and design are visible words—not tooltip-only qualifications.
+Unknown, approximate, current, and design are visible words - not tooltip-only qualifications.
 
 ## 11. Migration and compatibility
 
@@ -387,5 +387,5 @@ Phase C compatibility rules:
 - when flow evidence is unavailable, quantitative values remain unknown instead of reviving the
   old reachability/island calculation.
 
-The known M2 defect—overlapping flow-network rows double-counting the same consumers—is a reason
+The known M2 defect - overlapping flow-network rows double-counting the same consumers - is a reason
 to migrate, not evidence to preserve its answers.

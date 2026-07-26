@@ -1,4 +1,4 @@
-# Critical Path — Transport Model
+# Critical Path - Transport Model
 
 This document is the durable contract for train, truck, and drone logistics in the flow graph.
 The topology layer is implemented and merged. Transport is modeled as batched service between

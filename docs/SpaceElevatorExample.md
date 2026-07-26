@@ -1,4 +1,4 @@
-# Space Elevator: Main Body — Configured Production Lines
+# Space Elevator: Main Body - Configured Production Lines
 
 > Historical design snapshot (2026-07-20). This example established the distilled-path UX, but its
 > rates and aggregate status colours predate the solved flow graph, fluid modeling, and transport

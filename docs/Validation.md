@@ -1,4 +1,4 @@
-# Critical Path — Validation Evidence and Release Gates
+# Critical Path - Validation Evidence and Release Gates
 
 This reference records the evidence behind Critical Path's model and the checks required before a
 new analysis path becomes player-facing. It is organized by invariant rather than development
@@ -197,12 +197,12 @@ A Nuclear Power Plant running Plutonium Fuel Rods, captured live:
 
 The stoichiometry closes independently of the implementation: a Nuclear Power Plant is 2,500 MW
 and a Plutonium Fuel Rod holds 1,500,000 MJ, so 2500 x 60 / 1,500,000 = 0.1 rods/min, and
-`GetAmountWasteCreated` is 10 — giving exactly the 1.0/min observed. Both figures come from the
+`GetAmountWasteCreated` is 10 - giving exactly the 1.0/min observed. Both figures come from the
 fuel descriptor, so a modded fuel is measured the same way rather than matched against a table.
 
 The 0.847 current output is the load-following path: the reactor was serving roughly 85% of grid
 demand. `sustainable` and `delivered` are 0 with `consumerBuildings: 0` because the waste output
-was not belted anywhere — nothing absorbs it, which is the correct reading rather than a failure.
+was not belted anywhere - nothing absorbs it, which is the correct reading rather than a failure.
 
 Two earlier observations on the main save are worth keeping, because both are correct behaviour
 that could be mistaken for a bug:
@@ -245,19 +245,19 @@ These are two requirements and they are in different states.
 **Provenance is met, end to end.** A vehicle edge carries a sentinel capacity meaning "connected,
 rate unknown" and never a guessed throughput. `bTransportRateKnown = false` propagates into
 `bKnown` on **both** the current and design bases, so a balance whose flow crosses a route is
-never presented as known — the honesty is enforced in the data, not merely in wording. It is then
+never presented as known - the honesty is enforced in the data, not merely in wording. It is then
 explained rather than left as a silent blank:
 
-- blocker text — "Vehicle route connected — delivery rate unknown because throughput is not yet
+- blocker text - "Vehicle route connected - delivery rate unknown because throughput is not yet
   measured";
-- Balance row notice — "Transport route is known; vehicle throughput is not yet measured";
+- Balance row notice - "Transport route is known; vehicle throughput is not yet measured";
 - the same in the Markdown export;
 - `ECPFlowUnknownReason::TransportRateUnknown` carries the reason through the model.
 
 **Typed metadata is deferred**, recorded here so it does not fall silently out of scope. `bTransport`
 is a single bool: there is no transport-mode enum, no carrier or service identity, no per-route
 item filter, and no degraded-health signal. The deferral is defensible because none of it can
-change a number — every route is unknown either way, so typing the edge would improve the
+change a number - every route is unknown either way, so typing the edge would improve the
 *explanation* ("crosses a train route" rather than "a vehicle route") and nothing else.
 
 **Measured rates are the open policy decision**, not a separate gap: shipping "connected, rate
@@ -284,7 +284,7 @@ interactive budget. Performance hardening is a release gate, not optional polish
 ### Re-measured after sparse item iteration
 
 The 2.98 s figure above predates the solver change that iterates only the items a node can
-actually carry. Re-measured on the largest available save — no truncation of any kind
+actually carry. Re-measured on the largest available save - no truncation of any kind
 (`bAnyCapHit: false`), so this is a COMPLETE analysis, not a capped one:
 
 | Scope | |
@@ -293,7 +293,7 @@ actually carry. Re-measured on the largest available save — no truncation of a
 | Connectivity buildings walked | 21,888 of 21,888 |
 | Connectivity states propagated | 22,964 |
 | Flow graph | 4,588 nodes / 5,214 edges |
-| Flow evidence | Available — both solves converged |
+| Flow evidence | Available - both solves converged |
 
 Five consecutive live runs through the modular-feature endpoint:
 
@@ -316,7 +316,7 @@ Two structural points this measurement establishes, both of which the single com
   superseded refresh is discarded rather than presented. The asynchronous and cancellation-safe
   requirements are met by construction.
 - **What the player feels is ~95 ms, not 2.98 s.** Roughly six frames, once, and only on an
-  explicit open or refresh — nothing re-runs the analysis on a timer. `flowMs` lumped a
+  explicit open or refresh - nothing re-runs the analysis on a timer. `flowMs` lumped a
   game-thread actor walk together with an off-thread solve, which is why the solve cost read as
   stutter it never caused. Artifacts now report `flowCaptureMs`, `solveMs` and `gameThreadMs`
   separately so this stays measurable from a live game instead of estimated.
@@ -329,7 +329,7 @@ across frames is the lever if that becomes necessary; it is not justified by thi
 
 Writing the flow graph to disk is a diagnostic action and now requires consent. It was previously
 gated only on a solve failing to converge, which meant a player who had never asked for
-diagnostics could have several thousand nodes and edges serialised into `Saved/` silently — a
+diagnostics could have several thousand nodes and edges serialised into `Saved/` silently - a
 condition is not a control, and nothing announced that it had happened.
 
 `cp.DumpFlowGraph` governs it, defaulting to off:
@@ -361,7 +361,7 @@ Covered by `CriticalPath.Lifecycle.*`:
 
 `CurrentAndDesignAreSeparate` pins a contract that was previously only implied: **installed
 capacity is deliberately identical on both bases.** It describes what the placed machines could
-make, not what they are doing, so it must not shrink when a machine stalls — otherwise the
+make, not what they are doing, so it must not shrink when a machine stalls - otherwise the
 panel's "built capacity" bar would drop every time the factory hiccuped. The bases differ in
 flow, and the test asserts that separation directly (design delivers 60/min, current 15/min).
 
@@ -383,7 +383,7 @@ producers, pumps (`GetDesignHeadLift`) and reservoir columns, forbids reverse tr
 zero-head pump as a valve, and checks each pipe run's highest spline point rather than its
 endpoints. If the budget does not clear that high point the edge is marked blocked
 (`CPFlowCapture.cpp`, "head-capped: the line cannot climb"). A blocked edge then carries exactly
-nothing — asserted by `CriticalPath.Flow.BlockedEdgeCarriesNothing`. There is no marginal band to
+nothing - asserted by `CriticalPath.Flow.BlockedEdgeCarriesNothing`. There is no marginal band to
 express as an approximation, and no derating to hedge.
 
 Because feasibility is settled before rates are computed, a fluid rate rests on the same
