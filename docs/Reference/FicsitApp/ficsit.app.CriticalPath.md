@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Released-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.0-blue) ![Satisfactory](https://img.shields.io/badge/Satisfactory-1.2-blue) ![Engine](https://img.shields.io/badge/Engine-UE%205.6-blue) ![SML](https://img.shields.io/badge/SML-3.12-blue) ![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-brightgreen) ![AI Assisted Development Used](https://img.shields.io/badge/AI%20Assisted%20Development%20Used-Disclosure%20Below-blue)
 
-> **Multiplayer:** Critical Path works in single-player and multiplayer, including dedicated servers. The analysis is performed by the **host** — a joined client will say so rather than show a report built from data it cannot see.
+> **Multiplayer:** Critical Path works in single-player and multiplayer, including dedicated servers. The **host** measures the factory and sends the report to joined clients, so everyone sees the same answer — labelled as the host's reading.
 
 **Quick links:** [What is it?](#-what-is-critical-path) • [The three tabs](#-the-three-tabs) • [Should you install?](#-should-you-install-critical-path) • [Controls](#-controls) • [Wiki](https://github.com/majormer/CriticalPath/wiki) • [Source](https://github.com/majormer/CriticalPath) • [Issues](https://github.com/majormer/CriticalPath/issues) • [Discord](https://discord.gg/SgXY4CwXYw)
 
@@ -116,19 +116,19 @@ Some things people expect to be fuzzy are not: pipe feasibility is a hard pass/f
 
 <div align="center">
 
-<img src="https://github.com/majormer/CriticalPath/blob/main/images/CriticalPath-MultiplayerClient.png?raw=true" width="820" alt="The panel on a joined client, explaining that production data is server-side">
+<img src="https://github.com/majormer/CriticalPath/blob/main/images/CriticalPath-MultiplayerRelay.png?raw=true" width="820" alt="A joined client showing a report relayed from the host">
 
-*On a joined client the panel explains what it cannot see, instead of showing a confident, wrong report.*
+*A joined client, showing the host's report. Note the header: "from the host, just now".*
 
 </div>
 
-Critical Path works in multiplayer and on **dedicated servers**, with the analysis performed by the host.
+Critical Path works in multiplayer and on **dedicated servers**. The host measures the factory and sends the report to joined clients, so a client gets the complete report — PATH, BALANCE and PLAN — rather than a reduced summary.
 
-Machine inventories, storage levels, station contents and fluid buffers are all server-side. A joined client can see buildings but reads empty values for their contents — an analysis built from that would solve cleanly and be completely wrong, reporting a healthy factory as starved. So the client says what it cannot measure and points you at the host.
+Why the host does the measuring: machine inventories, storage levels, station contents and fluid buffers are all server-side. A client can see buildings but reads empty values for their contents, so a client-side analysis would solve perfectly cleanly and be completely wrong — every machine would look starved. Rather than guess, the client asks the host and displays what comes back, labelled as the host's reading.
 
-Install it on the server as well as on clients, and keep the versions matched.
+The host shares one measurement with everyone asking at around the same time, so several players refreshing at once costs it no more than one would. The honesty rules travel with the report: if the host's scan hit its limits, your copy says so too.
 
----
+Install it on the server as well as on clients, and keep the versions matched — a host on a build too old to send reports will say exactly that.
 
 ## ⚡ Performance
 

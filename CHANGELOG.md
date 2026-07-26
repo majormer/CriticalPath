@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Nuclear waste is treated as production.** A reactor is modelled as a producer of its own waste, so a chain that consumes reactor waste can see where it comes from and at what rate.
 
-- **Multiplayer, with analysis performed by the host.** Works on dedicated servers. A joined client says it cannot measure the factory rather than showing a report built from data it cannot see — machine contents and storage are server-side, so a client-side reading would be confidently wrong.
+- **Multiplayer, with the host measuring and sending the report.** Works on dedicated servers. A joined client gets the complete report, labelled as the host's reading. It is done this way because machine contents and storage are server-side: a client measuring for itself would read every machine as empty and report a healthy factory as starved. The host shares one measurement with everyone asking at around the same time, and the honesty rules travel with it — if the host's scan hit its limits, your copy says so too.
 
 - **Unknowns stay unknown.** Vehicle routes report as connected with unmeasured throughput rather than being assigned a plausible number. A scan that hits its collection limit says how much it examined. A solve that does not settle keeps its values but marks them unknown. The rule throughout is that a wrong number gets acted on, while a blank gets investigated.
 
