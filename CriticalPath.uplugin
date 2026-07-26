@@ -1,0 +1,40 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"FriendlyName": "Critical Path",
+	"Description": "Critical Path \u2014 a goal-based dependency checker for Satisfactory: see what actually blocks your objectives. A Finalomega Labs mod.",
+	"Category": "Modding",
+	"CreatedBy": "Finalomega Labs",
+	"PluginIconPath": "Resources/Icon128.png",
+	"CreatedByURL": "https://ko-fi.com/finalomega",
+	"DocsURL": "https://github.com/majormer/CriticalPath",
+	"MarketplaceURL": "",
+	"SupportURL": "https://discord.gg/SgXY4CwXYw",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "CriticalPathEngine",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "CriticalPath",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"BuiltInInitialFeatureState": "Active",
+	"Plugins": [
+		{
+			"Name": "SML",
+			"Enabled": true,
+			"SemVersion": "^3.12.0"
+		}
+	],
+	"SemVersion": "1.0.0",
+	"GameVersion": ">=491125"
+}
