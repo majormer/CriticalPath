@@ -13,7 +13,7 @@
 	"SupportURL": "https://discord.gg/SgXY4CwXYw",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
-	"IsExperimentalVersion": true,
+	"IsExperimentalVersion": false,
 	"Installed": false,
 	"Modules": [
 		{
