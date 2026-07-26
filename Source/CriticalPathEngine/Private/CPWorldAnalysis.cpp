@@ -43,7 +43,7 @@ bool FCPWorldAnalysis::Analyze(
 	{
 		OutResult.FlowEvidence = ECPFlowEvidenceState::CaptureFailed;
 		UE_LOG(LogCriticalPathEngine, Warning,
-			TEXT("WorldAnalysis: flow capture failed (%s) — returning base analysis only"), *FlowError);
+			TEXT("WorldAnalysis: flow capture failed (%s) - returning base analysis only"), *FlowError);
 		if (OutArtifacts)
 		{
 			OutArtifacts->Snapshot = MoveTemp(Snapshot);

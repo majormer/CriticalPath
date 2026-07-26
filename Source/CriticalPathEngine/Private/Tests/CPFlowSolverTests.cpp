@@ -1631,7 +1631,7 @@ bool FCPFlowReplayTest::RunTest(const FString& Parameters)
 	FString Json;
 	if (!FFileHelper::LoadFileToString(Json, *DumpPath))
 	{
-		AddInfo(TEXT("No FlowGraphDebug.json — nothing to replay."));
+		AddInfo(TEXT("No FlowGraphDebug.json - nothing to replay."));
 		return true;
 	}
 	FCPFlowGraph Graph;
@@ -1678,7 +1678,7 @@ bool FCPFlowReplayTest::RunTest(const FString& Parameters)
 	FCPFlowSolveResult DenseResult;
 	FCPFlowSolver::Solve(Graph, DenseParams, DenseResult);
 	const double DenseMs = (FPlatformTime::Seconds() - DenseStart) * 1000.0;
-	AddInfo(FString::Printf(TEXT("PERF dense (parity) solve: %.1f ms — sparse is %.1fx faster"),
+	AddInfo(FString::Printf(TEXT("PERF dense (parity) solve: %.1f ms - sparse is %.1fx faster"),
 		DenseMs, DenseMs / FMath::Max(SolveMs, 0.001)));
 
 	TestEqual(TEXT("parity: same convergence"), DenseResult.bConverged, Result.bConverged);

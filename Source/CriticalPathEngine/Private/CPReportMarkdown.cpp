@@ -144,7 +144,7 @@ FString FCPReportMarkdown::Build(const FCPAnalysisResult& Result, const FString&
 	Md += FString::Printf(TEXT("_Captured: %s_\n\n"), *CapturedAtIso);
 	if (Result.Truncation.bAnyCapHit)
 	{
-		Md += FString::Printf(TEXT("> **Partial scan**: %d of %d buildings scanned — treat totals as lower bounds.\n\n"),
+		Md += FString::Printf(TEXT("> **Partial scan**: %d of %d buildings scanned - treat totals as lower bounds.\n\n"),
 			Result.Truncation.BuildingsScanned, Result.Truncation.BuildingsAvailable);
 	}
 
@@ -156,7 +156,7 @@ FString FCPReportMarkdown::Build(const FCPAnalysisResult& Result, const FString&
 			*Objective.ObjectiveName);
 		if (Objective.bPayableNow)
 		{
-			Md += TEXT("**Payable now** — every remaining part is banked.\n\n");
+			Md += TEXT("**Payable now** - every remaining part is banked.\n\n");
 		}
 		Md += TEXT("| Part | Needed | Banked | To produce | Status |\n|---|---:|---:|---:|---|\n");
 		for (const FCPPartReport& Part : Objective.Parts)
@@ -192,18 +192,18 @@ FString FCPReportMarkdown::Build(const FCPAnalysisResult& Result, const FString&
 			{
 				const FString Constraint = LimiterConstraintLabel(Part.Limiter);
 				const FString Marginal = LimiterMarginalLabel(Part.Limiter);
-				Md += FString::Printf(TEXT("  - limiter: **%s** — %.0f/min vs %.0f/min (%.0f%%, %s)%s%s%s%s\n"),
+				Md += FString::Printf(TEXT("  - limiter: **%s** - %.0f/min vs %.0f/min (%.0f%%, %s)%s%s%s%s\n"),
 					*Part.Limiter.Item.Name, Part.Limiter.SupplyPerMinute, Part.Limiter.DemandPerMinute,
 					Part.Limiter.Ratio * 100.0f,
 					Part.Limiter.bSolverDerived ? TEXT("solved domain") :
 						(Part.Limiter.bNetworkScoped ? TEXT("limiting network") : TEXT("aggregate")),
 					Part.Limiter.BufferMinutes >= 0.0f
-						? (Part.Limiter.BufferMinutes < 1.0f ? TEXT(" — stored buffer dry")
-							: *FString::Printf(TEXT(" — stored buffer ~%.0f min"), Part.Limiter.BufferMinutes))
+						? (Part.Limiter.BufferMinutes < 1.0f ? TEXT(" - stored buffer dry")
+							: *FString::Printf(TEXT(" - stored buffer ~%.0f min"), Part.Limiter.BufferMinutes))
 						: TEXT(""),
-					Part.Limiter.UnknownLinks > 0 ? *FString::Printf(TEXT(" — %d link(s) unknown"), Part.Limiter.UnknownLinks) : TEXT(""),
-					Constraint.IsEmpty() ? TEXT("") : *FString::Printf(TEXT(" — %s"), *Constraint),
-					Marginal.IsEmpty() ? TEXT("") : *FString::Printf(TEXT(" — %s"), *Marginal));
+					Part.Limiter.UnknownLinks > 0 ? *FString::Printf(TEXT(" - %d link(s) unknown"), Part.Limiter.UnknownLinks) : TEXT(""),
+					Constraint.IsEmpty() ? TEXT("") : *FString::Printf(TEXT(" - %s"), *Constraint),
+					Marginal.IsEmpty() ? TEXT("") : *FString::Printf(TEXT(" - %s"), *Marginal));
 			}
 			for (const FCPPlannedNode& Node : Part.PlannedChain)
 			{
@@ -213,9 +213,9 @@ FString FCPReportMarkdown::Build(const FCPAnalysisResult& Result, const FString&
 					Indent += TEXT("  ");
 				}
 				const FString Kind =
-					Node.Kind == ECPPlanNodeKind::PlannedLine ? FString(TEXT("no line — build")) :
+					Node.Kind == ECPPlanNodeKind::PlannedLine ? FString(TEXT("no line - build")) :
 					Node.Kind == ECPPlanNodeKind::ExistingProduction ? FString(Node.bLineStopped ? TEXT("line exists but STOPPED") : TEXT("already produced")) :
-					Node.Kind == ECPPlanNodeKind::RawResource ? FString(TEXT("raw — extract")) :
+					Node.Kind == ECPPlanNodeKind::RawResource ? FString(TEXT("raw - extract")) :
 					Node.Kind == ECPPlanNodeKind::ResearchLocked
 						? (Node.ByproductOfFuel.IsEmpty()
 							? FString(TEXT("research locked"))
@@ -305,7 +305,7 @@ FString FCPReportMarkdown::Build(const FCPAnalysisResult& Result, const FString&
 		for (const FCPResearchGap& Gap : Result.ResearchGaps)
 		{
 			Md += !Gap.ByproductOfFuel.IsEmpty()
-				? FString::Printf(TEXT("- %s: no recipe by design — spent fuel, burn **%s** in a Nuclear Power Plant\n"), *Gap.NeededItem.Name, *Gap.ByproductOfFuel)
+				? FString::Printf(TEXT("- %s: no recipe by design - spent fuel, burn **%s** in a Nuclear Power Plant\n"), *Gap.NeededItem.Name, *Gap.ByproductOfFuel)
 				: Gap.UnlockSchematicName.IsEmpty()
 					? FString::Printf(TEXT("- %s: recipe locked, no purchasable research yet\n"), *Gap.NeededItem.Name)
 					: FString::Printf(TEXT("- %s: research **%s**\n"), *Gap.NeededItem.Name, *Gap.UnlockSchematicName);

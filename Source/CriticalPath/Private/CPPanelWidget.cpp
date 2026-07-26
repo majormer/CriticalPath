@@ -172,24 +172,24 @@ FText BlockerReasonText(const FCPBlocker& Blocker)
 	switch (Blocker.Reason)
 	{
 	case ECPBlockerReason::NoProducer:
-		return LOCTEXT("BlockNoProducer", "Nothing produces it — build a line");
+		return LOCTEXT("BlockNoProducer", "Nothing produces it - build a line");
 	case ECPBlockerReason::NoPower:
 		return Blocker.TotalBuildings > 0
-			? FText::Format(LOCTEXT("BlockNoPowerCountFmt", "No power — {0} of {1} machine(s) dark"),
+			? FText::Format(LOCTEXT("BlockNoPowerCountFmt", "No power - {0} of {1} machine(s) dark"),
 				FText::AsNumber(Blocker.AffectedBuildings), FText::AsNumber(Blocker.TotalBuildings))
 			: LOCTEXT("BlockNoPower", "Producers have no power");
 	case ECPBlockerReason::SupplyBelowDemand:
 		return FText::Format(Blocker.bSolverDerived
 			? LOCTEXT("BlockSolvedSupplyFmt", "Only {0}/min is reaching this line; it needs {1}/min")
-			: LOCTEXT("BlockSupplyFmt", "Supply {0}/min vs demand {1}/min — add capacity"),
+			: LOCTEXT("BlockSupplyFmt", "Supply {0}/min vs demand {1}/min - add capacity"),
 			FText::AsNumber(FMath::RoundToInt(Blocker.SupplyPerMinute)), FText::AsNumber(FMath::RoundToInt(Blocker.DemandPerMinute)));
 	case ECPBlockerReason::ExtractionBelowDemand:
 		return FText::Format(Blocker.bSolverDerived
-			? LOCTEXT("BlockSolvedExtractFmt", "Only {0}/min is reaching this line; it needs {1}/min — add or upgrade extraction")
-			: LOCTEXT("BlockExtractFmt", "Extraction {0}/min vs demand {1}/min — add or upgrade extractors"),
+			? LOCTEXT("BlockSolvedExtractFmt", "Only {0}/min is reaching this line; it needs {1}/min - add or upgrade extraction")
+			: LOCTEXT("BlockExtractFmt", "Extraction {0}/min vs demand {1}/min - add or upgrade extractors"),
 			FText::AsNumber(FMath::RoundToInt(Blocker.SupplyPerMinute)), FText::AsNumber(FMath::RoundToInt(Blocker.DemandPerMinute)));
 	case ECPBlockerReason::LogisticsSuspected:
-		return LOCTEXT("BlockLegacyLogistics", "This reading is out of date — press REFRESH");
+		return LOCTEXT("BlockLegacyLogistics", "This reading is out of date - press REFRESH");
 	case ECPBlockerReason::ProducerNotConnected:
 		return Blocker.bSolverDerived
 			? LOCTEXT("BlockSolvedNotConnected", "Production exists, but none reaches the machines that need it")
@@ -200,26 +200,26 @@ FText BlockerReasonText(const FCPBlocker& Blocker)
 			switch (Blocker.UnknownReason)
 			{
 			case ECPFlowUnknownReason::TransportRateUnknown:
-				return LOCTEXT("BlockTransportRateUnknown", "Vehicle route connected — delivery rate unknown because throughput is not yet measured");
+				return LOCTEXT("BlockTransportRateUnknown", "Vehicle route connected - delivery rate unknown because throughput is not yet measured");
 			case ECPFlowUnknownReason::PathAttributionMissing:
-				return LOCTEXT("BlockPathAttributionMissing", "The feeding line could not be identified — inspect the connected producers");
+				return LOCTEXT("BlockPathAttributionMissing", "The feeding line could not be identified - inspect the connected producers");
 			case ECPFlowUnknownReason::IncompleteOrNonConverged:
 			default:
-				return LOCTEXT("BlockSolvedConnectivityUnknown", "Could not measure what is arriving — check the belts and pipes feeding this");
+				return LOCTEXT("BlockSolvedConnectivityUnknown", "Could not measure what is arriving - check the belts and pipes feeding this");
 			}
 		}
-		return LOCTEXT("BlockConnectivityUnknown", "Starved — the delivery path could not be fully checked; inspect its connections");
+		return LOCTEXT("BlockConnectivityUnknown", "Starved - the delivery path could not be fully checked; inspect its connections");
 	case ECPBlockerReason::ByproductBackedUp:
-		return FText::Format(LOCTEXT("BlockByproductFmt", "Outputs full — {0} has no connected destination and may be backing up (check its disposal)"),
+		return FText::Format(LOCTEXT("BlockByproductFmt", "Outputs full - {0} has no connected destination and may be backing up (check its disposal)"),
 			FText::FromString(Blocker.Byproduct.Name));
 	case ECPBlockerReason::InputsStarved:
 		return Blocker.TotalBuildings > 0
-			? FText::Format(LOCTEXT("BlockInputsStarvedFmt", "No inputs arriving — {0} of {1} machine(s) starved (check connections and supply)"),
+			? FText::Format(LOCTEXT("BlockInputsStarvedFmt", "No inputs arriving - {0} of {1} machine(s) starved (check connections and supply)"),
 				FText::AsNumber(Blocker.AffectedBuildings), FText::AsNumber(Blocker.TotalBuildings))
 			: LOCTEXT("BlockInputsStarved", "No inputs arriving (check connections and supply)");
 	case ECPBlockerReason::OutputsFull:
 		return Blocker.TotalBuildings > 0
-			? FText::Format(LOCTEXT("BlockOutputsFullFmt", "Outputs full — {0} of {1} machine(s) stalled"),
+			? FText::Format(LOCTEXT("BlockOutputsFullFmt", "Outputs full - {0} of {1} machine(s) stalled"),
 				FText::AsNumber(Blocker.AffectedBuildings), FText::AsNumber(Blocker.TotalBuildings))
 			: LOCTEXT("BlockOutputsFull", "Outputs full");
 	default:
@@ -294,7 +294,7 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, FLinearColor& OutColor)
 		// Lead with the jam: it is the actionable one, and it is not a supply problem at all.
 		OutColor = CPStyle::StatusRed;
 		return FText::Format(LOCTEXT("BalanceJammedFmt",
-			"BELT JAMMED · {0} machine(s) blocked by {1} on the feeding belt — remove it; this is not a supply shortage"),
+			"BELT JAMMED · {0} machine(s) blocked by {1} on the feeding belt - remove it; this is not a supply shortage"),
 			FText::AsNumber(Balance.JammedProducerBuildings),
 			FText::FromString(Balance.JammedByItemName));
 	}
@@ -963,7 +963,7 @@ void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& Dat
 						StripeSlot->SetVerticalAlignment(VAlign_Fill);
 					}
 					UTextBlock* Note = MakeText(WidgetTree,
-						FText::Format(LOCTEXT("ResearchIsSelectedFmt", "Unlocked by {0} — your SELECTED milestone: its payment progress is the Milestone column →"),
+						FText::Format(LOCTEXT("ResearchIsSelectedFmt", "Unlocked by {0} - your SELECTED milestone: its payment progress is the Milestone column →"),
 							FText::FromString(SelectedMilestoneGap->UnlockSchematicName)),
 						10, CPStyle::TextSecondary);
 					Note->SetWrapTextAt(CPStyle::ColumnNoticeWrap);
@@ -1034,11 +1034,11 @@ void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& Dat
 		if (Result.bMilestoneSelected)
 		{
 			// Selected but nothing outstanding: it's fully paid, only the redeem step remains.
-			AddNoticeRow(LOCTEXT("MilestonePaid", "Current milestone is fully paid — collect it and select the next one at the HUB."));
+			AddNoticeRow(LOCTEXT("MilestonePaid", "Current milestone is fully paid - collect it and select the next one at the HUB."));
 		}
 		else if (Result.SelectableMilestoneCount > 0)
 		{
-			AddNoticeRow(FText::Format(LOCTEXT("MilestoneNoneSelectedFmt", "No milestone selected — {0} available. Choose one at the HUB."),
+			AddNoticeRow(FText::Format(LOCTEXT("MilestoneNoneSelectedFmt", "No milestone selected - {0} available. Choose one at the HUB."),
 				FText::AsNumber(Result.SelectableMilestoneCount)));
 		}
 		else
@@ -1100,7 +1100,7 @@ void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& Dat
 	FText Age = DataAgeText;
 	if (Result.Truncation.bAnyCapHit)
 	{
-		Age = FText::Format(LOCTEXT("TruncFmt", "{0}  ·  only {1} of {2} checked — too many to scan"), Age,
+		Age = FText::Format(LOCTEXT("TruncFmt", "{0}  ·  only {1} of {2} checked - too many to scan"), Age,
 			FText::AsNumber(Result.Truncation.BuildingsScanned), FText::AsNumber(Result.Truncation.BuildingsAvailable));
 	}
 	DataAgeTextBlock->SetText(Age);
@@ -1485,7 +1485,7 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 					EndpointLine->AddChildToHorizontalBox(MakeText(WidgetTree, FText::AsNumber(Location.SomersloopCount),
 						8, CPStyle::StatusViolet, true))->SetVerticalAlignment(VAlign_Center);
 				}
-				const FText EndpointText = FText::Format(LOCTEXT("BalanceEndpointFmt", "{0}. {1}  —  {2}"),
+				const FText EndpointText = FText::Format(LOCTEXT("BalanceEndpointFmt", "{0}. {1} - {2}"),
 					FText::AsNumber(EndpointIndex + 1), FText::FromString(Location.Label),
 					BalanceLocationStatus(Location, Balance.bFluid));
 				UTextBlock* EndpointLabel = MakeText(WidgetTree, EndpointText, 9,
@@ -2064,7 +2064,7 @@ void UCPPanelWidget::AddLimiterRow(const FCPLimiter& Limiter, UVerticalBox* Targ
 			: Limiter.bNetworkScoped
 			// Honesty: the ratio is the item's WORST island anywhere in the factory — chain-to-
 			// island attribution needs M3 transport/routing data.
-			? LOCTEXT("LimiterNetFmt", "Across the whole factory only {0}/min is available against {1}/min needed ({2}%) — this may be a different line")
+			? LOCTEXT("LimiterNetFmt", "Across the whole factory only {0}/min is available against {1}/min needed ({2}%) - this may be a different line")
 			: LOCTEXT("LimiterAggFmt", "Only {0}/min is available for {1}/min needed ({2}%); some delivery routes could not be checked"),
 		FText::AsNumber(FMath::RoundToInt(Limiter.SupplyPerMinute)),
 		FText::AsNumber(FMath::RoundToInt(Limiter.DemandPerMinute)),
@@ -2481,9 +2481,9 @@ void UCPPanelWidget::AddPlanExclusionRows(const FCPAnalysisResult& Result,
 			UTextBlock* Why = MakeText(WidgetTree,
 				Research
 					? FText::Format(LOCTEXT("PlanExcludedWhyFmt",
-						"is not in this plan — its recipe unlocks with {0}"), FText::FromString(*Research))
+						"is not in this plan - its recipe unlocks with {0}"), FText::FromString(*Research))
 					: LOCTEXT("PlanExcludedWhyUnknown",
-						"is not in this plan — its recipe is not unlocked yet"),
+						"is not in this plan - its recipe is not unlocked yet"),
 				11, CPStyle::TextSecondary);
 			Why->SetAutoWrapText(true);
 			if (UWrapBoxSlot* WhySlot = Content->AddChildToWrapBox(Why))
@@ -2607,8 +2607,8 @@ void UCPPanelWidget::AddPlannedRows(const TArray<FCPPlannedNode>& Chain, UVertic
 		case ECPPlanNodeKind::PlannedLine:
 			Colour = CPStyle::Accent;
 			Detail = Node.MachineName.IsEmpty()
-				? LOCTEXT("PlanLine", "No line — build one")
-				: FText::Format(LOCTEXT("PlanLineFmt", "No line — build: {0}"), FText::FromString(Node.MachineName));
+				? LOCTEXT("PlanLine", "No line - build one")
+				: FText::Format(LOCTEXT("PlanLineFmt", "No line - build: {0}"), FText::FromString(Node.MachineName));
 			if (Node.bAlternatesExist)
 			{
 				Detail = FText::Format(LOCTEXT("PlanAltFmt", "{0}  ·  Alt recipes exist"), Detail);
@@ -2624,14 +2624,14 @@ void UCPPanelWidget::AddPlannedRows(const TArray<FCPPlannedNode>& Chain, UVertic
 			{
 				Colour = CPStyle::StatusRed;
 				Detail = Node.MachineName.IsEmpty()
-					? LOCTEXT("PlanGraftStopped", "Line exists but is STOPPED — fix it")
-					: FText::Format(LOCTEXT("PlanGraftStoppedFmt", "Line exists but is STOPPED — fix the {0}"), FText::FromString(Node.MachineName));
+					? LOCTEXT("PlanGraftStopped", "Line exists but is STOPPED - fix it")
+					: FText::Format(LOCTEXT("PlanGraftStoppedFmt", "Line exists but is STOPPED - fix the {0}"), FText::FromString(Node.MachineName));
 			}
 			else
 			{
 				Detail = Node.MachineName.IsEmpty()
 					? LOCTEXT("PlanGraft", "Already produced")
-					: FText::Format(LOCTEXT("PlanGraftFmt", "Already produced — {0}"), FText::FromString(Node.MachineName));
+					: FText::Format(LOCTEXT("PlanGraftFmt", "Already produced - {0}"), FText::FromString(Node.MachineName));
 			}
 			if (Node.bSufficiencyKnown)
 			{
@@ -2643,19 +2643,19 @@ void UCPPanelWidget::AddPlannedRows(const TArray<FCPPlannedNode>& Chain, UVertic
 			else
 			{
 				Detail = FText::Format(LOCTEXT("PlanGraftUnknownFmt",
-					"{0}  ·  Spare capacity unavailable — one or more routes could not be fully measured"), Detail);
+					"{0}  ·  Spare capacity unavailable - one or more routes could not be fully measured"), Detail);
 			}
 			break;
 		case ECPPlanNodeKind::RawResource:
 			Colour = CPStyle::StatusNeutral;
-			Detail = LOCTEXT("PlanRaw", "Raw resource — extract it");
+			Detail = LOCTEXT("PlanRaw", "Raw resource - extract it");
 			break;
 		case ECPPlanNodeKind::ResearchLocked:
 			if (!Node.ByproductOfFuel.IsEmpty())
 			{
 				// Not a research problem at all: spent fuel only exists by burning.
 				Colour = CPStyle::StatusNeutral;
-				Detail = FText::Format(LOCTEXT("PlanSpentFuelFmt", "Spent fuel — burn {0} in a Nuclear Power Plant"),
+				Detail = FText::Format(LOCTEXT("PlanSpentFuelFmt", "Spent fuel - burn {0} in a Nuclear Power Plant"),
 					FText::FromString(Node.ByproductOfFuel));
 			}
 			else
@@ -2776,12 +2776,12 @@ void UCPPanelWidget::AddResearchGapRow(const FCPResearchGap& Gap)
 
 	const FText SourceTag = ResearchSourceTag(Gap.UnlockSource);
 	const FText Detail = !Gap.ByproductOfFuel.IsEmpty()
-		? FText::Format(LOCTEXT("GapSpentFuelFmt", "No recipe by design — spent fuel: burn {0} in a Nuclear Power Plant"), FText::FromString(Gap.ByproductOfFuel))
+		? FText::Format(LOCTEXT("GapSpentFuelFmt", "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"), FText::FromString(Gap.ByproductOfFuel))
 		: Gap.UnlockSchematicName.IsEmpty()
-			? LOCTEXT("GapNoUnlock", "Recipe locked — no purchasable research yet")
+			? LOCTEXT("GapNoUnlock", "Recipe locked - no purchasable research yet")
 			: SourceTag.IsEmpty()
-				? FText::Format(LOCTEXT("GapUnlockFmt", "Recipe locked — research: {0}"), FText::FromString(Gap.UnlockSchematicName))
-				: FText::Format(LOCTEXT("GapUnlockSrcFmt", "Recipe locked — research: {0} ({1})"), FText::FromString(Gap.UnlockSchematicName), SourceTag);
+				? FText::Format(LOCTEXT("GapUnlockFmt", "Recipe locked - research: {0}"), FText::FromString(Gap.UnlockSchematicName))
+				: FText::Format(LOCTEXT("GapUnlockSrcFmt", "Recipe locked - research: {0} ({1})"), FText::FromString(Gap.UnlockSchematicName), SourceTag);
 	UTextBlock* DetailText = MakeText(WidgetTree, Detail, 10, CPStyle::TextSecondary);
 	if (UHorizontalBoxSlot* DetailSlot = Box->AddChildToHorizontalBox(DetailText))
 	{
@@ -2850,12 +2850,12 @@ FText UCPPanelWidget::MakeVerdict(const FCPAnalysisResult& Result) const
 		// BLOCKED is spent only on a factory fault the player can walk over and fix.
 		FText Verdict = DeliveredByPlan.Num() > 0
 			? FText::Format(FirstFactoryBlocked
-				? LOCTEXT("VerdictPlanBlockedDeliverFmt", "BLOCKED — {0} step(s) to deliver {1}")
-				: LOCTEXT("VerdictPlanDeliverFmt", "NEXT STEPS — {0} step(s) to deliver {1}"),
+				? LOCTEXT("VerdictPlanBlockedDeliverFmt", "BLOCKED - {0} step(s) to deliver {1}")
+				: LOCTEXT("VerdictPlanDeliverFmt", "NEXT STEPS - {0} step(s) to deliver {1}"),
 				FText::AsNumber(TotalSteps), FText::FromString(FString::Join(DeliveredByPlan, TEXT(", "))))
 			: FText::Format(FirstFactoryBlocked
-				? LOCTEXT("VerdictPlanBlockedFmt", "BLOCKED — the plan ({0} step(s)):")
-				: LOCTEXT("VerdictPlanHeadFmt", "NEXT STEPS — the plan ({0} step(s)):"),
+				? LOCTEXT("VerdictPlanBlockedFmt", "BLOCKED - the plan ({0} step(s)):")
+				: LOCTEXT("VerdictPlanHeadFmt", "NEXT STEPS - the plan ({0} step(s)):"),
 				FText::AsNumber(TotalSteps));
 		if (FirstFactoryBlocked)
 		{
@@ -2879,8 +2879,8 @@ FText UCPPanelWidget::MakeVerdict(const FCPAnalysisResult& Result) const
 					continue;
 				}
 				return FText::Format(Wanted == EPartConcern::Fault
-					? LOCTEXT("VerdictBlockedFmt", "BLOCKED — {0}: {1}.")
-					: LOCTEXT("VerdictNextFmt", "NEXT — {0}: {1}."),
+					? LOCTEXT("VerdictBlockedFmt", "BLOCKED - {0}: {1}.")
+					: LOCTEXT("VerdictNextFmt", "NEXT - {0}: {1}."),
 					FText::FromString(Part.Blocker.Item.Name), BlockerReasonText(Part.Blocker));
 			}
 		}
@@ -2902,11 +2902,11 @@ FText UCPPanelWidget::MakeVerdict(const FCPAnalysisResult& Result) const
 	}
 	if (bAllReady && Result.Objectives.Num() > 0)
 	{
-		return LOCTEXT("VerdictReady", "READY — every remaining part is banked. Delivery is the only step left.");
+		return LOCTEXT("VerdictReady", "READY - every remaining part is banked. Delivery is the only step left.");
 	}
 	if (BestEta >= 0.0f)
 	{
-		return FText::Format(LOCTEXT("VerdictEtaFmt", "ON TRACK — ~{0} min of production remain ({1} is the long pole)."),
+		return FText::Format(LOCTEXT("VerdictEtaFmt", "ON TRACK - ~{0} min of production remain ({1} is the long pole)."),
 			FText::AsNumber(FMath::RoundToInt(BestEta)), FText::FromString(BestItem));
 	}
 	return LOCTEXT("VerdictNone", "No outstanding objectives.");

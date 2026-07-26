@@ -42,7 +42,7 @@ void UCPPanelSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 	}
 	else
 	{
-		UE_LOG(LogCriticalPath, Warning, TEXT("PanelSubsystem: input subsystem missing — F10 will not open the panel"));
+		UE_LOG(LogCriticalPath, Warning, TEXT("PanelSubsystem: input subsystem missing - F10 will not open the panel"));
 	}
 }
 
@@ -160,7 +160,7 @@ void UCPPanelSubsystem::RefreshReport()
 			// (with its age) meanwhile rather than blanking a panel that already had data.
 			RequestReportFromHost();
 			UE_LOG(LogCriticalPath, Log,
-				TEXT("PanelSubsystem: non-authoritative (%s) — requesting a report from the host"), *Snapshot.NetMode);
+				TEXT("PanelSubsystem: non-authoritative (%s) - requesting a report from the host"), *Snapshot.NetMode);
 			return;
 		}
 
@@ -228,16 +228,16 @@ void UCPPanelSubsystem::RefreshReport()
 	}
 
 	UE_LOG(LogCriticalPath, Warning, TEXT("PanelSubsystem: collection failed (%s)%s"), *Error,
-		bHasCachedResult ? TEXT(" — showing cached result") : TEXT(""));
+		bHasCachedResult ? TEXT(" - showing cached result") : TEXT(""));
 
 	if (bHasCachedResult)
 	{
 		const int32 AgeSeconds = FMath::Max(0, FMath::RoundToInt(World->GetTimeSeconds() - CachedAtWorldSeconds));
-		Panel->SetReport(CachedResult, FText::Format(LOCTEXT("AgeStaleFmt", "STALE — {0}s old (refresh failed)"), FText::AsNumber(AgeSeconds)));
+		Panel->SetReport(CachedResult, FText::Format(LOCTEXT("AgeStaleFmt", "STALE - {0}s old (refresh failed)"), FText::AsNumber(AgeSeconds)));
 	}
 	else
 	{
-		Panel->SetReport(FCPAnalysisResult(), FText::Format(LOCTEXT("AgeErrorFmt", "no data — {0}"), FText::FromString(Error)));
+		Panel->SetReport(FCPAnalysisResult(), FText::Format(LOCTEXT("AgeErrorFmt", "no data - {0}"), FText::FromString(Error)));
 	}
 }
 
