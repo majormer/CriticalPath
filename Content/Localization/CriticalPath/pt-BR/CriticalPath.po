@@ -1,0 +1,1227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CriticalPath\n"
+"Language: pt-BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Key:	AB46CACF4C402D0A0C2BBD8FB7B2500A
+msgctxt ",AB46CACF4C402D0A0C2BBD8FB7B2500A"
+msgid "1× Assembler · 2.5/min of 12.5 needed"
+msgstr ""
+
+#. Key:	3AE89A3A41716D0C1158828D998F52A4
+msgctxt ",3AE89A3A41716D0C1158828D998F52A4"
+msgid "1× Manufacturer · 2.5/min"
+msgstr ""
+
+#. Key:	650C25414036AC525E39C79183343F3B
+msgctxt ",650C25414036AC525E39C79183343F3B"
+msgid "2,000 needed  ·  2,000 banked  ·  deliver now"
+msgstr ""
+
+#. Key:	FE02FE6043275C5F429266A6F006A805
+msgctxt ",FE02FE6043275C5F429266A6F006A805"
+msgid "2× Assembler · 25/min"
+msgstr ""
+
+#. Key:	9614FDD644BF8B9EE29DE8A6D6732B2C
+msgctxt ",9614FDD644BF8B9EE29DE8A6D6732B2C"
+msgid "2× Manufacturer · 5.0/min"
+msgstr ""
+
+#. Key:	7F101E664166DBC1D99692B19B5313F2
+msgctxt ",7F101E664166DBC1D99692B19B5313F2"
+msgid "3 parts required  ·  1 ready to deliver  ·  1 blocked  ·  earliest completion ~72 min"
+msgstr ""
+
+#. Key:	E8ACA03D49EB7261E197659531E32B6F
+msgctxt ",E8ACA03D49EB7261E197659531E32B6F"
+msgid "480 needed  ·  120 banked  ·  360 to produce  ·  ~72 min"
+msgstr ""
+
+#. Key:	3BE554254D343A7BBCA2B7B5A00AF90C
+msgctxt ",3BE554254D343A7BBCA2B7B5A00AF90C"
+msgid "99 needed  ·  7 banked  ·  92 to produce  ·  blocked"
+msgstr ""
+
+#. Key:	08EBECCB41804E37453A4AAA1FD5F3E3
+msgctxt ",08EBECCB41804E37453A4AAA1FD5F3E3"
+msgid "Adaptive Control Unit"
+msgstr ""
+
+#. Key:	9EF74FE34AE569C38CA64E9D82C844A8
+msgctxt ",9EF74FE34AE569C38CA64E9D82C844A8"
+msgid "Automated Wiring"
+msgstr ""
+
+#. Key:	043B5BBC45C8B0568744889832C5FD6B
+msgctxt ",043B5BBC45C8B0568744889832C5FD6B"
+msgid "CRITICAL PATH"
+msgstr ""
+
+#. Key:	E3B96B684DA94C6196E53B9E5EF65A3E
+msgctxt ",E3B96B684DA94C6196E53B9E5EF65A3E"
+msgid "Modular Engine"
+msgstr ""
+
+#. Key:	2523207949D893471F1C63BF2314EACE
+msgctxt ",2523207949D893471F1C63BF2314EACE"
+msgid "Space Elevator: Main Body"
+msgstr ""
+
+#. Key:	F616D3404E39FA0AE068C5AD74FA8243
+msgctxt ",F616D3404E39FA0AE068C5AD74FA8243"
+msgid "Stator"
+msgstr ""
+
+#. Key:	73F3C0684140FD63EC7EBF898F7BE8AD
+msgctxt ",73F3C0684140FD63EC7EBF898F7BE8AD"
+msgid "Versatile Framework"
+msgstr ""
+
+#. Key:	B4DE02E8428694AE136D48822BF08AE1
+msgctxt ",B4DE02E8428694AE136D48822BF08AE1"
+msgid "no producer configured"
+msgstr ""
+
+#. Key:	1A0751FB44AC4366F8DF2BBCAF1BFF20
+msgctxt ",1A0751FB44AC4366F8DF2BBCAF1BFF20"
+msgid "×"
+msgstr ""
+
+#. Key:	C00C970340D208F8A377D2B6647BE15D
+msgctxt ",C00C970340D208F8A377D2B6647BE15D"
+msgid "× BLOCKED — Adaptive Control Unit is stalled. Build a Stator line: it gates Automated Wiring → Adaptive Control Unit → Main Body."
+msgstr ""
+
+#. Key:	916D7FF44FD10ADF39543CA075B7F49A
+msgctxt ",916D7FF44FD10ADF39543CA075B7F49A"
+msgid "■"
+msgstr ""
+
+#. Key:	B93CDE3745A0108F118915A3EB4B3B18
+msgctxt ",B93CDE3745A0108F118915A3EB4B3B18"
+msgid "▲"
+msgstr ""
+
+#. Key:	3D920FAE42B1D930C642E6933107B5CB
+msgctxt ",3D920FAE42B1D930C642E6933107B5CB"
+msgid "▲"
+msgstr ""
+
+#. Key:	29308E89411226D839FFDD9CFE508DF0
+msgctxt ",29308E89411226D839FFDD9CFE508DF0"
+msgid "●"
+msgstr ""
+
+#. Key:	BalanceDistanceFmt
+msgctxt "CriticalPath,BalanceDistanceFmt"
+msgid "  ·  nearest endpoint {0} m away"
+msgstr "  ·  extremidade mais próxima a {0} m"
+
+#. Key:	BalanceAugmentAll
+msgctxt "CriticalPath,BalanceAugmentAll"
+msgid "ALL AUGMENTS"
+msgstr "TODOS OS AUMENTOS"
+
+#. Key:	BalanceProblemAll
+msgctxt "CriticalPath,BalanceProblemAll"
+msgid "ALL LINES"
+msgstr "TODAS AS LINHAS"
+
+#. Key:	BalanceDesignFmt
+msgctxt "CriticalPath,BalanceDesignFmt"
+msgid "AT FULL SPEED  needs {0}  ·  ingredients allow {1}  ·  would deliver {2}"
+msgstr "EM VELOCIDADE MÁXIMA  precisa de {0}  ·  ingredientes permitem {1}  ·  entregaria {2}"
+
+#. Key:	SrcShop
+msgctxt "CriticalPath,SrcShop"
+msgid "AWESOME Shop"
+msgstr "AWESOME Shop"
+
+#. Key:	LimiterNetFmt
+msgctxt "CriticalPath,LimiterNetFmt"
+msgid "Across the whole factory only {0}/min is available against {1}/min needed ({2}%) - this may be a different line"
+msgstr "Em toda a fábrica há apenas {0}/min disponíveis para os {1}/min necessários ({2}%) - esta pode ser outra linha"
+
+#. Key:	PlanGraft
+msgctxt "CriticalPath,PlanGraft"
+msgid "Already produced"
+msgstr "Já produzido"
+
+#. Key:	PlanGraftFmt
+msgctxt "CriticalPath,PlanGraftFmt"
+msgid "Already produced - {0}"
+msgstr "Já produzido - {0}"
+
+#. Key:	LimiterInputConstraintFmt
+msgctxt "CriticalPath,LimiterInputConstraintFmt"
+msgid "Arriving ingredients only support {0} of the {1} these machines could make"
+msgstr "Os ingredientes que chegam sustentam apenas {0} dos {1} que estas máquinas poderiam produzir"
+
+#. Key:	AskingHostHeadline
+msgctxt "CriticalPath,AskingHostHeadline"
+msgid "Asking the host for a report"
+msgstr "Solicitando um relatório ao anfitrião"
+
+#. Key:	PlanTipFmt
+msgctxt "CriticalPath,PlanTipFmt"
+msgid "Assumed recipe: {0}"
+msgstr "Receita presumida: {0}"
+
+#. Key:	BalanceSortAlphabetical
+msgctxt "CriticalPath,BalanceSortAlphabetical"
+msgid "A–Z"
+msgstr "A–Z"
+
+#. Key:	TabBalance
+msgctxt "CriticalPath,TabBalance"
+msgid "BALANCE"
+msgstr "BALANÇO"
+
+#. Key:	BalanceJammedFmt
+msgctxt "CriticalPath,BalanceJammedFmt"
+msgid "BELT JAMMED · {0} machine(s) blocked by {1} on the feeding belt - remove it; this is not a supply shortage"
+msgstr "ESTEIRA TRAVADA · {0} máquina(s) bloqueada(s) por {1} na esteira de alimentação - remova; não é falta de suprimento"
+
+#. Key:	VerdictPlanBlockedFmt
+msgctxt "CriticalPath,VerdictPlanBlockedFmt"
+msgid "BLOCKED - the plan ({0} step(s)):"
+msgstr "BLOQUEADO - o plano ({0} etapa(s)):"
+
+#. Key:	VerdictPlanBlockedDeliverFmt
+msgctxt "CriticalPath,VerdictPlanBlockedDeliverFmt"
+msgid "BLOCKED - {0} step(s) to deliver {1}"
+msgstr "BLOQUEADO - {0} etapa(s) para entregar {1}"
+
+#. Key:	VerdictBlockedFmt
+msgctxt "CriticalPath,VerdictBlockedFmt"
+msgid "BLOCKED - {0}: {1}."
+msgstr "BLOQUEADO - {0}: {1}."
+
+#. Key:	BufferAmountFmt
+msgctxt "CriticalPath,BufferAmountFmt"
+msgid "BUFFER  {0} {1} reachable"
+msgstr "RESERVA  {0} {1} ao alcance"
+
+#. Key:	BufferRunwayFmt
+msgctxt "CriticalPath,BufferRunwayFmt"
+msgid "BUFFER  {0} {1} reachable  ·  about {2} min at the current shortfall"
+msgstr "RESERVA  {0} {1} ao alcance  ·  cerca de {2} min no déficit atual"
+
+#. Key:	BalanceInstalled
+msgctxt "CriticalPath,BalanceInstalled"
+msgid "BUILT CAPACITY"
+msgstr "CAP. CONSTRUÍDA"
+
+#. Key:	LimiterBeltConstraintFmt
+msgctxt "CriticalPath,LimiterBeltConstraintFmt"
+msgid "Belt bottleneck: {0} → {1} carries {2} of {3}"
+msgstr "Gargalo de esteira: {0} → {1} transporta {2} de {3}"
+
+#. Key:	LimiterNameFmt
+msgctxt "CriticalPath,LimiterNameFmt"
+msgid "Bottleneck: {0}"
+msgstr "Gargalo: {0}"
+
+#. Key:	ClearPings
+msgctxt "CriticalPath,ClearPings"
+msgid "CLEAR PINGS"
+msgstr "LIMPAR MARCAS"
+
+#. Key:	BalanceDemand
+msgctxt "CriticalPath,BalanceDemand"
+msgid "CONSUMER NEED"
+msgstr "DEMANDA"
+
+#. Key:	BalanceConsumersHeading
+msgctxt "CriticalPath,BalanceConsumersHeading"
+msgid "CONSUMERS"
+msgstr "CONSUMIDORES"
+
+#. Key:	BalanceConsumersStoppedFmt
+msgctxt "CriticalPath,BalanceConsumersStoppedFmt"
+msgid "CONSUMERS STOPPED · {0} machine(s) here would use {1}, but none of them are running"
+msgstr "CONSUMIDORES PARADOS · {0} máquina(s) aqui usariam {1}, mas nenhuma está funcionando"
+
+#. Key:	BalanceConsumersBlockedFmt
+msgctxt "CriticalPath,BalanceConsumersBlockedFmt"
+msgid "CONSUMERS STOPPED · {0} machine(s) here would use {1}, but their own output is backed up"
+msgstr "CONSUMIDORES PARADOS · {0} máquina(s) aqui usariam {1}, mas a própria saída delas está entupida"
+
+#. Key:	PanelTitle
+msgctxt "CriticalPath,PanelTitle"
+msgid "CRITICAL PATH"
+msgstr ""
+
+#. Key:	BalancePending
+msgctxt "CriticalPath,BalancePending"
+msgid "Checking your factory…"
+msgstr "Verificando sua fábrica…"
+
+#. Key:	TipChainHint
+msgctxt "CriticalPath,TipChainHint"
+msgid "Click to show/hide the blocker chain"
+msgstr "Clique para mostrar/ocultar a cadeia de bloqueios"
+
+#. Key:	BlockSolvedConnectivityUnknown
+msgctxt "CriticalPath,BlockSolvedConnectivityUnknown"
+msgid "Could not measure what is arriving - check the belts and pipes feeding this"
+msgstr "Não foi possível medir o que está chegando - verifique as esteiras e tubulações que alimentam isto"
+
+#. Key:	NoControllerDetail
+msgctxt "CriticalPath,NoControllerDetail"
+msgid "Critical Path could not find a player to ask the host on behalf of."
+msgstr "O Critical Path não encontrou um jogador em nome de quem consultar o anfitrião."
+
+#. Key:	MilestonePaid
+msgctxt "CriticalPath,MilestonePaid"
+msgid "Current milestone is fully paid - collect it and select the next one at the HUB."
+msgstr "O marco atual está totalmente pago - colete-o e selecione o próximo no HUB."
+
+#. Key:	StatusDelivered
+msgctxt "CriticalPath,StatusDelivered"
+msgid "Delivered"
+msgstr "Entregue"
+
+#. Key:	TipDeliveredFmt
+msgctxt "CriticalPath,TipDeliveredFmt"
+msgid "Delivered: all {0}"
+msgstr "Entregue: todos os {0}"
+
+#. Key:	BalanceUnknown
+msgctxt "CriticalPath,BalanceUnknown"
+msgid "Delivery rates are not available right now. Machine status and built capacity are shown below."
+msgstr "As taxas de entrega não estão disponíveis no momento. O status das máquinas e a capacidade construída são mostrados abaixo."
+
+#. Key:	BalanceEstimatedOutput
+msgctxt "CriticalPath,BalanceEstimatedOutput"
+msgid "EST. CURRENT OUTPUT"
+msgstr "PROD. ATUAL EST."
+
+#. Key:	BalanceEstimatedUse
+msgctxt "CriticalPath,BalanceEstimatedUse"
+msgid "EST. CURRENT USE"
+msgstr "USO ATUAL EST."
+
+#. Key:	SectionElevatorNone
+msgctxt "CriticalPath,SectionElevatorNone"
+msgid "Elevator"
+msgstr "Elevador"
+
+#. Key:	SectionElevatorFmt
+msgctxt "CriticalPath,SectionElevatorFmt"
+msgid "Elevator: {0}"
+msgstr "Elevador: {0}"
+
+#. Key:	BalanceIntro
+msgctxt "CriticalPath,BalanceIntro"
+msgid "Every line feeding your objective: what it makes, what arrives, and how long your stock lasts."
+msgstr "Cada linha que alimenta seu objetivo: o que produz, o que chega e por quanto tempo seu estoque dura."
+
+#. Key:	BlockExtractFmt
+msgctxt "CriticalPath,BlockExtractFmt"
+msgid "Extraction {0}/min vs demand {1}/min - add or upgrade extractors"
+msgstr "Extração {0}/min contra demanda {1}/min - adicione ou melhore extratores"
+
+#. Key:	SrcTutorial
+msgctxt "CriticalPath,SrcTutorial"
+msgid "HUB"
+msgstr "HUB"
+
+#. Key:	BlockNotConnected
+msgctxt "CriticalPath,BlockNotConnected"
+msgid "It is being made, but no belt or pipe connects it to what needs it"
+msgstr "Está sendo produzido, mas nenhuma esteira ou tubulação o conecta a quem precisa dele"
+
+#. Key:	BalanceProblemJammed
+msgctxt "CriticalPath,BalanceProblemJammed"
+msgid "JAMMED"
+msgstr "TRAVADA"
+
+#. Key:	LocateEndpoint
+msgctxt "CriticalPath,LocateEndpoint"
+msgid "LOCATE"
+msgstr "LOCALIZAR"
+
+#. Key:	LocateConsumer
+msgctxt "CriticalPath,LocateConsumer"
+msgid "LOCATE CONSUMER"
+msgstr "LOCALIZAR CONSUMIDOR"
+
+#. Key:	LocateProducer
+msgctxt "CriticalPath,LocateProducer"
+msgid "LOCATE PRODUCER"
+msgstr "LOCALIZAR PRODUTOR"
+
+#. Key:	PlanGraftStopped
+msgctxt "CriticalPath,PlanGraftStopped"
+msgid "Line exists but is STOPPED - fix it"
+msgstr "A linha existe, mas está PARADA - conserte-a"
+
+#. Key:	PlanGraftStoppedFmt
+msgctxt "CriticalPath,PlanGraftStoppedFmt"
+msgid "Line exists but is STOPPED - fix the {0}"
+msgstr "A linha existe, mas está PARADA - conserte {0}"
+
+#. Key:	BalancePartialEvidence
+msgctxt "CriticalPath,BalancePartialEvidence"
+msgid "MACHINE STATUS ONLY · delivery rates are not available right now"
+msgstr "APENAS STATUS DAS MÁQUINAS · as taxas de entrega não estão disponíveis no momento"
+
+#. Key:	BalanceObservedUseGapFmt
+msgctxt "CriticalPath,BalanceObservedUseGapFmt"
+msgid "MACHINES RUNNING SLOW · using about {0} of {1}; {2} machine(s) are short of ingredients"
+msgstr "MÁQUINAS LENTAS · usando cerca de {0} de {1}; {2} máquina(s) sem ingredientes suficientes"
+
+#. Key:	SrcMAM
+msgctxt "CriticalPath,SrcMAM"
+msgid "MAM"
+msgstr "MAM"
+
+#. Key:	BalanceProblemStarved
+msgctxt "CriticalPath,BalanceProblemStarved"
+msgid "MISSING INPUT"
+msgstr "SEM INSUMO"
+
+#. Key:	AskingHostDetail
+msgctxt "CriticalPath,AskingHostDetail"
+msgid "Machine contents and storage are tracked by the host, so Critical Path is requesting the report from there. This can take a few seconds on a large factory."
+msgstr "O conteúdo das máquinas e o armazenamento são controlados pelo anfitrião, então o Critical Path está solicitando o relatório de lá. Isso pode levar alguns segundos em uma fábrica grande."
+
+#. Key:	LimiterInstalledConstraintFmt
+msgctxt "CriticalPath,LimiterInstalledConstraintFmt"
+msgid "Machines here can make {0}; the machines using it need {1}"
+msgstr "As máquinas aqui podem produzir {0}; as máquinas que consomem precisam de {1}"
+
+#. Key:	SectionMilestoneNone
+msgctxt "CriticalPath,SectionMilestoneNone"
+msgid "Milestone"
+msgstr "Marco"
+
+#. Key:	SectionMilestoneFmt
+msgctxt "CriticalPath,SectionMilestoneFmt"
+msgid "Milestone: {0}"
+msgstr "Marco: {0}"
+
+#. Key:	BalanceSortNeedFirst
+msgctxt "CriticalPath,BalanceSortNeedFirst"
+msgid "NEED FIRST"
+msgstr "DEMANDA PRIMEIRO"
+
+#. Key:	BalanceProblemAttention
+msgctxt "CriticalPath,BalanceProblemAttention"
+msgid "NEEDS ATTENTION"
+msgstr "PRECISA DE ATENÇÃO"
+
+#. Key:	VerdictNextFmt
+msgctxt "CriticalPath,VerdictNextFmt"
+msgid "NEXT - {0}: {1}."
+msgstr "PRÓXIMO - {0}: {1}."
+
+#. Key:	VerdictPlanHeadFmt
+msgctxt "CriticalPath,VerdictPlanHeadFmt"
+msgid "NEXT STEPS - the plan ({0} step(s)):"
+msgstr "PRÓXIMAS ETAPAS - o plano ({0} etapa(s)):"
+
+#. Key:	VerdictPlanDeliverFmt
+msgctxt "CriticalPath,VerdictPlanDeliverFmt"
+msgid "NEXT STEPS - {0} step(s) to deliver {1}"
+msgstr "PRÓXIMAS ETAPAS - {0} etapa(s) para entregar {1}"
+
+#. Key:	BalanceProblemNoPower
+msgctxt "CriticalPath,BalanceProblemNoPower"
+msgid "NO POWER"
+msgstr "SEM ENERGIA"
+
+#. Key:	BalanceModeledDeliveryGapFmt
+msgctxt "CriticalPath,BalanceModeledDeliveryGapFmt"
+msgid "NOT ENOUGH ARRIVING · {0} is getting through; {1} is needed"
+msgstr "CHEGANDO POUCO · {0} está passando; {1} é necessário"
+
+#. Key:	BalanceCapacityGapFmt
+msgctxt "CriticalPath,BalanceCapacityGapFmt"
+msgid "NOT ENOUGH MACHINES · build at least {0} more production"
+msgstr "MÁQUINAS INSUFICIENTES · construa pelo menos mais {0} de produção"
+
+#. Key:	BalanceCapacityMachineGapsFmt
+msgctxt "CriticalPath,BalanceCapacityMachineGapsFmt"
+msgid "NOT ENOUGH MACHINES · {0} short, and some machines are stopped as well"
+msgstr "MÁQUINAS INSUFICIENTES · faltam {0}, e algumas máquinas também estão paradas"
+
+#. Key:	BalanceNoDemand
+msgctxt "CriticalPath,BalanceNoDemand"
+msgid "NOTHING IS USING THIS · it is only filling storage right now"
+msgstr "NADA ESTÁ USANDO ISTO · no momento só está enchendo o armazenamento"
+
+#. Key:	StatusNeedsFix
+msgctxt "CriticalPath,StatusNeedsFix"
+msgid "Needs a fix"
+msgstr "Precisa de conserto"
+
+#. Key:	BalanceNoMatches
+msgctxt "CriticalPath,BalanceNoMatches"
+msgid "No balance rows match this filter."
+msgstr "Nenhuma linha do balanço corresponde a este filtro."
+
+#. Key:	BlockInputsStarved
+msgctxt "CriticalPath,BlockInputsStarved"
+msgid "No inputs arriving (check connections and supply)"
+msgstr "Nenhum insumo chegando (verifique as conexões e o suprimento)"
+
+#. Key:	BlockInputsStarvedFmt
+msgctxt "CriticalPath,BlockInputsStarvedFmt"
+msgid "No inputs arriving - {0} of {1} machine(s) starved (check connections and supply)"
+msgstr "Nenhum insumo chegando - {0} de {1} máquina(s) sem alimentação (verifique as conexões e o suprimento)"
+
+#. Key:	PlanUnknown
+msgctxt "CriticalPath,PlanUnknown"
+msgid "No known source"
+msgstr "Nenhuma fonte conhecida"
+
+#. Key:	PlanLine
+msgctxt "CriticalPath,PlanLine"
+msgid "No line - build one"
+msgstr "Nenhuma linha - construa uma"
+
+#. Key:	PlanLineFmt
+msgctxt "CriticalPath,PlanLineFmt"
+msgid "No line - build: {0}"
+msgstr "Nenhuma linha - construa: {0}"
+
+#. Key:	BalanceNoProblemMatches
+msgctxt "CriticalPath,BalanceNoProblemMatches"
+msgid "No line feeding your objective is in this state ({0}). Nothing to fix here."
+msgstr "Nenhuma linha que alimenta seu objetivo está neste estado ({0}). Nada a consertar aqui."
+
+#. Key:	BalanceNoMatchesSearch
+msgctxt "CriticalPath,BalanceNoMatchesSearch"
+msgid "No line feeding your objective matches this filter."
+msgstr "Nenhuma linha que alimenta seu objetivo corresponde a este filtro."
+
+#. Key:	MilestoneNoneSelectedFmt
+msgctxt "CriticalPath,MilestoneNoneSelectedFmt"
+msgid "No milestone selected - {0} available. Choose one at the HUB."
+msgstr "Nenhum marco selecionado - {0} disponíveis. Escolha um no HUB."
+
+#. Key:	MilestoneNoneAvailable
+msgctxt "CriticalPath,MilestoneNoneAvailable"
+msgid "No milestones available in this elevator phase."
+msgstr "Nenhum marco disponível nesta fase do elevador."
+
+#. Key:	ElevatorNone
+msgctxt "CriticalPath,ElevatorNone"
+msgid "No outstanding Space Elevator phase."
+msgstr "Nenhuma fase pendente do Elevador Espacial."
+
+#. Key:	VerdictNone
+msgctxt "CriticalPath,VerdictNone"
+msgid "No outstanding objectives."
+msgstr "Nenhum objetivo pendente."
+
+#. Key:	BlockNoPowerCountFmt
+msgctxt "CriticalPath,BlockNoPowerCountFmt"
+msgid "No power - {0} of {1} machine(s) dark"
+msgstr "Sem energia - {0} de {1} máquina(s) desligada(s)"
+
+#. Key:	GapSpentFuelFmt
+msgctxt "CriticalPath,GapSpentFuelFmt"
+msgid "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"
+msgstr "Sem receita por definição - combustível usado: queime {0} em uma Usina Nuclear"
+
+#. Key:	StatusNotBuilt
+msgctxt "CriticalPath,StatusNotBuilt"
+msgid "Not built yet"
+msgstr "Ainda não construído"
+
+#. Key:	StatusNotBuiltDefault
+msgctxt "CriticalPath,StatusNotBuiltDefault"
+msgid "Not built yet"
+msgstr "Ainda não construído"
+
+#. Key:	NoControllerHeadline
+msgctxt "CriticalPath,NoControllerHeadline"
+msgid "Not connected to a game"
+msgstr "Não conectado a um jogo"
+
+#. Key:	BalanceEmpty
+msgctxt "CriticalPath,BalanceEmpty"
+msgid "Nothing on your objective path has a production line yet."
+msgstr "Nada no caminho do seu objetivo tem uma linha de produção ainda."
+
+#. Key:	BlockNoProducer
+msgctxt "CriticalPath,BlockNoProducer"
+msgid "Nothing produces it - build a line"
+msgstr "Nada o produz - construa uma linha"
+
+#. Key:	VerdictEtaFmt
+msgctxt "CriticalPath,VerdictEtaFmt"
+msgid "ON TRACK - ~{0} min of production remain ({1} is the long pole)."
+msgstr "NO PRAZO - restam cerca de {0} min de produção ({1} é o gargalo)."
+
+#. Key:	LimiterAggFmt
+msgctxt "CriticalPath,LimiterAggFmt"
+msgid "Only {0}/min is available for {1}/min needed ({2}%); some delivery routes could not be checked"
+msgstr "Apenas {0}/min disponíveis para os {1}/min necessários ({2}%); algumas rotas de entrega não puderam ser verificadas"
+
+#. Key:	LimiterSolvedFmt
+msgctxt "CriticalPath,LimiterSolvedFmt"
+msgid "Only {0}/min is getting through; the machines on this line need {1}/min ({2}%)"
+msgstr "Apenas {0}/min estão passando; as máquinas desta linha precisam de {1}/min ({2}%)"
+
+#. Key:	BlockSolvedSupplyFmt
+msgctxt "CriticalPath,BlockSolvedSupplyFmt"
+msgid "Only {0}/min is reaching this line; it needs {1}/min"
+msgstr "Apenas {0}/min chegam a esta linha; ela precisa de {1}/min"
+
+#. Key:	BlockSolvedExtractFmt
+msgctxt "CriticalPath,BlockSolvedExtractFmt"
+msgid "Only {0}/min is reaching this line; it needs {1}/min - add or upgrade extraction"
+msgstr "Apenas {0}/min chegam a esta linha; ela precisa de {1}/min - adicione ou melhore a extração"
+
+#. Key:	BlockOutputsFull
+msgctxt "CriticalPath,BlockOutputsFull"
+msgid "Outputs full"
+msgstr "Saídas cheias"
+
+#. Key:	BlockByproductFmt
+msgctxt "CriticalPath,BlockByproductFmt"
+msgid "Outputs full - {0} has no connected destination and may be backing up (check its disposal)"
+msgstr "Saídas cheias - {0} não tem destino conectado e pode estar acumulando (verifique o descarte)"
+
+#. Key:	BlockOutputsFullFmt
+msgctxt "CriticalPath,BlockOutputsFullFmt"
+msgid "Outputs full - {0} of {1} machine(s) stalled"
+msgstr "Saídas cheias - {0} de {1} máquina(s) paradas"
+
+#. Key:	TipOwnedFmt
+msgctxt "CriticalPath,TipOwnedFmt"
+msgid "Owned: {0} in storage  ·  {1} in depot  ·  {2} carried"
+msgstr "Em posse: {0} no armazenamento  ·  {1} no depósito  ·  {2} no inventário"
+
+#. Key:	TabPath
+msgctxt "CriticalPath,TabPath"
+msgid "PATH"
+msgstr "CAMINHO"
+
+#. Key:	BalanceProblemPaused
+msgctxt "CriticalPath,BalanceProblemPaused"
+msgid "PAUSED"
+msgstr "PAUSADO"
+
+#. Key:	TabPlan
+msgctxt "CriticalPath,TabPlan"
+msgid "PLAN"
+msgstr "PLANO"
+
+#. Key:	BalanceAugmentShards
+msgctxt "CriticalPath,BalanceAugmentShards"
+msgid "POWER SHARDS"
+msgstr "FRAGMENTOS DE ENERGIA"
+
+#. Key:	BalanceProducedElsewhere
+msgctxt "CriticalPath,BalanceProducedElsewhere"
+msgid "PRODUCED ELSEWHERE · this item is made somewhere in your factory, but no belt or pipe route reaches this line. If a teleporter, portal or loader feeds it, that link cannot be followed"
+msgstr "PRODUZIDO EM OUTRO LOCAL · este item é feito em algum ponto da sua fábrica, mas nenhuma rota de esteira ou tubulação chega a esta linha. Se um teletransportador, portal ou carregador o alimenta, esse vínculo não pode ser rastreado"
+
+#. Key:	BalanceProducerIssueFmt
+msgctxt "CriticalPath,BalanceProducerIssueFmt"
+msgid "PRODUCER ISSUES · {0} missing input · {1} output blocked · {2} no power"
+msgstr "PROBLEMAS NOS PRODUTORES · {0} sem insumo · {1} com saída bloqueada · {2} sem energia"
+
+#. Key:	BalanceProducersHeading
+msgctxt "CriticalPath,BalanceProducersHeading"
+msgid "PRODUCERS"
+msgstr "PRODUTORES"
+
+#. Key:	LimiterPipeConstraintFmt
+msgctxt "CriticalPath,LimiterPipeConstraintFmt"
+msgid "Pipe bottleneck: {0} → {1} carries {2} of {3}"
+msgstr "Gargalo de tubulação: {0} → {1} transporta {2} de {3}"
+
+#. Key:	BlockNoPower
+msgctxt "CriticalPath,BlockNoPower"
+msgid "Producers have no power"
+msgstr "Os produtores estão sem energia"
+
+#. Key:	TipRateFmt
+msgctxt "CriticalPath,TipRateFmt"
+msgid "Producing at {0}/min"
+msgstr "Produzindo a {0}/min"
+
+#. Key:	BlockSolvedNotConnected
+msgctxt "CriticalPath,BlockSolvedNotConnected"
+msgid "Production exists, but none reaches the machines that need it"
+msgstr "A produção existe, mas nada chega às máquinas que precisam dela"
+
+#. Key:	VerdictReady
+msgctxt "CriticalPath,VerdictReady"
+msgid "READY - every remaining part is banked. Delivery is the only step left."
+msgstr "PRONTO - todas as peças restantes estão em estoque. Só falta a entrega."
+
+#. Key:	RefreshReport
+msgctxt "CriticalPath,RefreshReport"
+msgid "REFRESH"
+msgstr "ATUALIZAR"
+
+#. Key:	PlanRaw
+msgctxt "CriticalPath,PlanRaw"
+msgid "Raw resource - extract it"
+msgstr "Recurso bruto - extraia-o"
+
+#. Key:	StatusReadyToDeliver
+msgctxt "CriticalPath,StatusReadyToDeliver"
+msgid "Ready to deliver"
+msgstr "Pronto para entregar"
+
+#. Key:	GapNoUnlock
+msgctxt "CriticalPath,GapNoUnlock"
+msgid "Recipe locked - no purchasable research yet"
+msgstr "Receita bloqueada - ainda não há pesquisa disponível para compra"
+
+#. Key:	GapUnlockFmt
+msgctxt "CriticalPath,GapUnlockFmt"
+msgid "Recipe locked - research: {0}"
+msgstr "Receita bloqueada - pesquisa: {0}"
+
+#. Key:	GapUnlockSrcFmt
+msgctxt "CriticalPath,GapUnlockSrcFmt"
+msgid "Recipe locked - research: {0} ({1})"
+msgstr "Receita bloqueada - pesquisa: {0} ({1})"
+
+#. Key:	StatusRecipeLocked
+msgctxt "CriticalPath,StatusRecipeLocked"
+msgid "Recipe not researched"
+msgstr "Receita não pesquisada"
+
+#. Key:	PlanLocked
+msgctxt "CriticalPath,PlanLocked"
+msgid "Recipe not researched"
+msgstr "Receita não pesquisada"
+
+#. Key:	SectionResearch
+msgctxt "CriticalPath,SectionResearch"
+msgid "Research needed upstream"
+msgstr "Pesquisa necessária a montante"
+
+#. Key:	StatusResearchFmt
+msgctxt "CriticalPath,StatusResearchFmt"
+msgid "Research: {0}"
+msgstr "Pesquisa: {0}"
+
+#. Key:	StatusStandbyReserve
+msgctxt "CriticalPath,StatusStandbyReserve"
+msgid "Reserve line (standby)"
+msgstr "Linha reserva (em espera)"
+
+#. Key:	StatusRouteUnknown
+msgctxt "CriticalPath,StatusRouteUnknown"
+msgid "Route not measured"
+msgstr "Rota não medida"
+
+#. Key:	BalanceObservedUseHealthyFmt
+msgctxt "CriticalPath,BalanceObservedUseHealthyFmt"
+msgid "SERVING CURRENT USE · consumers are using about {0} against {1} demand"
+msgstr "ATENDENDO AO USO ATUAL · os consumidores usam cerca de {0} para uma demanda de {1}"
+
+#. Key:	BalanceAugmentSloops
+msgctxt "CriticalPath,BalanceAugmentSloops"
+msgid "SOMERSLOOPS"
+msgstr "SOMERSLOOPS"
+
+#. Key:	AgeStaleFmt
+msgctxt "CriticalPath,AgeStaleFmt"
+msgid "STALE - {0}s old (refresh failed)"
+msgstr "DESATUALIZADO - de {0}s atrás (falha ao atualizar)"
+
+#. Key:	BalanceModelFmt
+msgctxt "CriticalPath,BalanceModelFmt"
+msgid "SUPPLY LINE  can send {0}  ·  actually arriving {1}"
+msgstr "LINHA DE SUPRIMENTO  pode enviar {0}  ·  chegando de fato {1}"
+
+#. Key:	BalanceModeledHealthyFmt
+msgctxt "CriticalPath,BalanceModeledHealthyFmt"
+msgid "SUPPLY MEETS NEED · {0} is reaching consumers; they need {1}"
+msgstr "SUPRIMENTO ATENDE À DEMANDA · {0} chega aos consumidores; eles precisam de {1}"
+
+#. Key:	StatusSaturated
+msgctxt "CriticalPath,StatusSaturated"
+msgid "Saturated (surplus)"
+msgstr "Saturado (excedente)"
+
+#. Key:	BalanceFilterHint
+msgctxt "CriticalPath,BalanceFilterHint"
+msgid "Search items or buildings, then press Enter"
+msgstr "Busque itens ou construções e pressione Enter"
+
+#. Key:	PlanExcludedLead
+msgctxt "CriticalPath,PlanExcludedLead"
+msgid "Separate track:"
+msgstr "Caminho separado:"
+
+#. Key:	BalanceRowsTruncatedFmt
+msgctxt "CriticalPath,BalanceRowsTruncatedFmt"
+msgid "Showing the {0} lines needing the most attention, of {1} feeding your objective. Search, or filter by problem, to narrow this down."
+msgstr "Mostrando as {0} linhas que mais precisam de atenção, de {1} que alimentam seu objetivo. Busque ou filtre por problema para refinar."
+
+#. Key:	BalanceRowsTruncatedFilteredFmt
+msgctxt "CriticalPath,BalanceRowsTruncatedFilteredFmt"
+msgid "Showing the {0} lines needing the most attention, of {1} matching your filter."
+msgstr "Mostrando as {0} linhas que mais precisam de atenção, de {1} que correspondem ao seu filtro."
+
+#. Key:	BalanceEndpointsTruncatedFmt
+msgctxt "CriticalPath,BalanceEndpointsTruncatedFmt"
+msgid "Showing {0} of {1} - the rest are counted in the totals above but not listed."
+msgstr "Mostrando {0} de {1} - o restante está contabilizado nos totais acima, mas não listado."
+
+#. Key:	PlanSpentFuelFmt
+msgctxt "CriticalPath,PlanSpentFuelFmt"
+msgid "Spent fuel - burn {0} in a Nuclear Power Plant"
+msgstr "Combustível usado - queime {0} em uma Usina Nuclear"
+
+#. Key:	BlockConnectivityUnknown
+msgctxt "CriticalPath,BlockConnectivityUnknown"
+msgid "Starved - the delivery path could not be fully checked; inspect its connections"
+msgstr "Sem alimentação - o caminho de entrega não pôde ser totalmente verificado; inspecione as conexões"
+
+#. Key:	TipNeededFmt
+msgctxt "CriticalPath,TipNeededFmt"
+msgid "Still needed: {0}  (banked {1}, to produce {2})"
+msgstr "Ainda necessário: {0}  (em estoque {1}, a produzir {2})"
+
+#. Key:	BlockSupplyFmt
+msgctxt "CriticalPath,BlockSupplyFmt"
+msgid "Supply {0}/min vs demand {1}/min - add capacity"
+msgstr "Suprimento {0}/min contra demanda {1}/min - adicione capacidade"
+
+#. Key:	BlockPathAttributionMissing
+msgctxt "CriticalPath,BlockPathAttributionMissing"
+msgid "The feeding line could not be identified - inspect the connected producers"
+msgstr "Não foi possível identificar a linha de alimentação - inspecione os produtores conectados"
+
+#. Key:	NoRelayHeadline
+msgctxt "CriticalPath,NoRelayHeadline"
+msgid "The host cannot send a report"
+msgstr "O anfitrião não pode enviar um relatório"
+
+#. Key:	HostDeclinedHeadline
+msgctxt "CriticalPath,HostDeclinedHeadline"
+msgid "The host could not produce a report"
+msgstr "O anfitrião não conseguiu gerar um relatório"
+
+#. Key:	LimiterRoutingConstraintFmt
+msgctxt "CriticalPath,LimiterRoutingConstraintFmt"
+msgid "The machines can supply {0}, but only {1} reaches consumers; inspect the route between them"
+msgstr "As máquinas podem fornecer {0}, mas apenas {1} chega aos consumidores; inspecione a rota entre eles"
+
+#. Key:	NoRelayDetail
+msgctxt "CriticalPath,NoRelayDetail"
+msgid "This client asked the host for a report, but the host is not running a version of Critical Path that can send one. Ask the host to update, or open the panel on the host."
+msgstr "Este cliente solicitou um relatório ao anfitrião, mas o anfitrião não está usando uma versão do Critical Path capaz de enviá-lo. Peça ao anfitrião que atualize, ou abra o painel no anfitrião."
+
+#. Key:	BlockLegacyLogistics
+msgctxt "CriticalPath,BlockLegacyLogistics"
+msgid "This reading is out of date - press REFRESH"
+msgstr "Esta leitura está desatualizada - pressione ATUALIZAR"
+
+#. Key:	StatusTimeLimited
+msgctxt "CriticalPath,StatusTimeLimited"
+msgid "Time-limited"
+msgstr "Por tempo limitado"
+
+#. Key:	ResearchPlanHeadFmt
+msgctxt "CriticalPath,ResearchPlanHeadFmt"
+msgid "To research {0}  ({1}):"
+msgstr "Para pesquisar {0}  ({1}):"
+
+#. Key:	TransportTopologyOnly
+msgctxt "CriticalPath,TransportTopologyOnly"
+msgid "Transport route is known; vehicle throughput is not yet measured."
+msgstr "A rota de transporte é conhecida; a vazão dos veículos ainda não é medida."
+
+#. Key:	StatusUnderSupplied
+msgctxt "CriticalPath,StatusUnderSupplied"
+msgid "Under-supplied"
+msgstr "Suprimento insuficiente"
+
+#. Key:	ResearchIsSelectedFmt
+msgctxt "CriticalPath,ResearchIsSelectedFmt"
+msgid "Unlocked by {0} - your SELECTED milestone: its payment progress is the Milestone column →"
+msgstr "Desbloqueado por {0} - seu marco SELECIONADO: o progresso de pagamento está na coluna Marco →"
+
+#. Key:	BlockTransportRateUnknown
+msgctxt "CriticalPath,BlockTransportRateUnknown"
+msgid "Vehicle route connected - delivery rate unknown because throughput is not yet measured"
+msgstr "Rota de veículo conectada - taxa de entrega desconhecida porque a vazão ainda não é medida"
+
+#. Key:	EndpointStateJammedFmt
+msgctxt "CriticalPath,EndpointStateJammedFmt"
+msgid "blocked by {0} on the belt"
+msgstr "bloqueado por {0} na esteira"
+
+#. Key:	EndpointBufferFmt
+msgctxt "CriticalPath,EndpointBufferFmt"
+msgid "buffer {0} {1}"
+msgstr "reserva {0} {1}"
+
+#. Key:	LimiterEdgeDownstreamFallback
+msgctxt "CriticalPath,LimiterEdgeDownstreamFallback"
+msgid "downstream node"
+msgstr "nó a jusante"
+
+#. Key:	AgeHostStale
+msgctxt "CriticalPath,AgeHostStale"
+msgid "from the host, earlier (latest request failed)"
+msgstr "do anfitrião, mais cedo (a última solicitação falhou)"
+
+#. Key:	AgeFromHost
+msgctxt "CriticalPath,AgeFromHost"
+msgid "from the host, just now"
+msgstr "do anfitrião, agora mesmo"
+
+#. Key:	SrcHardDrive
+msgctxt "CriticalPath,SrcHardDrive"
+msgid "hard drive"
+msgstr "disco rígido"
+
+#. Key:	EndpointStateIdle
+msgctxt "CriticalPath,EndpointStateIdle"
+msgid "idle - no fault reported"
+msgstr "ocioso - nenhuma falha relatada"
+
+#. Key:	PlanExcludedWhyUnknown
+msgctxt "CriticalPath,PlanExcludedWhyUnknown"
+msgid "is not in this plan - its recipe is not unlocked yet"
+msgstr "não está neste plano - sua receita ainda não foi desbloqueada"
+
+#. Key:	PlanExcludedWhyFmt
+msgctxt "CriticalPath,PlanExcludedWhyFmt"
+msgid "is not in this plan - its recipe unlocks with {0}"
+msgstr "não está neste plano - sua receita é desbloqueada com {0}"
+
+#. Key:	EndpointBufferItems
+msgctxt "CriticalPath,EndpointBufferItems"
+msgid "items"
+msgstr "itens"
+
+#. Key:	BufferItems
+msgctxt "CriticalPath,BufferItems"
+msgid "items"
+msgstr "itens"
+
+#. Key:	BalanceSolidRateUnit
+msgctxt "CriticalPath,BalanceSolidRateUnit"
+msgid "items/min"
+msgstr "itens/min"
+
+#. Key:	AgeJustNow
+msgctxt "CriticalPath,AgeJustNow"
+msgid "just now"
+msgstr "agora mesmo"
+
+#. Key:	AgeJustNowFlow
+msgctxt "CriticalPath,AgeJustNowFlow"
+msgid "just now"
+msgstr "agora mesmo"
+
+#. Key:	LimiterMachineFallback
+msgctxt "CriticalPath,LimiterMachineFallback"
+msgid "machine"
+msgstr "máquina"
+
+#. Key:	BalanceIdentityFmt
+msgctxt "CriticalPath,BalanceIdentityFmt"
+msgid "made by {0}  ·  used by {1}{2}"
+msgstr "feito por {0}  ·  usado por {1}{2}"
+
+#. Key:	SrcMilestone
+msgctxt "CriticalPath,SrcMilestone"
+msgid "milestone"
+msgstr "marco"
+
+#. Key:	EndpointStateMissingInput
+msgctxt "CriticalPath,EndpointStateMissingInput"
+msgid "missing input"
+msgstr "sem insumo"
+
+#. Key:	BufferM3
+msgctxt "CriticalPath,BufferM3"
+msgid "m³"
+msgstr "m³"
+
+#. Key:	EndpointBufferM3
+msgctxt "CriticalPath,EndpointBufferM3"
+msgid "m³"
+msgstr "m³"
+
+#. Key:	BalanceFluidRateUnit
+msgctxt "CriticalPath,BalanceFluidRateUnit"
+msgid "m³/min"
+msgstr "m³/min"
+
+#. Key:	BalanceNoConsumer
+msgctxt "CriticalPath,BalanceNoConsumer"
+msgid "no connected consumer"
+msgstr "nenhum consumidor conectado"
+
+#. Key:	AgeErrorFmt
+msgctxt "CriticalPath,AgeErrorFmt"
+msgid "no data - {0}"
+msgstr "sem dados - {0}"
+
+#. Key:	EndpointStateNoPower
+msgctxt "CriticalPath,EndpointStateNoPower"
+msgid "no power"
+msgstr "sem energia"
+
+#. Key:	BalanceNoProducer
+msgctxt "CriticalPath,BalanceNoProducer"
+msgid "no producer"
+msgstr "nenhum produtor"
+
+#. Key:	EndpointStateOutputBlocked
+msgctxt "CriticalPath,EndpointStateOutputBlocked"
+msgid "output full (nothing taking it)"
+msgstr "saída cheia (nada está retirando)"
+
+#. Key:	EndpointStatePaused
+msgctxt "CriticalPath,EndpointStatePaused"
+msgid "paused"
+msgstr "pausado"
+
+#. Key:	EndpointStateProducing
+msgctxt "CriticalPath,EndpointStateProducing"
+msgid "producing"
+msgstr "produzindo"
+
+#. Key:	AgeRefreshing
+msgctxt "CriticalPath,AgeRefreshing"
+msgid "re-measuring..."
+msgstr "medindo novamente..."
+
+#. Key:	EndpointStateUnavailable
+msgctxt "CriticalPath,EndpointStateUnavailable"
+msgid "state unavailable"
+msgstr "estado indisponível"
+
+#. Key:	PlanForPhaseFmt
+msgctxt "CriticalPath,PlanForPhaseFmt"
+msgid "the {0} elevator phase"
+msgstr "a fase {0} do elevador"
+
+#. Key:	PlanForMilestoneFmt
+msgctxt "CriticalPath,PlanForMilestoneFmt"
+msgid "the {0} milestone"
+msgstr "o marco {0}"
+
+#. Key:	AgeUnavailable
+msgctxt "CriticalPath,AgeUnavailable"
+msgid "unavailable here"
+msgstr "indisponível aqui"
+
+#. Key:	LimiterEdgeUpstreamFallback
+msgctxt "CriticalPath,LimiterEdgeUpstreamFallback"
+msgid "upstream node"
+msgstr "nó a montante"
+
+#. Key:	EndpointStateStarvedFmt
+msgctxt "CriticalPath,EndpointStateStarvedFmt"
+msgid "waiting on {0}"
+msgstr "aguardando {0}"
+
+#. Key:	LimiterExactMachineMarginalFmt
+msgctxt "CriticalPath,LimiterExactMachineMarginalFmt"
+msgid "{0}  ·  Add 1 average {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  Adicione 1 {1} médio → cerca de {2} chegando aos consumidores ({3}%)"
+
+#. Key:	PlanAltFmt
+msgctxt "CriticalPath,PlanAltFmt"
+msgid "{0}  ·  Alt recipes exist"
+msgstr "{0}  ·  Existem receitas alternativas"
+
+#. Key:	PlanGraftUnknownFmt
+msgctxt "CriticalPath,PlanGraftUnknownFmt"
+msgid "{0}  ·  Spare capacity unavailable - one or more routes could not be fully measured"
+msgstr "{0}  ·  Capacidade livre indisponível - uma ou mais rotas não puderam ser totalmente medidas"
+
+#. Key:	PlanGraftRatioFmt
+msgctxt "CriticalPath,PlanGraftRatioFmt"
+msgid "{0}  ·  Spare {1}/min, needs {2}/min ({3}%)"
+msgstr "{0}  ·  Livre {1}/min, precisa de {2}/min ({3}%)"
+
+#. Key:	LimiterBufferFmt
+msgctxt "CriticalPath,LimiterBufferFmt"
+msgid "{0}  ·  Stored buffer covers ~{1} min"
+msgstr "{0}  ·  Reserva armazenada cobre ~{1} min"
+
+#. Key:	LimiterBufferDryFmt
+msgctxt "CriticalPath,LimiterBufferDryFmt"
+msgid "{0}  ·  Stored buffer is dry"
+msgstr "{0}  ·  Reserva armazenada esgotada"
+
+#. Key:	LimiterExactBeltMarginalFmt
+msgctxt "CriticalPath,LimiterExactBeltMarginalFmt"
+msgid "{0}  ·  Upgrade this belt to {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  Melhore esta esteira para {1} → cerca de {2} chegando aos consumidores ({3}%)"
+
+#. Key:	LimiterExactPipeMarginalFmt
+msgctxt "CriticalPath,LimiterExactPipeMarginalFmt"
+msgid "{0}  ·  Upgrade this pipe to {1} → about {2} reaching consumers ({3}%)"
+msgstr "{0}  ·  Melhore esta tubulação para {1} → cerca de {2} chegando aos consumidores ({3}%)"
+
+#. Key:	LimiterUnknownFmt
+msgctxt "CriticalPath,LimiterUnknownFmt"
+msgid "{0}  ·  delivery rate unknown on {1} route(s)"
+msgstr "{0}  ·  taxa de entrega desconhecida em {1} rota(s)"
+
+#. Key:	BalanceTitleMultiFmt
+msgctxt "CriticalPath,BalanceTitleMultiFmt"
+msgid "{0}  ·  line {1}"
+msgstr "{0}  ·  linha {1}"
+
+#. Key:	PlanTruncFmt
+msgctxt "CriticalPath,PlanTruncFmt"
+msgid "{0}  ·  more not shown"
+msgstr "{0}  ·  mais não exibidos"
+
+#. Key:	LimiterMarginalFmt
+msgctxt "CriticalPath,LimiterMarginalFmt"
+msgid "{0}  ·  one more {1} would reach {2}%"
+msgstr "{0}  ·  mais um {1} alcançaria {2}%"
+
+#. Key:	TruncFmt
+msgctxt "CriticalPath,TruncFmt"
+msgid "{0}  ·  only {1} of {2} checked - too many to scan"
+msgstr "{0}  ·  apenas {1} de {2} verificados - muitos para escanear"
+
+#. Key:	LimiterConstraintJoinFmt
+msgctxt "CriticalPath,LimiterConstraintJoinFmt"
+msgid "{0}  ·  {1}"
+msgstr "{0}  ·  {1}"
+
+#. Key:	TruncDetailFmt
+msgctxt "CriticalPath,TruncDetailFmt"
+msgid "{0}  ·  {1} checked - some supporting detail limited"
+msgstr "{0}  ·  {1} verificados - alguns detalhes de apoio limitados"
+
+#. Key:	VerdictPlanFaultFmt
+msgctxt "CriticalPath,VerdictPlanFaultFmt"
+msgid "{0}  ·  {1}: {2}"
+msgstr "{0}  ·  {1}: {2}"
+
+#. Key:	PlanUnlockNameFmt
+msgctxt "CriticalPath,PlanUnlockNameFmt"
+msgid "{0} ({1})"
+msgstr "{0} ({1})"
+
+#. Key:	BalanceAnchorPingFmt
+msgctxt "CriticalPath,BalanceAnchorPingFmt"
+msgid "{0} - {1}"
+msgstr "{0} - {1}"
+
+#. Key:	BalanceEndpointPingFmt
+msgctxt "CriticalPath,BalanceEndpointPingFmt"
+msgid "{0} - {1} - {2}"
+msgstr "{0} - {1} - {2}"
+
+#. Key:	LedgerDeliveredFmt
+msgctxt "CriticalPath,LedgerDeliveredFmt"
+msgid "{0} delivered"
+msgstr "{0} entregues"
+
+#. Key:	SummaryDoneFmt
+msgctxt "CriticalPath,SummaryDoneFmt"
+msgid "{0} delivered"
+msgstr "{0} entregues"
+
+#. Key:	SummaryBlockedFmt
+msgctxt "CriticalPath,SummaryBlockedFmt"
+msgid "{0} need a fix"
+msgstr "{0} precisam de conserto"
+
+#. Key:	LedgerBankedFmt
+msgctxt "CriticalPath,LedgerBankedFmt"
+msgid "{0} needed  ·  {0} banked  ·  {1}"
+msgstr "{0} necessários  ·  {0} em estoque  ·  {1}"
+
+#. Key:	LedgerNoBankFmt
+msgctxt "CriticalPath,LedgerNoBankFmt"
+msgid "{0} needed  ·  {1}"
+msgstr "{0} necessários  ·  {1}"
+
+#. Key:	ResearchCostLedgerFmt
+msgctxt "CriticalPath,ResearchCostLedgerFmt"
+msgid "{0} needed  ·  {1} banked  ·  {2}"
+msgstr "{0} necessários  ·  {1} em estoque  ·  {2}"
+
+#. Key:	LedgerFullFmt
+msgctxt "CriticalPath,LedgerFullFmt"
+msgid "{0} needed  ·  {1} banked  ·  {2} to produce  ·  {3}"
+msgstr "{0} necessários  ·  {1} em estoque  ·  {2} a produzir  ·  {3}"
+
+#. Key:	SummaryReadyFmt
+msgctxt "CriticalPath,SummaryReadyFmt"
+msgid "{0} ready to deliver"
+msgstr "{0} prontos para entrega"
+
+#. Key:	SummaryToBuildFmt
+msgctxt "CriticalPath,SummaryToBuildFmt"
+msgid "{0} still to build"
+msgstr "{0} ainda a construir"
+
+#. Key:	SummaryPartsFmt
+msgctxt "CriticalPath,SummaryPartsFmt"
+msgid "{0} {0}|plural(one=part,other=parts)"
+msgstr "{0} {0}|plural(one=peça,other=peças)"
+
+#. Key:	BalanceRateWithUnitFmt
+msgctxt "CriticalPath,BalanceRateWithUnitFmt"
+msgid "{0} {1}"
+msgstr "{0} {1}"
+
+#. Key:	EndpointProductivityFmt
+msgctxt "CriticalPath,EndpointProductivityFmt"
+msgid "{0}% productivity"
+msgstr "{0}% de produtividade"
+
+#. Key:	PlanStepBuildFmt
+msgctxt "CriticalPath,PlanStepBuildFmt"
+msgid "{0})  Build:"
+msgstr "{0})  Construir:"
+
+#. Key:	PlanStepFixFmt
+msgctxt "CriticalPath,PlanStepFixFmt"
+msgid "{0})  Fix:"
+msgstr "{0})  Consertar:"
+
+#. Key:	PlanStepUnlockFmt
+msgctxt "CriticalPath,PlanStepUnlockFmt"
+msgid "{0})  Unlock:"
+msgstr "{0})  Desbloquear:"
+
+#. Key:	BalanceEndpointFmt
+msgctxt "CriticalPath,BalanceEndpointFmt"
+msgid "{0}. {1} - {2}"
+msgstr "{0}. {1} - {2}"
+
+#. Key:	StatusEtaFmt
+msgctxt "CriticalPath,StatusEtaFmt"
+msgid "~{0} min remaining"
+msgstr "~{0} min restantes"
+
+#. Key:	PlanItemForFmt
+msgctxt "CriticalPath,PlanItemForFmt"
+msgid "→ for {0}"
+msgstr "→ para {0}"
+
+#. Key:	PlanUnlockMakesFmt
+msgctxt "CriticalPath,PlanUnlockMakesFmt"
+msgid "→ makes {0} buildable"
+msgstr "→ torna {0} construível"
+
+#. Key:	BalanceExpandChevron
+msgctxt "CriticalPath,BalanceExpandChevron"
+msgid "▼"
+msgstr ""

@@ -1,10 +1,22 @@
 # <img src="https://github.com/majormer/CriticalPath/blob/main/images/CriticalPath-Logo.png?raw=true" width="150" alt="Critical Path Logo"> Critical Path
 
-![Status](https://img.shields.io/badge/Status-Released-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.0-blue) ![Satisfactory](https://img.shields.io/badge/Satisfactory-1.2-blue) ![Engine](https://img.shields.io/badge/Engine-UE%205.6-blue) ![SML](https://img.shields.io/badge/SML-3.12-blue) ![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-brightgreen) ![AI Assisted Development Used](https://img.shields.io/badge/AI%20Assisted%20Development%20Used-Disclosure%20Below-blue)
+![Status](https://img.shields.io/badge/Status-Released-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.1-blue) ![Satisfactory](https://img.shields.io/badge/Satisfactory-1.2-blue) ![Engine](https://img.shields.io/badge/Engine-UE%205.6-blue) ![SML](https://img.shields.io/badge/SML-3.12-blue) ![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-brightgreen) ![AI Assisted Development Used](https://img.shields.io/badge/AI%20Assisted%20Development%20Used-Disclosure%20Below-blue)
 
 > **Multiplayer:** Critical Path works in single-player and multiplayer, including dedicated servers. The **host** measures the factory and sends the report to joined clients, so everyone sees the same answer - labelled as the host's reading.
 
 **Quick links:** [What is it?](#-what-is-critical-path) • [The three tabs](#-the-three-tabs) • [Should you install?](#-should-you-install-critical-path) • [Controls](#-controls) • [Wiki](https://github.com/majormer/CriticalPath/wiki) • [Source](https://github.com/majormer/CriticalPath) • [Issues](https://github.com/majormer/CriticalPath/issues) • [Discord](https://discord.gg/SgXY4CwXYw)
+
+---
+
+## 🆕 What's new in 1.0.1
+
+**Critical Path now works on a finished factory.** The first release was sized for a mid-game base: it stopped measuring after 2,000 machines, which on an endgame save is about a quarter of the base. Lines you had built for hours were reported as "nothing produces it", and on a large enough factory opening the panel could crash the game outright. Both are fixed, and the limits are now set well above the size of a completed factory.
+
+- **20 languages.** The whole panel is translated: German, Spanish, French, Italian, Japanese, Korean, Polish, Brazilian Portuguese, Russian, Turkish, Simplified and Traditional Chinese, Bulgarian, Hungarian, Norwegian, Ukrainian, Vietnamese, Arabic, Persian, and Thai. Corrections are welcome on the Issues page.
+- **Filter BALANCE by what is wrong.** A dropdown narrows the list to lines that need attention, or specifically those with no power, missing input, jammed output, or paused machines. It stacks with the search box.
+- **Honest answers where it used to guess.** A line fed by a teleporter, portal or modded loader is no longer reported as missing production. A machine that is stopped is no longer reported as "nothing is using this". A full scan no longer claims it was partial.
+
+Full detail in the [changelog](https://github.com/majormer/CriticalPath/blob/main/CHANGELOG.md).
 
 ---
 
@@ -132,7 +144,7 @@ Install it on the server as well as on clients, and keep the versions matched - 
 
 ## ⚡ Performance
 
-Opening or refreshing the panel reads the world on the game thread and then does the heavy work in the background. On a **21,888-building** factory that read costs roughly a tenth of a second, with nothing truncated. Nothing re-runs on a timer - a report is produced only when you ask for one.
+Opening or refreshing the panel reads the world on the game thread and then does the heavy work in the background. Measured on an endgame save with **8,808 machines and 65,868 buildings**, a full refresh takes about **three quarters of a second**, of which roughly **a third of a second** is on the game thread, with nothing truncated. Nothing re-runs on a timer - a report is produced only when you ask for one.
 
 ---
 
@@ -164,7 +176,7 @@ AI assistance does not replace community testing. Critical Path is validated thr
 
 ## 💬 Getting Help
 
-Critical Path is **v1.0.0** - its first release. If something behaves unexpectedly, please report it with your Satisfactory version, SML version, session type (single-player, hosting, or joined), and clear reproduction steps. A screenshot of the panel is enormously helpful.
+Critical Path is **v1.0.1**. If something behaves unexpectedly, please report it with your Satisfactory version, SML version, session type (single-player, hosting, or joined), and clear reproduction steps. A screenshot of the panel is enormously helpful.
 
 - **Wiki:** https://github.com/majormer/CriticalPath/wiki
 - **Report bugs / track issues:** https://github.com/majormer/CriticalPath/issues

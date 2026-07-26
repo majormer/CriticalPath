@@ -5,11 +5,13 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/SlateWrapperTypes.h"
+#include "Types/SlateEnums.h" // ETextCommit::Type on the filter's commit handler
 #include "CPEngineTypes.h"
 #include "Representation/FGMapMarkerRepresentation.h"
 #include "CPPanelWidget.generated.h"
 
 class UBorder;
+class UComboBoxString;
 class UEditableTextBox;
 class UFGActorRepresentation;
 class UScrollBox;
@@ -46,6 +48,17 @@ public:
 	/** The row's disclosure chevron (▼): rotated -90° while Target is collapsed. */
 	UPROPERTY()
 	TObjectPtr<UTextBlock> Chevron;
+
+	/** Optional lazy population. A balance row's endpoint list is the expensive part of the panel
+	 *  (one line per producer and per consumer) and it starts collapsed, so building it up front
+	 *  spends most of the panel's UObject budget on rows nobody opened. When these are set, the
+	 *  endpoint rows are built on the FIRST expand instead, and never at all if the row is never
+	 *  opened. LazyBalanceIndex indexes UCPPanelWidget::CachedReport.ItemBalances. */
+	UPROPERTY()
+	TObjectPtr<UCPPanelWidget> LazyOwner;
+
+	int32 LazyBalanceIndex = INDEX_NONE;
+	bool bLazyBuilt = false;
 
 	UFUNCTION()
 	FEventReply OnRowMouseDown(FGeometry InGeometry, const FPointerEvent& InMouseEvent);
@@ -141,12 +154,37 @@ private:
 	UFUNCTION() void ShowPathTab();
 	UFUNCTION() void ShowBalanceTab();
 	UFUNCTION() void ShowPlanTab();
-	UFUNCTION() void OnBalanceFilterChanged(const FText& Text);
+	UFUNCTION() void OnBalanceFilterCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+
+	/** Dropdown selection: ALL LINES / NEEDS ATTENTION / NO POWER / MISSING INPUT / JAMMED / PAUSED. */
+	UFUNCTION() void OnBalanceProblemFilterSelected(FString SelectedItem, ESelectInfo::Type SelectionType);
+
+	static constexpr int32 BalanceProblemFilterModeCount = 6;
+	static FText BalanceProblemFilterLabel(int32 Mode);
+
+	/** Problem-state test for one line, applied during candidate selection so it narrows the set
+	 *  BEFORE the render cap rather than filtering whatever survived it. */
+	bool BalanceMatchesProblemFilter(const FCPItemBalance& Balance) const;
 	UFUNCTION() void ToggleBalanceSort();
 	UFUNCTION() void ToggleBalanceAugmentFilter();
 	void SetActiveTab(int32 TabIndex);
 	void RebuildBalanceRows();
 	void ApplyBalanceFilter();
+
+	/** Text-filter test for one line, run during candidate selection so the search covers the whole
+	 *  report rather than only the rows that survived the render cap. */
+	bool BalanceMatchesFilter(const FCPItemBalance& Balance) const;
+
+public:
+	/** Populates a balance row's PRODUCERS/CONSUMERS lists on first expand. Called from NativeTick,
+	 *  never from an input handler: see MaxBalanceRowsRendered for why it is lazy, and NativeTick
+	 *  for why it is deferred. */
+	void BuildEndpointSections(int32 BalanceIndex, UVerticalBox* Target);
+
+	/** Requests the above for the next tick. Safe to call from a mouse handler. */
+	void QueueEndpointBuild(int32 BalanceIndex, UVerticalBox* Target);
+
+private:
 
 	UPROPERTY() TObjectPtr<UTextBlock> SummaryText;
 	UPROPERTY() TObjectPtr<UTextBlock> DataAgeTextBlock;
@@ -160,6 +198,13 @@ private:
 	UPROPERTY() TObjectPtr<UVerticalBox> BalanceList;
 	UPROPERTY() TObjectPtr<UTextBlock> BalanceSortText;
 	UPROPERTY() TObjectPtr<UTextBlock> BalanceAugmentFilterText;
+	UPROPERTY() TObjectPtr<UComboBoxString> BalanceProblemFilterCombo;
+
+	/** Deferred widget-tree work, serviced in NativeTick. Mutating the tree from inside a click or
+	 *  commit handler is what faulted Slate's paint pass. */
+	bool bBalanceRebuildQueued = false;
+	UPROPERTY() TObjectPtr<UVerticalBox> PendingEndpointTarget;
+	int32 PendingEndpointBalanceIndex = INDEX_NONE;
 	UPROPERTY() TArray<TObjectPtr<UBorder>> BalanceFilterRows;
 	TArray<FString> BalanceFilterKeys;
 	UPROPERTY() TObjectPtr<UBorder> BalanceNoMatchesRow;
@@ -169,6 +214,14 @@ private:
 	bool bBalanceNeedsFirst = false;
 	/** 0 = all, 1 = Power Shards, 2 = Somersloops. */
 	int32 BalanceAugmentFilter = 0;
+
+	/** 0 all, 1 needs attention, 2 no power, 3 missing input, 4 jammed, 5 paused. */
+	int32 BalanceProblemFilter = 0;
+
+	/** Item names with at least one producer in ANY domain. Lets a line with demand and no local
+	 *  producer say "produced elsewhere" instead of "build more machines" when a teleporter,
+	 *  portal or loader carries it in by a route the flow walk cannot follow. */
+	TSet<FString> ItemsProducedSomewhere;
 
 	/** The column Add* row builders currently append to (valid only inside SetReport). */
 	UVerticalBox* CurrentList = nullptr;
