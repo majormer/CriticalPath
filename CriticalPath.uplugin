@@ -3,7 +3,7 @@
 	"Version": 1,
 	"VersionName": "1.0.0",
 	"FriendlyName": "Critical Path",
-	"Description": "Critical Path \u2014 a goal-based dependency checker for Satisfactory: see what actually blocks your objectives. A Finalomega Labs mod.",
+	"Description": "Your factory, explained. See what's holding up your objective, which lines are keeping up and which are quietly living off storage, and what to build next - in order.",
 	"Category": "Modding",
 	"CreatedBy": "Finalomega Labs",
 	"PluginIconPath": "Resources/Icon128.png",
