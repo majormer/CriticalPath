@@ -16,6 +16,18 @@ struct CRITICALPATHENGINE_API FCPFlowSolveParams
 	float RelativeEpsilon = 1.0e-3f;
 	/** Damping for cyclic graphs (belt loops): new = old + Damping * (target - old). */
 	float Damping = 0.5f;
+
+	/** Iterations a component may go without beating its best residual before the solver starts
+	 *  damping it. Oscillation is NOT only a property of cyclic topology: a saturated manifold
+	 *  feeding many tied consumers has no unique allocation, so an undamped water-fill can flip
+	 *  between equally valid answers indefinitely. Observed on a live save as twelve consecutive
+	 *  iterations at exactly 1.0547 on a graph the cycle detector found acyclic. */
+	int32 StallIterations = 8;
+
+	/** Step multiplier applied each time a component stalls again, and the floor it stops at.
+	 *  Shrinking the step turns a fixed-amplitude limit cycle into a decaying one. */
+	float StallDampingFalloff = 0.5f;
+	float MinDamping = 0.03f;
 	/** Solve on DesignRates ("does the design close?") instead of current-state Rates. */
 	bool bUseDesignRates = false;
 	/** Diagnostic only: visit every item at every node instead of the per-node candidate set.
