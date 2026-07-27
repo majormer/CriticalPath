@@ -314,7 +314,7 @@ FText BalanceRateText(float RatePerMinute, bool bFluid)
  *  We cannot see the link, and guessing which sender feeds which receiver would produce confident
  *  wrong answers - the exact failure this mod exists to avoid. So we say what we do know: the item
  *  IS produced, and no route we can follow reaches here. */
-FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, FLinearColor& OutColor)
+FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, bool bIsObjectivePart, FLinearColor& OutColor)
 {
 	const float Demand = Balance.Current.DemandPerMinute;
 	const float Installed = Balance.Current.InstalledPerMinute;
@@ -366,6 +366,16 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, F
 						"CONSUMERS STOPPED · {0} machine(s) here would use {1}, but none of them are running"),
 						FText::AsNumber(Stopped), Rate);
 			}
+		}
+		// An objective part is SUPPOSED to have no machine drawing it: the thing consuming it is
+		// the Space Elevator or the milestone, and neither is a belt-connected consumer. Reporting
+		// that as "nothing is using this" tells the player their finished deliverable is pointless,
+		// which is the exact opposite of the truth - it is the one item the objective wants.
+		if (bIsObjectivePart)
+		{
+			OutColor = CPStyle::StatusNeutral;
+			return LOCTEXT("BalanceObjectiveStock",
+				"STOCKPILING FOR YOUR OBJECTIVE · no machine draws this; you deliver it yourself");
 		}
 		OutColor = CPStyle::StatusNeutral;
 		return LOCTEXT("BalanceNoDemand", "NOTHING IS USING THIS · it is only filling storage right now");
@@ -1669,6 +1679,15 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			ItemsProducedSomewhere.Add(Candidate.Item.Name);
 		}
 	}
+	// The objective's own deliverables: items the player hands over rather than belts anywhere.
+	ObjectiveItems.Reset();
+	for (const FCPObjectiveReport& Objective : Result.Objectives)
+	{
+		for (const FCPPartReport& Part : Objective.Parts)
+		{
+			ObjectiveItems.Add(Part.Item.Name);
+		}
+	}
 	TSet<FString> RelevantItems;
 	auto AddPartItems = [&RelevantItems](const FCPPartReport& Part)
 	{
@@ -1937,7 +1956,8 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			DiagnosisStrip->SetBrushColor(CPStyle::RowNested);
 			DiagnosisStrip->SetPadding(FMargin(7.0f, 4.0f));
 			DiagnosisStrip->SetContent(MakeWrappedText(WidgetTree,
-				BalanceDiagnosis(Balance, ItemsProducedSomewhere.Contains(Balance.Item.Name), DiagnosisColor),
+				BalanceDiagnosis(Balance, ItemsProducedSomewhere.Contains(Balance.Item.Name),
+					ObjectiveItems.Contains(Balance.Item.Name), DiagnosisColor),
 				9, DiagnosisColor, true));
 			RowStack->AddChildToVerticalBox(DiagnosisStrip)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
 

@@ -227,6 +227,10 @@ private:
 	 *  portal or loader carries it in by a route the flow walk cannot follow. */
 	TSet<FString> ItemsProducedSomewhere;
 
+	/** The objective's deliverables. Zero machine demand is the EXPECTED state for these, since
+	 *  the Space Elevator and the HUB are not belt-connected consumers. */
+	TSet<FString> ObjectiveItems;
+
 	/** The column Add* row builders currently append to (valid only inside SetReport). */
 	UVerticalBox* CurrentList = nullptr;
 
