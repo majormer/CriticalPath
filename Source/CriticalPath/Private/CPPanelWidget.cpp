@@ -964,7 +964,28 @@ void UCPPanelWidget::RequestRefresh()
 	OnRefreshRequested.Broadcast();
 }
 
+// SetReport / SetUnavailable only RECORD what should be shown. REFRESH calls into here from
+// inside its Slate button handler, and rewriting the tree there frees widgets that Slate is
+// still holding arranged for the event in flight; the next paint then walks an SImage whose
+// UMG object is gone and faults on a poisoned brush pointer. Everything else that edits the
+// tree already waits for NativeTick — these were the two paths that did not.
 void UCPPanelWidget::SetUnavailable(const FText& Headline, const FText& Detail)
+{
+	PendingView = EPendingView::Unavailable;
+	PendingHeadline = Headline;
+	PendingDetail = Detail;
+	PendingResult = FCPAnalysisResult();
+}
+
+void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending)
+{
+	PendingView = EPendingView::Report;
+	PendingResult = Result;
+	PendingAgeText = DataAgeText;
+	bPendingBalancePending = bBalancePending;
+}
+
+void UCPPanelWidget::ApplyUnavailable(const FText& Headline, const FText& Detail)
 {
 	if (!ElevatorColumn || !MilestoneColumn || !GapList || !BalanceList)
 	{
@@ -1018,7 +1039,7 @@ void UCPPanelWidget::SetUnavailable(const FText& Headline, const FText& Detail)
 	}
 }
 
-void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending)
+void UCPPanelWidget::ApplyReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending)
 {
 	if (!ElevatorColumn || !MilestoneColumn || !GapList || !BalanceList)
 	{
@@ -3351,6 +3372,28 @@ void UCPPanelWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	// children for the event it is dispatching; the next paint then walks a border whose UMG
 	// object is gone and faults on a poisoned pointer inside IsResourceObjectValid. Deferring by
 	// one frame costs nothing visible and makes the mutation safe by construction.
+	// A whole new report supersedes any queued edit to the tree it would have edited: the filter
+	// rebuild and the endpoint target both name widgets that are about to be discarded.
+	if (PendingView != EPendingView::None)
+	{
+		const EPendingView View = PendingView;
+		PendingView = EPendingView::None;
+		bBalanceRebuildQueued = false;
+		PendingEndpointTarget = nullptr;
+		PendingEndpointBalanceIndex = INDEX_NONE;
+
+		if (View == EPendingView::Report)
+		{
+			ApplyReport(PendingResult, PendingAgeText, bPendingBalancePending);
+		}
+		else
+		{
+			ApplyUnavailable(PendingHeadline, PendingDetail);
+		}
+		PendingResult = FCPAnalysisResult();
+		return;
+	}
+
 	if (bBalanceRebuildQueued)
 	{
 		bBalanceRebuildQueued = false;

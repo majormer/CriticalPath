@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Pressing REFRESH no longer risks taking the game to desktop** - Refreshing rebuilt the entire panel from inside the button's own click handler, which threw away rows the game was still holding on to for the click it was in the middle of delivering. The next time the screen drew, it could walk into one of those discarded rows and crash. The rebuild now happens a fraction of a second later, once the click has finished being handled, which is how every other part of the panel already worked. Nothing looks different.
+
 - **The partial-scan warning is gone for good this time** - On an ordinary mid-game save the header still said "only 606 of 609 checked - too many to scan" when nothing whatsoever had been skipped. The count of machines examined was only being raised for machines that had a recipe set, while the total it was compared against included every machine you own, so three placed-but-not-yet-configured constructors were enough to make the panel announce that your factory was too big to read. An idle machine is now counted as looked at, because it was. The same counting error meant unconfigured machines did not count toward the scan limit either, so that limit now means what it says.
 
 ---

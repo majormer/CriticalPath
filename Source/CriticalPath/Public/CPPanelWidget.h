@@ -86,12 +86,16 @@ public:
 	 *  built. Lets the player re-measure without closing and reopening. */
 	FCPOnPanelRefreshRequested OnRefreshRequested;
 
-	/** Populate from an analysis result. DataAgeText e.g. "just now" / "42s ago". */
+	/** Populate from an analysis result. DataAgeText e.g. "just now" / "42s ago".
+	 *  QUEUES the repopulation; the tree is rewritten on the next NativeTick. REFRESH reaches
+	 *  this from inside a Slate button handler, and rebuilding there destroys widgets Slate is
+	 *  still holding for the event it is dispatching. See NativeTick. */
 	void SetReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending = false);
 
 	/** Clear every view and state, in place of a report, WHY no report can be produced. Used when
 	 *  the evidence is not readable here at all — e.g. a remote client, where production data is
-	 *  server-side. Showing an empty or zeroed report instead would read as a broken factory. */
+	 *  server-side. Showing an empty or zeroed report instead would read as a broken factory.
+	 *  Queued on the same frame boundary as SetReport, and for the same reason. */
 	void SetUnavailable(const FText& Headline, const FText& Detail);
 
 	/** Creates a long-lived map/compass marker owned by this panel. */
@@ -247,6 +251,20 @@ private:
 	UPROPERTY() TObjectPtr<UTextBlock> VerdictText;
 	/** The Plan list inside the verdict band (independently scrollable). */
 	UPROPERTY() TObjectPtr<UVerticalBox> PlanList;
+
+	/** Queued repopulation, applied by NativeTick. Only the newest is kept: two refreshes in one
+	 *  frame should render the newer answer once, not both in sequence. */
+	enum class EPendingView : uint8 { None, Report, Unavailable };
+	EPendingView PendingView = EPendingView::None;
+	FCPAnalysisResult PendingResult;
+	FText PendingAgeText;
+	FText PendingHeadline;
+	FText PendingDetail;
+	bool bPendingBalancePending = false;
+
+	/** The tree edits SetReport/SetUnavailable used to perform inline. */
+	void ApplyReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending);
+	void ApplyUnavailable(const FText& Headline, const FText& Detail);
 };
 
 /** Per-balance-row handler that turns a captured endpoint into a temporary world ping. */
