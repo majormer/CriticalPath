@@ -1506,7 +1506,15 @@ bool FCPSnapshotCollector::Collect(UObject* WorldContext, const FCPSnapshotParam
 			const TSubclassOf<UFGRecipe> Recipe = PickRecipeAllowingLocked(RecipeManager, Entry.ItemClass, bAlternates, bLocked);
 			if (!Recipe)
 			{
-				continue; // genuinely no recipe in this installation — the gap walk covers it
+				// Genuinely no recipe in this installation. Two very different cases share this
+				// branch: a raw resource (extract it) and a world-gathered item like a power slug
+				// or alien remains (walk out and pick it up). Recording the latter is what stops
+				// the plan advising a production line for something no machine can ever make.
+				if (!RawNames.Contains(Name))
+				{
+					OutSnapshot.WorldGatheredItemNames.AddUnique(Name);
+				}
+				continue;
 			}
 
 			const float Duration = UFGRecipe::GetManufacturingDuration(Recipe);

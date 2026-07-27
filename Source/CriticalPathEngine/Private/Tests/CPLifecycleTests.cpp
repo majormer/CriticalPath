@@ -89,6 +89,58 @@ bool FCPLifecycleEmptyWorldTest::RunTest(const FString& Parameters)
 	return true;
 }
 
+// --- Some items no machine can make. Advising production for them is unfollowable. ----------
+// Power slugs, alien remains and mycelia have real demand (a Constructor consumes them) and no
+// recipe anywhere in the game produces them. Reported as NoProducer, the plan tells the player to
+// build a line that cannot exist - which is the advice a downstream reader of this result relayed
+// to the maintainer. Membership comes from the live recipe set, so a mod that adds a recipe drops
+// the item from the list and the ordinary production advice returns.
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCPLifecycleWorldGatheredTest,
+	"CriticalPath.Lifecycle.WorldGatheredItemsAreNotAProductionGap",
+	EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool FCPLifecycleWorldGatheredTest::RunTest(const FString& Parameters)
+{
+	auto BuildSnapshot = [](bool bGatherable)
+	{
+		FCPFactorySnapshot Snapshot;
+		FCPObjective Objective;
+		Objective.Name = TEXT("Test Objective");
+		Objective.Kind = ECPObjectiveKind::Milestone;
+		FCPObjectiveItem Item;
+		Item.Item.Name = TEXT("Blue Power Slug");
+		Item.Required = 10;
+		Item.Remaining = 10;
+		Objective.Items.Add(MoveTemp(Item));
+		Snapshot.Objectives.Add(MoveTemp(Objective));
+		if (bGatherable)
+		{
+			Snapshot.WorldGatheredItemNames.Add(TEXT("Blue Power Slug"));
+		}
+		return Snapshot;
+	};
+
+	const FCPAnalysisResult Gathered = FCPAnalysis::Analyze(BuildSnapshot(true));
+	TestTrue(TEXT("the gatherable list survives into the result"),
+		Gathered.WorldGatheredItemNames.Contains(TEXT("Blue Power Slug")));
+	if (Gathered.Objectives.Num() == 0 || Gathered.Objectives[0].Parts.Num() == 0)
+	{
+		AddError(TEXT("expected one objective part"));
+		return false;
+	}
+	TestEqual(TEXT("a world-gathered item is not reported as a missing production line"),
+		Gathered.Objectives[0].Parts[0].Blocker.Reason, ECPBlockerReason::WorldGatheredOnly);
+
+	// The same item WITHOUT the marking (a mod added a recipe) keeps the old verdict, so this
+	// never becomes a permanent exemption for something that later becomes craftable.
+	const FCPAnalysisResult Craftable = FCPAnalysis::Analyze(BuildSnapshot(false));
+	if (Craftable.Objectives.Num() > 0 && Craftable.Objectives[0].Parts.Num() > 0)
+	{
+		TestEqual(TEXT("an ordinary unbuilt item is still a production gap"),
+			Craftable.Objectives[0].Parts[0].Blocker.Reason, ECPBlockerReason::NoProducer);
+	}
+	return true;
+}
+
 // --- Truncation must SURVIVE analysis. --------------------------------------------------
 // The cap is hit during capture; the player only ever sees the result. If the flag is dropped in
 // between, a partial scan is presented as a complete one — the panel's truncation notice is

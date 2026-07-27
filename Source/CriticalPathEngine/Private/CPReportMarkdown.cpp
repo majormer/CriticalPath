@@ -26,6 +26,7 @@ FString ReasonLabel(const FCPBlocker& Blocker)
 	switch (Blocker.Reason)
 	{
 	case ECPBlockerReason::NoProducer: return TEXT("nothing produces it");
+	case ECPBlockerReason::WorldGatheredOnly: return TEXT("no recipe makes this - gathered in the world");
 	case ECPBlockerReason::NoPower: return TEXT("producers have no power");
 	case ECPBlockerReason::SupplyBelowDemand:
 		return Blocker.bSolverDerived

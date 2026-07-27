@@ -231,6 +231,9 @@ private:
 	 *  the Space Elevator and the HUB are not belt-connected consumers. */
 	TSet<FString> ObjectiveItems;
 
+	/** Items no recipe produces (power slugs, alien remains). Never advise building production. */
+	TSet<FString> WorldGatheredItems;
+
 	/** The column Add* row builders currently append to (valid only inside SetReport). */
 	UVerticalBox* CurrentList = nullptr;
 

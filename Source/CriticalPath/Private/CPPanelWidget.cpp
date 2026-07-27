@@ -233,6 +233,9 @@ FText BlockerReasonText(const FCPBlocker& Blocker)
 			? LOCTEXT("BlockSolvedExtractFmt", "Only {0}/min is reaching this line; it needs {1}/min - add or upgrade extraction")
 			: LOCTEXT("BlockExtractFmt", "Extraction {0}/min vs demand {1}/min - add or upgrade extractors"),
 			FText::AsNumber(FMath::RoundToInt(Blocker.SupplyPerMinute)), FText::AsNumber(FMath::RoundToInt(Blocker.DemandPerMinute)));
+	case ECPBlockerReason::WorldGatheredOnly:
+		return LOCTEXT("BlockWorldGathered",
+			"No machine can make this - you collect it out in the world and carry it back");
 	case ECPBlockerReason::LogisticsSuspected:
 		return LOCTEXT("BlockLegacyLogistics", "This reading is out of date - press REFRESH");
 	case ECPBlockerReason::ProducerNotConnected:
@@ -314,7 +317,8 @@ FText BalanceRateText(float RatePerMinute, bool bFluid)
  *  We cannot see the link, and guessing which sender feeds which receiver would produce confident
  *  wrong answers - the exact failure this mod exists to avoid. So we say what we do know: the item
  *  IS produced, and no route we can follow reaches here. */
-FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, bool bIsObjectivePart, FLinearColor& OutColor)
+FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, bool bIsObjectivePart,
+	bool bWorldGathered, FLinearColor& OutColor)
 {
 	const float Demand = Balance.Current.DemandPerMinute;
 	const float Installed = Balance.Current.InstalledPerMinute;
@@ -379,6 +383,15 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, b
 		}
 		OutColor = CPStyle::StatusNeutral;
 		return LOCTEXT("BalanceNoDemand", "NOTHING IS USING THIS · it is only filling storage right now");
+	}
+	// Before advising ANY amount of production, check that production is possible at all. Power
+	// slugs, alien remains and mycelia have demand and no recipe: "build more" cannot be done.
+	if (bWorldGathered)
+	{
+		OutColor = CPStyle::StatusAmber;
+		return FText::Format(LOCTEXT("BalanceWorldGatheredFmt",
+			"COLLECTED IN THE WORLD · no machine makes this; {0} is drawn from what you carry in and store"),
+			BalanceRateText(Demand, Balance.bFluid));
 	}
 	// Before accusing the player of not building enough, check whether they already did.
 	if (Balance.ProducerBuildings == 0 && bProducedElsewhere)
@@ -1679,6 +1692,8 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			ItemsProducedSomewhere.Add(Candidate.Item.Name);
 		}
 	}
+	WorldGatheredItems.Reset();
+	WorldGatheredItems.Append(Result.WorldGatheredItemNames);
 	// The objective's own deliverables: items the player hands over rather than belts anywhere.
 	ObjectiveItems.Reset();
 	for (const FCPObjectiveReport& Objective : Result.Objectives)
@@ -1957,7 +1972,8 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			DiagnosisStrip->SetPadding(FMargin(7.0f, 4.0f));
 			DiagnosisStrip->SetContent(MakeWrappedText(WidgetTree,
 				BalanceDiagnosis(Balance, ItemsProducedSomewhere.Contains(Balance.Item.Name),
-					ObjectiveItems.Contains(Balance.Item.Name), DiagnosisColor),
+					ObjectiveItems.Contains(Balance.Item.Name),
+					WorldGatheredItems.Contains(Balance.Item.Name), DiagnosisColor),
 				9, DiagnosisColor, true));
 			RowStack->AddChildToVerticalBox(DiagnosisStrip)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
 
