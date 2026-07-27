@@ -1619,6 +1619,80 @@ bool FCPFlowUnconvergedBalanceTest::RunTest(const FString& Parameters)
 	return true;
 }
 
+// --- One stalled domain must not erase the rest of the factory. Found on a live Phase 4 save:
+// a steel loop failed to settle on the design basis, the solver discarded the whole solve, and
+// all 108 item balances reported "could not measure what is arriving" - including lines whose
+// producer and consumer sat on one uncomplicated belt. FlowModel.md §3.3 scopes UNKNOWN to the
+// island; this pins that scoping. -------------------------------------------------------------
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCPFlowPerComponentUnknownTest,
+	"CriticalPath.Flow.StalledDomainDoesNotEraseHealthyDomains",
+	EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool FCPFlowPerComponentUnknownTest::RunTest(const FString& Parameters)
+{
+	using namespace CPFlowTest;
+	FCPFlowGraph G;
+
+	// Domain A - trivial and separate: one producer, one consumer, one belt. Settles immediately.
+	const int32 PA = AddNode(G, ECPFlowNodeKind::Producer, TEXT("Wire Producer"));
+	G.Nodes[PA].Rates.Add(Rate(TEXT("Wire"), 60.0f));
+	G.Nodes[PA].DesignRates.Add(Rate(TEXT("Wire"), 60.0f));
+	const int32 CA = AddNode(G, ECPFlowNodeKind::Consumer, TEXT("Wire Consumer"));
+	G.Nodes[CA].Rates.Add(Rate(TEXT("Wire"), 60.0f));
+	G.Nodes[CA].DesignRates.Add(Rate(TEXT("Wire"), 60.0f));
+	AddEdge(G, PA, CA, 780.0f);
+
+	// Domain B - a feedback loop, sharing no node or edge with A, carrying a different item so
+	// the two cannot merge into one item domain either.
+	const int32 PB = AddNode(G, ECPFlowNodeKind::Producer, TEXT("Steel Producer"));
+	G.Nodes[PB].Rates.Add(Rate(TEXT("Steel"), 60.0f));
+	G.Nodes[PB].DesignRates.Add(Rate(TEXT("Steel"), 60.0f));
+	const int32 MB = AddNode(G, ECPFlowNodeKind::Merger, TEXT("Steel Merger"));
+	const int32 SB = AddNode(G, ECPFlowNodeKind::Splitter, TEXT("Steel Splitter"));
+	const int32 CB = AddNode(G, ECPFlowNodeKind::Consumer, TEXT("Steel Consumer"));
+	G.Nodes[CB].Rates.Add(Rate(TEXT("Steel"), 60.0f));
+	G.Nodes[CB].DesignRates.Add(Rate(TEXT("Steel"), 60.0f));
+	AddEdge(G, PB, MB, 780.0f);
+	AddEdge(G, MB, SB, 780.0f);
+	G.Nodes[SB].OutRules.SetNum(2);
+	AddEdge(G, SB, CB, 780.0f, 0);
+	AddEdge(G, SB, MB, 780.0f, 1); // the loop: needs several passes to settle
+
+	// A cap that A clears and B does not. This stands in for any domain that outruns the cap.
+	FCPFlowSolveParams Params;
+	Params.MaxIterations = 2;
+	FCPFlowSolveResult R;
+	FCPFlowSolver::Solve(G, Params, R);
+
+	TestTrue(TEXT("precondition: the solve as a whole did not converge"), !R.bConverged);
+	TestTrue(TEXT("the simple domain is still reported as known"), R.IsNodeKnown(CA));
+	TestTrue(TEXT("the looping domain is reported as unknown"), !R.IsNodeKnown(CB));
+
+	// The healthy domain keeps real numbers rather than being discarded with the other one.
+	TestTrue(TEXT("the known domain still delivers its measured rate"),
+		Near(R.DeliveredTo(CA, TEXT("Wire")), 60.0f));
+	TestEqual(TEXT("no delivery is published for the stalled domain"),
+		R.DeliveredTo(CB, TEXT("Steel")), 0.0f);
+
+	TArray<FCPItemBalance> Balances;
+	FCPFlowAnalysis::BuildItemBalances(G, R, R, Balances);
+	const FCPItemBalance* Wire = Balances.FindByPredicate([](const FCPItemBalance& B)
+	{
+		return B.Item.Name == TEXT("Wire");
+	});
+	const FCPItemBalance* Steel = Balances.FindByPredicate([](const FCPItemBalance& B)
+	{
+		return B.Item.Name == TEXT("Steel");
+	});
+	if (!Wire || !Steel)
+	{
+		AddError(TEXT("expected one balance per item"));
+		return false;
+	}
+	TestTrue(TEXT("wire balance is known"), Wire->Current.bKnown);
+	TestTrue(TEXT("steel balance is unknown"), !Steel->Current.bKnown);
+	return true;
+}
+
 // --- Phase B debug replay: when the live game dumps a graph the solver couldn't crack
 // (Saved/CriticalPath/FlowGraphDebug.json), replay it here with full diagnostics. Passes
 // vacuously when no dump exists so CI stays green. --------------------------------------------

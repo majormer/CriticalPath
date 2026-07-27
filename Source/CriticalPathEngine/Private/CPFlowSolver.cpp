@@ -461,6 +461,10 @@ void FCPFlowSolver::Solve(const FCPFlowGraph& Graph, const FCPFlowSolveParams& P
 
 	bool bConverged = false;
 	int32 Iteration = 0;
+	// Survives the loop: on exit this is the LAST iteration's verdict per component, which is
+	// what decides whose numbers get published.
+	TArray<bool> ComponentConverged;
+	ComponentConverged.Init(false, Ctx.WeakComponentCount);
 	TArray<float> ComponentSupply;
 	ComponentSupply.SetNumZeroed(Ctx.WeakComponentCount);
 	for (int32 NodeIndex = 0; NodeIndex < Graph.Nodes.Num(); ++NodeIndex)
@@ -717,24 +721,42 @@ void FCPFlowSolver::Solve(const FCPFlowGraph& Graph, const FCPFlowSolveParams& P
 		OutResult.DeltaHistory.Add(MaxDelta);
 		OutResult.LastMaxDeltaEdge = MaxDeltaEdge;
 		OutResult.LastMaxDeltaItem = MaxDeltaItem != INDEX_NONE ? Ctx.Items[MaxDeltaItem] : FString();
+		// Every component is evaluated every iteration — no early-out on the first failure, since
+		// the per-component verdicts are the output, not just the loop condition.
 		bConverged = Iteration > 0;
-		for (int32 Component = 0; Component < Ctx.WeakComponentCount && bConverged; ++Component)
+		for (int32 Component = 0; Component < Ctx.WeakComponentCount; ++Component)
 		{
 			const float ComponentEpsilon = FMath::Max(
 				Params.Epsilon, Params.RelativeEpsilon * ComponentSupply[Component]);
-			bConverged = ComponentMaxDelta[Component] < ComponentEpsilon;
+			ComponentConverged[Component] = Iteration > 0 && ComponentMaxDelta[Component] < ComponentEpsilon;
+			bConverged &= ComponentConverged[Component];
 		}
 	}
 
 	OutResult.bConverged = bConverged;
 	OutResult.Iterations = Iteration;
-	if (!bConverged)
+	OutResult.ComponentConverged = ComponentConverged;
+	OutResult.ComponentByNode = Ctx.WeakComponentByNode;
+
+	// UNKNOWN is per component, not global (FlowModel.md §3.3: "the island's flows report
+	// UNKNOWN"). Discarding the whole solve because one domain oscillates threw away every
+	// correctly solved line in the factory and reported them all as unmeasurable.
+	auto ComponentSettled = [&ComponentConverged, &Ctx](int32 NodeIndex)
 	{
-		return; // UNKNOWN: no numbers presented (FlowModel §3.3)
-	}
+		if (!Ctx.WeakComponentByNode.IsValidIndex(NodeIndex))
+		{
+			return false;
+		}
+		const int32 Component = Ctx.WeakComponentByNode[NodeIndex];
+		return ComponentConverged.IsValidIndex(Component) && ComponentConverged[Component];
+	};
 
 	for (int32 EdgeIndex = 0; EdgeIndex < NumEdges; ++EdgeIndex)
 	{
+		if (!ComponentSettled(Graph.Edges[EdgeIndex].FromNode))
+		{
+			continue;
+		}
 		for (int32 Item = 0; Item < NumItems; ++Item)
 		{
 			const float Rate = Flow[Ctx.Flat(EdgeIndex, Item)];
@@ -751,6 +773,10 @@ void FCPFlowSolver::Solve(const FCPFlowGraph& Graph, const FCPFlowSolveParams& P
 
 	for (int32 NodeIndex = 0; NodeIndex < Graph.Nodes.Num(); ++NodeIndex)
 	{
+		if (!ComponentSettled(NodeIndex))
+		{
+			continue; // absent = UNKNOWN for this node's domain only
+		}
 		const FCPFlowNode& Node = Graph.Nodes[NodeIndex];
 		if (Node.Kind == ECPFlowNodeKind::Consumer)
 		{
