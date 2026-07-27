@@ -393,6 +393,21 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, b
 			"COLLECTED IN THE WORLD · no machine makes this; {0} is drawn from what you carry in and store"),
 			BalanceRateText(Demand, Balance.bFluid));
 	}
+	// Stock on hand with nothing making it is a deliberate pattern, not a fault: a single line
+	// run occasionally into containers, or parts carried in, so a machine can draw them while
+	// the player is elsewhere. Telling them to build production misreads their own arrangement.
+	if (Balance.ProducerBuildings == 0 && !bProducedElsewhere && Balance.BufferedAmount > 0.0f)
+	{
+		OutColor = CPStyle::StatusAmber;
+		return Balance.BufferRunwayMinutes > 0.0f
+			? FText::Format(LOCTEXT("BalanceStockedByHandRunwayFmt",
+				"DRAWN FROM STORAGE · nothing is making this; the {0} you have banked covers about {1} min at this rate"),
+				FText::AsNumber(FMath::RoundToInt(Balance.BufferedAmount)),
+				FText::AsNumber(FMath::RoundToInt(Balance.BufferRunwayMinutes)))
+			: FText::Format(LOCTEXT("BalanceStockedByHandFmt",
+				"DRAWN FROM STORAGE · nothing is making this; {0} banked is all there is"),
+				FText::AsNumber(FMath::RoundToInt(Balance.BufferedAmount)));
+	}
 	// Before accusing the player of not building enough, check whether they already did.
 	if (Balance.ProducerBuildings == 0 && bProducedElsewhere)
 	{
@@ -411,6 +426,19 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, b
 		OutColor = CPStyle::StatusRed;
 		return FText::Format(LOCTEXT("BalanceCapacityGapFmt", "NOT ENOUGH MACHINES · build at least {0} more production"),
 			BalanceRateText(Demand - Installed, Balance.bFluid));
+	}
+	// Producers backed up AND consumers starved, on the same item, at the same moment. That
+	// combination cannot be a capacity shortage: the item is being made and is not arriving.
+	// It is a distribution fault - typically a manifold whose head takes everything, leaving the
+	// tail dry while the machines nearest the source fill their outputs and stall. Checked ahead
+	// of the generic producer-issue line, which would otherwise report only half of it.
+	if (Balance.OutputBlockedProducerBuildings > 0 && Balance.MissingInputConsumerBuildings > 0)
+	{
+		OutColor = CPStyle::StatusRed;
+		return FText::Format(LOCTEXT("BalanceDistributionFmt",
+			"NOT REACHING THE MACHINES · {0} producer(s) backed up while {1} consumer(s) sit starved - this is routing, not capacity"),
+			FText::AsNumber(Balance.OutputBlockedProducerBuildings),
+			FText::AsNumber(Balance.MissingInputConsumerBuildings));
 	}
 	if (bProducerIssue && Balance.JammedProducerBuildings > 0)
 	{
@@ -1703,21 +1731,25 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			ObjectiveItems.Add(Part.Item.Name);
 		}
 	}
-	TSet<FString> RelevantItems;
-	auto AddPartItems = [&RelevantItems](const FCPPartReport& Part)
+	// The REAL objective dependency set: parts, their blocker and limiter chains, and the lines
+	// the plan would build. This is what "feeds your objective" actually means, and it drives
+	// ordering. RelevantItems below is deliberately wider - it is the visibility gate, not the
+	// path - because a factory-wide view is the point of this tab.
+	ObjectivePathItems.Reset();
+	auto AddPartItems = [this](const FCPPartReport& Part)
 	{
-		RelevantItems.Add(Part.Item.Name);
+		ObjectivePathItems.Add(Part.Item.Name);
 		for (const FCPItemRef& Item : Part.Blocker.Path)
 		{
-			RelevantItems.Add(Item.Name);
+			ObjectivePathItems.Add(Item.Name);
 		}
 		for (const FCPItemRef& Item : Part.Limiter.Path)
 		{
-			RelevantItems.Add(Item.Name);
+			ObjectivePathItems.Add(Item.Name);
 		}
 		for (const FCPPlannedNode& Node : Part.PlannedChain)
 		{
-			RelevantItems.Add(Node.Item.Name);
+			ObjectivePathItems.Add(Node.Item.Name);
 		}
 	};
 	for (const FCPObjectiveReport& Objective : Result.Objectives)
@@ -1734,8 +1766,11 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			AddPartItems(Part);
 		}
 	}
-	// Sufficiency is already restricted to items visited by the objective/research dependency
-	// walk, so it fills in healthy intermediate ingredients that have no blocker row.
+	// Visibility gate: the objective path plus every item sufficiency knows about. Sufficiency
+	// once covered only the dependency walk; since the solver layer it is built from every item
+	// balance, which is why this list is factory-wide. That is now deliberate and stated in the
+	// header, rather than a claim of objective scope the data never supported.
+	TSet<FString> RelevantItems = ObjectivePathItems;
 	for (const FCPItemSufficiency& Item : Result.Sufficiency)
 	{
 		RelevantItems.Add(Item.Item.Name);
@@ -1744,8 +1779,11 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 	UBorder* IntroBorder = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
 	IntroBorder->SetBrushColor(CPStyle::Surface);
 	IntroBorder->SetPadding(FMargin(10.0f, 7.0f));
+	// This used to claim it listed only the lines feeding the objective. It never did: the set is
+	// seeded from Sufficiency, which since the solver layer covers every item in the factory. The
+	// list is genuinely factory-wide, so it says so and puts the objective's own lines first.
 	UTextBlock* Intro = MakeText(WidgetTree,
-		LOCTEXT("BalanceIntro", "Every line feeding your objective: what it makes, what arrives, and how long your stock lasts."),
+		LOCTEXT("BalanceIntro", "Every production line in your factory, lines feeding your objective first: what it makes, what arrives, and how long your stock lasts."),
 		10, CPStyle::TextSecondary);
 	Intro->SetAutoWrapText(true);
 	IntroBorder->SetContent(Intro);
@@ -1790,6 +1828,14 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 	}
 	Candidates.Sort([this](const FCPItemBalance& A, const FCPItemBalance& B)
 	{
+		// Objective lines lead in EITHER sort mode. The list is factory-wide, so without this the
+		// items the player opened the panel for are scattered among everything else they own.
+		const bool bPathA = ObjectivePathItems.Contains(A.Item.Name);
+		const bool bPathB = ObjectivePathItems.Contains(B.Item.Name);
+		if (bPathA != bPathB)
+		{
+			return bPathA;
+		}
 		if (bBalanceNeedsFirst)
 		{
 			auto AttentionRank = [](const FCPItemBalance& Balance)

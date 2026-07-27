@@ -234,6 +234,10 @@ private:
 	/** Items no recipe produces (power slugs, alien remains). Never advise building production. */
 	TSet<FString> WorldGatheredItems;
 
+	/** The objective's true dependency set: parts, blocker and limiter chains, planned lines.
+	 *  Narrower than the balance list, which is factory-wide on purpose. Drives ordering. */
+	TSet<FString> ObjectivePathItems;
+
 	/** The column Add* row builders currently append to (valid only inside SetReport). */
 	UVerticalBox* CurrentList = nullptr;
 

@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **A line that is built but not reaching the machines is now called that** - When some of an item's producers are backed up while some of its consumers sit starved, that cannot be a shortage: the item is being made and it is not arriving. It usually means a manifold whose first machines take everything, leaving the ones further along dry. Critical Path had all of this in hand and still reported it as a capacity problem, so the advice was to build more of something you already had too much of. It now says the item is not reaching the machines and that the problem is routing.
+
+- **Lines fed from your own storage are no longer treated as a mistake** - Running one machine into a container so parts are banked for later is a normal way to play, and the panel called it a missing production line. When nothing produces an item but you have stock of it, the row now says it is being drawn from storage and how long that stock lasts.
+
+- **BALANCE says what it actually lists** - The tab described itself as "every line feeding your objective" while in practice listing every line in the factory. Rather than hide the rest of your factory, it now says so plainly and puts the lines feeding your objective at the top, in both sort modes.
+
 - **No more advice to build a machine that makes power slugs** - Power slugs, alien remains, mycelia and anything else you pick up off the ground have real demand in a factory, since machines turn them into shards and protein, and no recipe anywhere in the game produces them. Critical Path saw demand with nobody making it, concluded you had not built the line yet, and told you to go and build one. The panel now says these are collected out in the world, and the plan stops asking for the impossible. This is read from the recipes your game actually has loaded, so if a mod adds a way to manufacture one, the ordinary advice comes back on its own.
 
 - **Your objective's own parts are no longer reported as unwanted** - A finished part waiting for the Space Elevator has nothing on a belt drawing it, because you hand it over yourself. The panel read that as nobody wanting it and said "NOTHING IS USING THIS, it is only filling storage right now" about the exact item your objective is waiting for. It now says you are stockpiling for the objective.
