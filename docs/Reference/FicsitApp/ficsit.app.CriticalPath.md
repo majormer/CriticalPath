@@ -1,6 +1,6 @@
 # <img src="https://github.com/majormer/CriticalPath/blob/main/images/CriticalPath-Logo.png?raw=true" width="150" alt="Critical Path Logo"> Critical Path
 
-![Status](https://img.shields.io/badge/Status-Released-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.1-blue) ![Satisfactory](https://img.shields.io/badge/Satisfactory-1.2-blue) ![Engine](https://img.shields.io/badge/Engine-UE%205.6-blue) ![SML](https://img.shields.io/badge/SML-3.12-blue) ![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-brightgreen) ![AI Assisted Development Used](https://img.shields.io/badge/AI%20Assisted%20Development%20Used-Disclosure%20Below-blue)
+![Status](https://img.shields.io/badge/Status-Released-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.2-blue) ![Satisfactory](https://img.shields.io/badge/Satisfactory-1.2.4-blue) ![Engine](https://img.shields.io/badge/Engine-UE%205.6-blue) ![SML](https://img.shields.io/badge/SML-3.12-blue) ![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-brightgreen) ![AI Assisted Development Used](https://img.shields.io/badge/AI%20Assisted%20Development%20Used-Disclosure%20Below-blue)
 
 > **Multiplayer:** Critical Path works in single-player and multiplayer, including dedicated servers. The **host** measures the factory and sends the report to joined clients, so everyone sees the same answer - labelled as the host's reading.
 
@@ -8,13 +8,14 @@
 
 ---
 
-## 🆕 What's new in 1.0.1
+## 🆕 What's new in 1.0.2
 
-**Critical Path now works on a finished factory.** The first release was sized for a mid-game base: it stopped measuring after 2,000 machines, which on an endgame save is about a quarter of the base. Lines you had built for hours were reported as "nothing produces it", and on a large enough factory opening the panel could crash the game outright. Both are fixed, and the limits are now set well above the size of a completed factory.
+**Critical Path is rebuilt for Satisfactory 1.2.4.** Opening the panel with the previous build after the August 11 game update could change every clockable machine to 1%. Version 1.0.2 is built against the current game and leaves machine settings untouched.
 
-- **20 languages.** The whole panel is translated: German, Spanish, French, Italian, Japanese, Korean, Polish, Brazilian Portuguese, Russian, Turkish, Simplified and Traditional Chinese, Bulgarian, Hungarian, Norwegian, Ukrainian, Vietnamese, Arabic, Persian, and Thai. Corrections are welcome on the Issues page.
-- **Filter BALANCE by what is wrong.** A dropdown narrows the list to lines that need attention, or specifically those with no power, missing input, jammed output, or paused machines. It stacks with the search box.
-- **Honest answers where it used to guess.** A line fed by a teleporter, portal or modded loader is no longer reported as missing production. A machine that is stopped is no longer reported as "nothing is using this". A full scan no longer claims it was partial.
+- **One difficult network no longer blanks the whole report.** When one transport network cannot settle on an answer, only that network is marked unknown. Every other line keeps its measured result.
+- **Clearer diagnoses.** Critical Path now distinguishes a line that is built but not reaching its consumers, a line drawing from stored parts, and an item that must be collected from the world instead of manufactured.
+- **Safer refresh.** Pressing REFRESH waits until the click finishes before rebuilding the panel, preventing a crash caused by discarding rows while the game was still drawing them.
+- **More honest BALANCE results.** Objective parts waiting for delivery are recognized as intentional stock, the list describes its factory-wide scope accurately, and configured but idle machines no longer trigger a false partial-scan warning.
 
 Full detail in the [changelog](https://github.com/majormer/CriticalPath/blob/main/CHANGELOG.md).
 
@@ -176,7 +177,7 @@ AI assistance does not replace community testing. Critical Path is validated thr
 
 ## 💬 Getting Help
 
-Critical Path is **v1.0.1**. If something behaves unexpectedly, please report it with your Satisfactory version, SML version, session type (single-player, hosting, or joined), and clear reproduction steps. A screenshot of the panel is enormously helpful.
+Critical Path is **v1.0.2**. If something behaves unexpectedly, please report it with your Satisfactory version, SML version, session type (single-player, hosting, or joined), and clear reproduction steps. A screenshot of the panel is enormously helpful.
 
 - **Wiki:** https://github.com/majormer/CriticalPath/wiki
 - **Report bugs / track issues:** https://github.com/majormer/CriticalPath/issues

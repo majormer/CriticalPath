@@ -231,6 +231,11 @@ msgctxt "CriticalPath,ClearPings"
 msgid "CLEAR PINGS"
 msgstr "マーカー消去"
 
+#. Key:	BalanceWorldGatheredFmt
+msgctxt "CriticalPath,BalanceWorldGatheredFmt"
+msgid "COLLECTED IN THE WORLD · no machine makes this; {0} is drawn from what you carry in and store"
+msgstr ""
+
 #. Key:	BalanceDemand
 msgctxt "CriticalPath,BalanceDemand"
 msgid "CONSUMER NEED"
@@ -280,6 +285,16 @@ msgstr "Critical Path はホストへの要求を代行する対象プレイヤ�
 msgctxt "CriticalPath,MilestonePaid"
 msgid "Current milestone is fully paid - collect it and select the next one at the HUB."
 msgstr "現在のマイルストーンは支払い完了です - HUB で受け取り、次を選択してください。"
+
+#. Key:	BalanceStockedByHandRunwayFmt
+msgctxt "CriticalPath,BalanceStockedByHandRunwayFmt"
+msgid "DRAWN FROM STORAGE · nothing is making this; the {0} you have banked covers about {1} min at this rate"
+msgstr ""
+
+#. Key:	BalanceStockedByHandFmt
+msgctxt "CriticalPath,BalanceStockedByHandFmt"
+msgid "DRAWN FROM STORAGE · nothing is making this; {0} banked is all there is"
+msgstr ""
 
 #. Key:	StatusDelivered
 msgctxt "CriticalPath,StatusDelivered"
@@ -451,6 +466,11 @@ msgctxt "CriticalPath,BalanceCapacityMachineGapsFmt"
 msgid "NOT ENOUGH MACHINES · {0} short, and some machines are stopped as well"
 msgstr "機械が不足 · {0} 不足しており、一部の機械も停止しています"
 
+#. Key:	BalanceDistributionFmt
+msgctxt "CriticalPath,BalanceDistributionFmt"
+msgid "NOT REACHING THE MACHINES · {0} producer(s) backed up while {1} consumer(s) sit starved - this is routing, not capacity"
+msgstr ""
+
 #. Key:	BalanceNoDemand
 msgctxt "CriticalPath,BalanceNoDemand"
 msgid "NOTHING IS USING THIS · it is only filling storage right now"
@@ -501,6 +521,11 @@ msgctxt "CriticalPath,BalanceNoMatchesSearch"
 msgid "No line feeding your objective matches this filter."
 msgstr "目標に供給するラインで、このフィルターに一致するものはありません。"
 
+#. Key:	BlockWorldGathered
+msgctxt "CriticalPath,BlockWorldGathered"
+msgid "No machine can make this - you collect it out in the world and carry it back"
+msgstr ""
+
 #. Key:	MilestoneNoneSelectedFmt
 msgctxt "CriticalPath,MilestoneNoneSelectedFmt"
 msgid "No milestone selected - {0} available. Choose one at the HUB."
@@ -531,13 +556,13 @@ msgctxt "CriticalPath,GapSpentFuelFmt"
 msgid "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"
 msgstr "仕様上レシピはありません - 使用済み燃料: {0} を原子力発電所で燃焼させてください"
 
-#. Key:	StatusNotBuilt
-msgctxt "CriticalPath,StatusNotBuilt"
+#. Key:	StatusNotBuiltDefault
+msgctxt "CriticalPath,StatusNotBuiltDefault"
 msgid "Not built yet"
 msgstr "未建設"
 
-#. Key:	StatusNotBuiltDefault
-msgctxt "CriticalPath,StatusNotBuiltDefault"
+#. Key:	StatusNotBuilt
+msgctxt "CriticalPath,StatusNotBuilt"
 msgid "Not built yet"
 msgstr "未建設"
 
@@ -736,6 +761,11 @@ msgctxt "CriticalPath,AgeStaleFmt"
 msgid "STALE - {0}s old (refresh failed)"
 msgstr "情報が古い - {0} 秒前（更新に失敗）"
 
+#. Key:	BalanceObjectiveStock
+msgctxt "CriticalPath,BalanceObjectiveStock"
+msgid "STOCKPILING FOR YOUR OBJECTIVE · no machine draws this; you deliver it yourself"
+msgstr ""
+
 #. Key:	BalanceModelFmt
 msgctxt "CriticalPath,BalanceModelFmt"
 msgid "SUPPLY LINE  can send {0}  ·  actually arriving {1}"
@@ -901,13 +931,13 @@ msgctxt "CriticalPath,PlanExcludedWhyFmt"
 msgid "is not in this plan - its recipe unlocks with {0}"
 msgstr "この計画には含まれません - レシピは {0} で解放されます"
 
-#. Key:	EndpointBufferItems
-msgctxt "CriticalPath,EndpointBufferItems"
+#. Key:	BufferItems
+msgctxt "CriticalPath,BufferItems"
 msgid "items"
 msgstr "個"
 
-#. Key:	BufferItems
-msgctxt "CriticalPath,BufferItems"
+#. Key:	EndpointBufferItems
+msgctxt "CriticalPath,EndpointBufferItems"
 msgid "items"
 msgstr "個"
 
@@ -916,13 +946,13 @@ msgctxt "CriticalPath,BalanceSolidRateUnit"
 msgid "items/min"
 msgstr "個/分"
 
-#. Key:	AgeJustNow
-msgctxt "CriticalPath,AgeJustNow"
+#. Key:	AgeJustNowFlow
+msgctxt "CriticalPath,AgeJustNowFlow"
 msgid "just now"
 msgstr "たった今"
 
-#. Key:	AgeJustNowFlow
-msgctxt "CriticalPath,AgeJustNowFlow"
+#. Key:	AgeJustNow
+msgctxt "CriticalPath,AgeJustNow"
 msgid "just now"
 msgstr "たった今"
 
@@ -946,13 +976,13 @@ msgctxt "CriticalPath,EndpointStateMissingInput"
 msgid "missing input"
 msgstr "材料不足"
 
-#. Key:	BufferM3
-msgctxt "CriticalPath,BufferM3"
+#. Key:	EndpointBufferM3
+msgctxt "CriticalPath,EndpointBufferM3"
 msgid "m³"
 msgstr "m³"
 
-#. Key:	EndpointBufferM3
-msgctxt "CriticalPath,EndpointBufferM3"
+#. Key:	BufferM3
+msgctxt "CriticalPath,BufferM3"
 msgid "m³"
 msgstr "m³"
 
@@ -1126,13 +1156,13 @@ msgctxt "CriticalPath,BalanceEndpointPingFmt"
 msgid "{0} - {1} - {2}"
 msgstr "{0} - {1} - {2}"
 
-#. Key:	LedgerDeliveredFmt
-msgctxt "CriticalPath,LedgerDeliveredFmt"
+#. Key:	SummaryDoneFmt
+msgctxt "CriticalPath,SummaryDoneFmt"
 msgid "{0} delivered"
 msgstr "{0} が納品済み"
 
-#. Key:	SummaryDoneFmt
-msgctxt "CriticalPath,SummaryDoneFmt"
+#. Key:	LedgerDeliveredFmt
+msgctxt "CriticalPath,LedgerDeliveredFmt"
 msgid "{0} delivered"
 msgstr "{0} が納品済み"
 

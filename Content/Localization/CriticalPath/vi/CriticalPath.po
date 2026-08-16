@@ -231,6 +231,11 @@ msgctxt "CriticalPath,ClearPings"
 msgid "CLEAR PINGS"
 msgstr "XÓA ĐÁNH DẤU"
 
+#. Key:	BalanceWorldGatheredFmt
+msgctxt "CriticalPath,BalanceWorldGatheredFmt"
+msgid "COLLECTED IN THE WORLD · no machine makes this; {0} is drawn from what you carry in and store"
+msgstr ""
+
 #. Key:	BalanceDemand
 msgctxt "CriticalPath,BalanceDemand"
 msgid "CONSUMER NEED"
@@ -280,6 +285,16 @@ msgstr "Critical Path không tìm được người chơi để thay mặt hỏi
 msgctxt "CriticalPath,MilestonePaid"
 msgid "Current milestone is fully paid - collect it and select the next one at the HUB."
 msgstr "Cột mốc hiện tại đã nộp đủ - hãy nhận nó và chọn cột mốc kế tiếp tại HUB."
+
+#. Key:	BalanceStockedByHandRunwayFmt
+msgctxt "CriticalPath,BalanceStockedByHandRunwayFmt"
+msgid "DRAWN FROM STORAGE · nothing is making this; the {0} you have banked covers about {1} min at this rate"
+msgstr ""
+
+#. Key:	BalanceStockedByHandFmt
+msgctxt "CriticalPath,BalanceStockedByHandFmt"
+msgid "DRAWN FROM STORAGE · nothing is making this; {0} banked is all there is"
+msgstr ""
 
 #. Key:	StatusDelivered
 msgctxt "CriticalPath,StatusDelivered"
@@ -451,6 +466,11 @@ msgctxt "CriticalPath,BalanceCapacityMachineGapsFmt"
 msgid "NOT ENOUGH MACHINES · {0} short, and some machines are stopped as well"
 msgstr "THIẾU MÁY · thiếu {0}, và một số máy cũng đang dừng"
 
+#. Key:	BalanceDistributionFmt
+msgctxt "CriticalPath,BalanceDistributionFmt"
+msgid "NOT REACHING THE MACHINES · {0} producer(s) backed up while {1} consumer(s) sit starved - this is routing, not capacity"
+msgstr ""
+
 #. Key:	BalanceNoDemand
 msgctxt "CriticalPath,BalanceNoDemand"
 msgid "NOTHING IS USING THIS · it is only filling storage right now"
@@ -501,6 +521,11 @@ msgctxt "CriticalPath,BalanceNoMatchesSearch"
 msgid "No line feeding your objective matches this filter."
 msgstr "Không dây chuyền nào cấp cho mục tiêu của bạn khớp bộ lọc này."
 
+#. Key:	BlockWorldGathered
+msgctxt "CriticalPath,BlockWorldGathered"
+msgid "No machine can make this - you collect it out in the world and carry it back"
+msgstr ""
+
 #. Key:	MilestoneNoneSelectedFmt
 msgctxt "CriticalPath,MilestoneNoneSelectedFmt"
 msgid "No milestone selected - {0} available. Choose one at the HUB."
@@ -531,13 +556,13 @@ msgctxt "CriticalPath,GapSpentFuelFmt"
 msgid "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"
 msgstr "Vốn không có công thức - nhiên liệu đã qua sử dụng: đốt {0} trong Nhà Máy Điện Hạt Nhân"
 
-#. Key:	StatusNotBuilt
-msgctxt "CriticalPath,StatusNotBuilt"
+#. Key:	StatusNotBuiltDefault
+msgctxt "CriticalPath,StatusNotBuiltDefault"
 msgid "Not built yet"
 msgstr "Chưa xây"
 
-#. Key:	StatusNotBuiltDefault
-msgctxt "CriticalPath,StatusNotBuiltDefault"
+#. Key:	StatusNotBuilt
+msgctxt "CriticalPath,StatusNotBuilt"
 msgid "Not built yet"
 msgstr "Chưa xây"
 
@@ -736,6 +761,11 @@ msgctxt "CriticalPath,AgeStaleFmt"
 msgid "STALE - {0}s old (refresh failed)"
 msgstr "CŨ - đã {0}s (làm mới thất bại)"
 
+#. Key:	BalanceObjectiveStock
+msgctxt "CriticalPath,BalanceObjectiveStock"
+msgid "STOCKPILING FOR YOUR OBJECTIVE · no machine draws this; you deliver it yourself"
+msgstr ""
+
 #. Key:	BalanceModelFmt
 msgctxt "CriticalPath,BalanceModelFmt"
 msgid "SUPPLY LINE  can send {0}  ·  actually arriving {1}"
@@ -901,13 +931,13 @@ msgctxt "CriticalPath,PlanExcludedWhyFmt"
 msgid "is not in this plan - its recipe unlocks with {0}"
 msgstr "không nằm trong kế hoạch này - công thức của nó mở khóa cùng {0}"
 
-#. Key:	EndpointBufferItems
-msgctxt "CriticalPath,EndpointBufferItems"
+#. Key:	BufferItems
+msgctxt "CriticalPath,BufferItems"
 msgid "items"
 msgstr "vật phẩm"
 
-#. Key:	BufferItems
-msgctxt "CriticalPath,BufferItems"
+#. Key:	EndpointBufferItems
+msgctxt "CriticalPath,EndpointBufferItems"
 msgid "items"
 msgstr "vật phẩm"
 
@@ -916,13 +946,13 @@ msgctxt "CriticalPath,BalanceSolidRateUnit"
 msgid "items/min"
 msgstr "vật phẩm/min"
 
-#. Key:	AgeJustNow
-msgctxt "CriticalPath,AgeJustNow"
+#. Key:	AgeJustNowFlow
+msgctxt "CriticalPath,AgeJustNowFlow"
 msgid "just now"
 msgstr "vừa xong"
 
-#. Key:	AgeJustNowFlow
-msgctxt "CriticalPath,AgeJustNowFlow"
+#. Key:	AgeJustNow
+msgctxt "CriticalPath,AgeJustNow"
 msgid "just now"
 msgstr "vừa xong"
 
@@ -946,13 +976,13 @@ msgctxt "CriticalPath,EndpointStateMissingInput"
 msgid "missing input"
 msgstr "thiếu đầu vào"
 
-#. Key:	BufferM3
-msgctxt "CriticalPath,BufferM3"
+#. Key:	EndpointBufferM3
+msgctxt "CriticalPath,EndpointBufferM3"
 msgid "m³"
 msgstr "m³"
 
-#. Key:	EndpointBufferM3
-msgctxt "CriticalPath,EndpointBufferM3"
+#. Key:	BufferM3
+msgctxt "CriticalPath,BufferM3"
 msgid "m³"
 msgstr "m³"
 
@@ -1126,13 +1156,13 @@ msgctxt "CriticalPath,BalanceEndpointPingFmt"
 msgid "{0} - {1} - {2}"
 msgstr "{0} - {1} - {2}"
 
-#. Key:	LedgerDeliveredFmt
-msgctxt "CriticalPath,LedgerDeliveredFmt"
+#. Key:	SummaryDoneFmt
+msgctxt "CriticalPath,SummaryDoneFmt"
 msgid "{0} delivered"
 msgstr "{0} đã giao"
 
-#. Key:	SummaryDoneFmt
-msgctxt "CriticalPath,SummaryDoneFmt"
+#. Key:	LedgerDeliveredFmt
+msgctxt "CriticalPath,LedgerDeliveredFmt"
 msgid "{0} delivered"
 msgstr "{0} đã giao"
 

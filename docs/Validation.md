@@ -22,7 +22,7 @@ The analysis and flow suites run headlessly with the editor closed:
     UnrealEditor-Cmd.exe <uproject> -ExecCmds="Automation RunTests CriticalPath; Quit" \
       -unattended -nullrhi -nosound
 
-The latest Phase C baseline contains **56/56 successful tests**. Coverage includes:
+The latest Phase C baseline contains **58/58 successful tests**. Coverage includes:
 
 - exactly funded objectives and benign saturation/standby behavior;
 - disconnected and capped connectivity;
@@ -63,6 +63,12 @@ The latest Phase C baseline contains **56/56 successful tests**. Coverage includ
 - cycles and relative convergence;
 - component-local damping and convergence tolerances, so an unrelated cycle or high-throughput
   domain cannot truncate a smaller acyclic line;
+- component-local stall detection, so a domain that stops improving is damped even when its
+  topology is not a cycle;
+- domain-scoped non-convergence, so one stalled transport network cannot erase known results from
+  independent networks;
+- naturally gathered items with no manufacturing recipe, which remain legitimate inputs rather
+  than becoming impossible production-gap advice;
 - causal ordering across a synthetic 110-tier configured recipe chain, deeper than the normal
   iteration guard;
 - passive solid-storage/merger loop contraction with retained aggregate stock and exact external

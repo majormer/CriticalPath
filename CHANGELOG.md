@@ -9,9 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.2] - unreleased
+## [1.0.2] - 2026-08-16
 
 ### Fixed
+
+- **Opening Critical Path no longer changes every machine to 1% clock speed after Satisfactory 1.2.4** - The August 11 game update reorganized internal game structures. Critical Path 1.0.1 had been built against the previous version, so its read-only machine inspection landed on the wrong game functions and changed clock speeds instead. Critical Path has been rebuilt against the current game version. Opening, closing and refreshing the panel now leave machine settings untouched, including after saving and reloading. (Issue #3, reported by @VernMcC and corroborated by @Hezkezl and @jwalker343)
 
 - **A line that is built but not reaching the machines is now called that** - When some of an item's producers are backed up while some of its consumers sit starved, that cannot be a shortage: the item is being made and it is not arriving. It usually means a manifold whose first machines take everything, leaving the ones further along dry. Critical Path had all of this in hand and still reported it as a capacity problem, so the advice was to build more of something you already had too much of. It now says the item is not reaching the machines and that the problem is routing.
 
