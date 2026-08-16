@@ -1,7 +1,7 @@
 {
  "FileVersion": 3,
  "Version": 1,
- "VersionName": "1.0.1",
+ "VersionName": "1.0.2",
  "FriendlyName": "Critical Path",
  "Description": "Your factory, explained. See what's holding up your objective, which lines are keeping up and which are quietly living off storage, and what to build next - in order.",
  "Category": "Modding",
@@ -35,8 +35,8 @@
    "SemVersion": "^3.12.0"
   }
  ],
- "SemVersion": "1.0.1",
- "GameVersion": ">=491125",
+ "SemVersion": "1.0.2",
+ "GameVersion": ">=502094",
  "LocalizationTargets": [
   {
    "Name": "CriticalPath",

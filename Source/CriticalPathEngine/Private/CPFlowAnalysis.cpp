@@ -222,8 +222,11 @@ void FCPFlowAnalysis::BuildItemBalances(
 			Balance.Item = ItemPair.Value;
 			Balance.DomainId = Domain;
 			Balance.bFluid = bFormKnown && bFluid;
-			Balance.Current.bKnown = CurrentSolve.bConverged && !Graph.bTruncated;
-			Balance.Design.bKnown = DesignSolve.bConverged && !Graph.bTruncated;
+			// Known-ness follows THIS node's transport domain, not the factory as a whole. An
+			// item domain is built from a subset of the solver's weak-component edges, so every
+			// node in this balance shares one component and they all agree on the verdict.
+			Balance.Current.bKnown = CurrentSolve.IsNodeKnown(NodeIndex) && !Graph.bTruncated;
+			Balance.Design.bKnown = DesignSolve.IsNodeKnown(NodeIndex) && !Graph.bTruncated;
 			Balance.BufferedAmount += Buffered;
 
 			if (Node.Kind == ECPFlowNodeKind::Producer)
@@ -1173,7 +1176,9 @@ void FCPFlowAnalysis::ApplyPrimaryMarginalValue(
 	FCPAnalysisResult& InOutResult)
 {
 	FCPLimiter* Limiter = FindPrimaryActionableLimiter(InOutResult);
-	if (!Limiter || Graph.bTruncated || !BaselineDesignSolve.bConverged)
+	// No global convergence gate: the limiter's OWN domain is what has to be measurable, and
+	// that is checked on the baseline balance below. A stalled domain elsewhere is irrelevant.
+	if (!Limiter || Graph.bTruncated)
 	{
 		return;
 	}
@@ -1264,12 +1269,8 @@ void FCPFlowAnalysis::ApplyPrimaryMarginalValue(
 	DesignParams.bUseDesignRates = true;
 	FCPFlowSolveResult ScenarioSolve;
 	FCPFlowSolver::Solve(ScenarioGraph, DesignParams, ScenarioSolve);
-	if (!ScenarioSolve.bConverged)
-	{
-		Limiter->MarginalAction = ECPMarginalActionKind::None;
-		Limiter->MarginalEdgeCapacityPerMinute = 0.0f;
-		return;
-	}
+	// Likewise: the scenario only has to settle in the domain being measured, and the balance
+	// built below reports that per domain (checked at ScenarioBalance->Design.bKnown).
 	TArray<FCPItemBalance> ScenarioBalances;
 	BuildItemBalances(ScenarioGraph, ScenarioSolve, ScenarioSolve, ScenarioBalances);
 	const FCPItemBalance* ScenarioBalance = ScenarioBalances.FindByPredicate([Limiter](const FCPItemBalance& Balance)

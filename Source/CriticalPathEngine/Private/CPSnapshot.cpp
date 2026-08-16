@@ -494,6 +494,14 @@ bool FCPSnapshotCollector::Collect(UObject* WorldContext, const FCPSnapshotParam
 				break;
 			}
 
+			// Counted on VISIT, not on acceptance: Scanned is compared against BuildingsAvailable
+			// (every manufacturer) to decide whether the scan was cut short. A machine with no
+			// recipe set is examined and legitimately contributes nothing, so counting it only
+			// when it yields data made an unconfigured machine indistinguishable from a skipped
+			// one and left the panel permanently claiming a partial scan. It also keeps the cap
+			// honest: MaxBuildingsToScan bounds work done, and looking at a machine is work.
+			Scanned++;
+
 			AFGBuildableManufacturer* Manufacturer = Cast<AFGBuildableManufacturer>(Buildable);
 			if (!IsValid(Manufacturer))
 			{
@@ -510,7 +518,6 @@ bool FCPSnapshotCollector::Collect(UObject* WorldContext, const FCPSnapshotParam
 				continue;
 			}
 
-			Scanned++;
 			const FMachineState State = ReadMachineState(Manufacturer);
 
 			// Somersloop boost multiplies OUTPUT only; inputs draw at clock rate.
@@ -631,6 +638,10 @@ bool FCPSnapshotCollector::Collect(UObject* WorldContext, const FCPSnapshotParam
 				bConnectivityEndpointsComplete = false;
 				break;
 			}
+			// Counted on visit, for the same reason as the manufacturer loop above: an extractor
+			// on no node still costs a look, and the cap bounds looks.
+			Scanned++;
+
 			AFGBuildableResourceExtractor* Extractor = Cast<AFGBuildableResourceExtractor>(Buildable);
 			if (!IsValid(Extractor))
 			{
@@ -642,7 +653,6 @@ bool FCPSnapshotCollector::Collect(UObject* WorldContext, const FCPSnapshotParam
 			{
 				continue;
 			}
-			Scanned++;
 
 			const FString ItemName = UFGItemDescriptor::GetItemName(ResourceClass).ToString();
 			const FMachineState State = ReadMachineState(Extractor);
@@ -1496,7 +1506,15 @@ bool FCPSnapshotCollector::Collect(UObject* WorldContext, const FCPSnapshotParam
 			const TSubclassOf<UFGRecipe> Recipe = PickRecipeAllowingLocked(RecipeManager, Entry.ItemClass, bAlternates, bLocked);
 			if (!Recipe)
 			{
-				continue; // genuinely no recipe in this installation — the gap walk covers it
+				// Genuinely no recipe in this installation. Two very different cases share this
+				// branch: a raw resource (extract it) and a world-gathered item like a power slug
+				// or alien remains (walk out and pick it up). Recording the latter is what stops
+				// the plan advising a production line for something no machine can ever make.
+				if (!RawNames.Contains(Name))
+				{
+					OutSnapshot.WorldGatheredItemNames.AddUnique(Name);
+				}
+				continue;
 			}
 
 			const float Duration = UFGRecipe::GetManufacturingDuration(Recipe);

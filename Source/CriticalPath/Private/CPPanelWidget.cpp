@@ -233,6 +233,9 @@ FText BlockerReasonText(const FCPBlocker& Blocker)
 			? LOCTEXT("BlockSolvedExtractFmt", "Only {0}/min is reaching this line; it needs {1}/min - add or upgrade extraction")
 			: LOCTEXT("BlockExtractFmt", "Extraction {0}/min vs demand {1}/min - add or upgrade extractors"),
 			FText::AsNumber(FMath::RoundToInt(Blocker.SupplyPerMinute)), FText::AsNumber(FMath::RoundToInt(Blocker.DemandPerMinute)));
+	case ECPBlockerReason::WorldGatheredOnly:
+		return LOCTEXT("BlockWorldGathered",
+			"No machine can make this - you collect it out in the world and carry it back");
 	case ECPBlockerReason::LogisticsSuspected:
 		return LOCTEXT("BlockLegacyLogistics", "This reading is out of date - press REFRESH");
 	case ECPBlockerReason::ProducerNotConnected:
@@ -314,7 +317,8 @@ FText BalanceRateText(float RatePerMinute, bool bFluid)
  *  We cannot see the link, and guessing which sender feeds which receiver would produce confident
  *  wrong answers - the exact failure this mod exists to avoid. So we say what we do know: the item
  *  IS produced, and no route we can follow reaches here. */
-FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, FLinearColor& OutColor)
+FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, bool bIsObjectivePart,
+	bool bWorldGathered, FLinearColor& OutColor)
 {
 	const float Demand = Balance.Current.DemandPerMinute;
 	const float Installed = Balance.Current.InstalledPerMinute;
@@ -367,8 +371,42 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, F
 						FText::AsNumber(Stopped), Rate);
 			}
 		}
+		// An objective part is SUPPOSED to have no machine drawing it: the thing consuming it is
+		// the Space Elevator or the milestone, and neither is a belt-connected consumer. Reporting
+		// that as "nothing is using this" tells the player their finished deliverable is pointless,
+		// which is the exact opposite of the truth - it is the one item the objective wants.
+		if (bIsObjectivePart)
+		{
+			OutColor = CPStyle::StatusNeutral;
+			return LOCTEXT("BalanceObjectiveStock",
+				"STOCKPILING FOR YOUR OBJECTIVE · no machine draws this; you deliver it yourself");
+		}
 		OutColor = CPStyle::StatusNeutral;
 		return LOCTEXT("BalanceNoDemand", "NOTHING IS USING THIS · it is only filling storage right now");
+	}
+	// Before advising ANY amount of production, check that production is possible at all. Power
+	// slugs, alien remains and mycelia have demand and no recipe: "build more" cannot be done.
+	if (bWorldGathered)
+	{
+		OutColor = CPStyle::StatusAmber;
+		return FText::Format(LOCTEXT("BalanceWorldGatheredFmt",
+			"COLLECTED IN THE WORLD · no machine makes this; {0} is drawn from what you carry in and store"),
+			BalanceRateText(Demand, Balance.bFluid));
+	}
+	// Stock on hand with nothing making it is a deliberate pattern, not a fault: a single line
+	// run occasionally into containers, or parts carried in, so a machine can draw them while
+	// the player is elsewhere. Telling them to build production misreads their own arrangement.
+	if (Balance.ProducerBuildings == 0 && !bProducedElsewhere && Balance.BufferedAmount > 0.0f)
+	{
+		OutColor = CPStyle::StatusAmber;
+		return Balance.BufferRunwayMinutes > 0.0f
+			? FText::Format(LOCTEXT("BalanceStockedByHandRunwayFmt",
+				"DRAWN FROM STORAGE · nothing is making this; the {0} you have banked covers about {1} min at this rate"),
+				FText::AsNumber(FMath::RoundToInt(Balance.BufferedAmount)),
+				FText::AsNumber(FMath::RoundToInt(Balance.BufferRunwayMinutes)))
+			: FText::Format(LOCTEXT("BalanceStockedByHandFmt",
+				"DRAWN FROM STORAGE · nothing is making this; {0} banked is all there is"),
+				FText::AsNumber(FMath::RoundToInt(Balance.BufferedAmount)));
 	}
 	// Before accusing the player of not building enough, check whether they already did.
 	if (Balance.ProducerBuildings == 0 && bProducedElsewhere)
@@ -388,6 +426,19 @@ FText BalanceDiagnosis(const FCPItemBalance& Balance, bool bProducedElsewhere, F
 		OutColor = CPStyle::StatusRed;
 		return FText::Format(LOCTEXT("BalanceCapacityGapFmt", "NOT ENOUGH MACHINES · build at least {0} more production"),
 			BalanceRateText(Demand - Installed, Balance.bFluid));
+	}
+	// Producers backed up AND consumers starved, on the same item, at the same moment. That
+	// combination cannot be a capacity shortage: the item is being made and is not arriving.
+	// It is a distribution fault - typically a manifold whose head takes everything, leaving the
+	// tail dry while the machines nearest the source fill their outputs and stall. Checked ahead
+	// of the generic producer-issue line, which would otherwise report only half of it.
+	if (Balance.OutputBlockedProducerBuildings > 0 && Balance.MissingInputConsumerBuildings > 0)
+	{
+		OutColor = CPStyle::StatusRed;
+		return FText::Format(LOCTEXT("BalanceDistributionFmt",
+			"NOT REACHING THE MACHINES · {0} producer(s) backed up while {1} consumer(s) sit starved - this is routing, not capacity"),
+			FText::AsNumber(Balance.OutputBlockedProducerBuildings),
+			FText::AsNumber(Balance.MissingInputConsumerBuildings));
 	}
 	if (bProducerIssue && Balance.JammedProducerBuildings > 0)
 	{
@@ -964,7 +1015,28 @@ void UCPPanelWidget::RequestRefresh()
 	OnRefreshRequested.Broadcast();
 }
 
+// SetReport / SetUnavailable only RECORD what should be shown. REFRESH calls into here from
+// inside its Slate button handler, and rewriting the tree there frees widgets that Slate is
+// still holding arranged for the event in flight; the next paint then walks an SImage whose
+// UMG object is gone and faults on a poisoned brush pointer. Everything else that edits the
+// tree already waits for NativeTick — these were the two paths that did not.
 void UCPPanelWidget::SetUnavailable(const FText& Headline, const FText& Detail)
+{
+	PendingView = EPendingView::Unavailable;
+	PendingHeadline = Headline;
+	PendingDetail = Detail;
+	PendingResult = FCPAnalysisResult();
+}
+
+void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending)
+{
+	PendingView = EPendingView::Report;
+	PendingResult = Result;
+	PendingAgeText = DataAgeText;
+	bPendingBalancePending = bBalancePending;
+}
+
+void UCPPanelWidget::ApplyUnavailable(const FText& Headline, const FText& Detail)
 {
 	if (!ElevatorColumn || !MilestoneColumn || !GapList || !BalanceList)
 	{
@@ -1018,7 +1090,7 @@ void UCPPanelWidget::SetUnavailable(const FText& Headline, const FText& Detail)
 	}
 }
 
-void UCPPanelWidget::SetReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending)
+void UCPPanelWidget::ApplyReport(const FCPAnalysisResult& Result, const FText& DataAgeText, bool bBalancePending)
 {
 	if (!ElevatorColumn || !MilestoneColumn || !GapList || !BalanceList)
 	{
@@ -1648,21 +1720,36 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			ItemsProducedSomewhere.Add(Candidate.Item.Name);
 		}
 	}
-	TSet<FString> RelevantItems;
-	auto AddPartItems = [&RelevantItems](const FCPPartReport& Part)
+	WorldGatheredItems.Reset();
+	WorldGatheredItems.Append(Result.WorldGatheredItemNames);
+	// The objective's own deliverables: items the player hands over rather than belts anywhere.
+	ObjectiveItems.Reset();
+	for (const FCPObjectiveReport& Objective : Result.Objectives)
 	{
-		RelevantItems.Add(Part.Item.Name);
+		for (const FCPPartReport& Part : Objective.Parts)
+		{
+			ObjectiveItems.Add(Part.Item.Name);
+		}
+	}
+	// The REAL objective dependency set: parts, their blocker and limiter chains, and the lines
+	// the plan would build. This is what "feeds your objective" actually means, and it drives
+	// ordering. RelevantItems below is deliberately wider - it is the visibility gate, not the
+	// path - because a factory-wide view is the point of this tab.
+	ObjectivePathItems.Reset();
+	auto AddPartItems = [this](const FCPPartReport& Part)
+	{
+		ObjectivePathItems.Add(Part.Item.Name);
 		for (const FCPItemRef& Item : Part.Blocker.Path)
 		{
-			RelevantItems.Add(Item.Name);
+			ObjectivePathItems.Add(Item.Name);
 		}
 		for (const FCPItemRef& Item : Part.Limiter.Path)
 		{
-			RelevantItems.Add(Item.Name);
+			ObjectivePathItems.Add(Item.Name);
 		}
 		for (const FCPPlannedNode& Node : Part.PlannedChain)
 		{
-			RelevantItems.Add(Node.Item.Name);
+			ObjectivePathItems.Add(Node.Item.Name);
 		}
 	};
 	for (const FCPObjectiveReport& Objective : Result.Objectives)
@@ -1679,8 +1766,11 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			AddPartItems(Part);
 		}
 	}
-	// Sufficiency is already restricted to items visited by the objective/research dependency
-	// walk, so it fills in healthy intermediate ingredients that have no blocker row.
+	// Visibility gate: the objective path plus every item sufficiency knows about. Sufficiency
+	// once covered only the dependency walk; since the solver layer it is built from every item
+	// balance, which is why this list is factory-wide. That is now deliberate and stated in the
+	// header, rather than a claim of objective scope the data never supported.
+	TSet<FString> RelevantItems = ObjectivePathItems;
 	for (const FCPItemSufficiency& Item : Result.Sufficiency)
 	{
 		RelevantItems.Add(Item.Item.Name);
@@ -1689,8 +1779,11 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 	UBorder* IntroBorder = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
 	IntroBorder->SetBrushColor(CPStyle::Surface);
 	IntroBorder->SetPadding(FMargin(10.0f, 7.0f));
+	// This used to claim it listed only the lines feeding the objective. It never did: the set is
+	// seeded from Sufficiency, which since the solver layer covers every item in the factory. The
+	// list is genuinely factory-wide, so it says so and puts the objective's own lines first.
 	UTextBlock* Intro = MakeText(WidgetTree,
-		LOCTEXT("BalanceIntro", "Every line feeding your objective: what it makes, what arrives, and how long your stock lasts."),
+		LOCTEXT("BalanceIntro", "Every production line in your factory, lines feeding your objective first: what it makes, what arrives, and how long your stock lasts."),
 		10, CPStyle::TextSecondary);
 	Intro->SetAutoWrapText(true);
 	IntroBorder->SetContent(Intro);
@@ -1735,6 +1828,14 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 	}
 	Candidates.Sort([this](const FCPItemBalance& A, const FCPItemBalance& B)
 	{
+		// Objective lines lead in EITHER sort mode. The list is factory-wide, so without this the
+		// items the player opened the panel for are scattered among everything else they own.
+		const bool bPathA = ObjectivePathItems.Contains(A.Item.Name);
+		const bool bPathB = ObjectivePathItems.Contains(B.Item.Name);
+		if (bPathA != bPathB)
+		{
+			return bPathA;
+		}
 		if (bBalanceNeedsFirst)
 		{
 			auto AttentionRank = [](const FCPItemBalance& Balance)
@@ -1916,7 +2017,9 @@ void UCPPanelWidget::AddBalanceRows(const FCPAnalysisResult& Result, bool bBalan
 			DiagnosisStrip->SetBrushColor(CPStyle::RowNested);
 			DiagnosisStrip->SetPadding(FMargin(7.0f, 4.0f));
 			DiagnosisStrip->SetContent(MakeWrappedText(WidgetTree,
-				BalanceDiagnosis(Balance, ItemsProducedSomewhere.Contains(Balance.Item.Name), DiagnosisColor),
+				BalanceDiagnosis(Balance, ItemsProducedSomewhere.Contains(Balance.Item.Name),
+					ObjectiveItems.Contains(Balance.Item.Name),
+					WorldGatheredItems.Contains(Balance.Item.Name), DiagnosisColor),
 				9, DiagnosisColor, true));
 			RowStack->AddChildToVerticalBox(DiagnosisStrip)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 5.0f));
 
@@ -3351,6 +3454,28 @@ void UCPPanelWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	// children for the event it is dispatching; the next paint then walks a border whose UMG
 	// object is gone and faults on a poisoned pointer inside IsResourceObjectValid. Deferring by
 	// one frame costs nothing visible and makes the mutation safe by construction.
+	// A whole new report supersedes any queued edit to the tree it would have edited: the filter
+	// rebuild and the endpoint target both name widgets that are about to be discarded.
+	if (PendingView != EPendingView::None)
+	{
+		const EPendingView View = PendingView;
+		PendingView = EPendingView::None;
+		bBalanceRebuildQueued = false;
+		PendingEndpointTarget = nullptr;
+		PendingEndpointBalanceIndex = INDEX_NONE;
+
+		if (View == EPendingView::Report)
+		{
+			ApplyReport(PendingResult, PendingAgeText, bPendingBalancePending);
+		}
+		else
+		{
+			ApplyUnavailable(PendingHeadline, PendingDetail);
+		}
+		PendingResult = FCPAnalysisResult();
+		return;
+	}
+
 	if (bBalanceRebuildQueued)
 	{
 		bBalanceRebuildQueued = false;

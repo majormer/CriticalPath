@@ -275,9 +275,34 @@ struct CRITICALPATHENGINE_API FCPFlowSolveResult
 {
 	GENERATED_BODY()
 
-	/** False = iteration cap hit; flows are UNKNOWN and must not be presented as truth. */
+	/** False = at least ONE component failed to settle. Reporting only: it does NOT mean the
+	 *  results are empty. Convergence is per weak component (see ComponentConverged) because a
+	 *  factory's transport domains are independent problems — an oscillating belt loop in the
+	 *  steel plant says nothing about whether the wiring line was measured. */
 	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
 	bool bConverged = false;
+
+	/** Per weak component: did this one reach its epsilon? Flows, deliveries and producer
+	 *  actuals are emitted ONLY for components that did; everything else is absent, which
+	 *  downstream reads as UNKNOWN. Index = component id (see ComponentByNode). */
+	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
+	TArray<bool> ComponentConverged;
+
+	/** Weak component id per graph node, so callers can attribute a node or edge to the
+	 *  component whose convergence verdict governs it. */
+	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
+	TArray<int32> ComponentByNode;
+
+	/** True when the named node's component settled (out-of-range/unknown reads as false). */
+	bool IsNodeKnown(int32 NodeIndex) const
+	{
+		if (!ComponentByNode.IsValidIndex(NodeIndex))
+		{
+			return false;
+		}
+		const int32 Component = ComponentByNode[NodeIndex];
+		return ComponentConverged.IsValidIndex(Component) && ComponentConverged[Component];
+	}
 
 	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
 	int32 Iterations = 0;

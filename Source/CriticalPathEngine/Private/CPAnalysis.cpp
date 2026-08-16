@@ -154,7 +154,11 @@ bool DescendToBlocker(const FCPFactorySnapshot& S, const FCPItemRef& ItemRef, TS
 	if (!Row)
 	{
 		Out.Item = ItemRef;
-		Out.Reason = ECPBlockerReason::NoProducer;
+		// "Nothing produces it" is only actionable when something COULD produce it. For an item
+		// no recipe makes, the honest answer is where to find it, not how many machines to build.
+		Out.Reason = S.WorldGatheredItemNames.Contains(ItemName)
+			? ECPBlockerReason::WorldGatheredOnly
+			: ECPBlockerReason::NoProducer;
 		Out.Path = Path;
 		return true;
 	}
@@ -514,6 +518,7 @@ FCPAnalysisResult FCPAnalysis::Analyze(const FCPFactorySnapshot& Snapshot)
 {
 	FCPAnalysisResult Result;
 	Result.Truncation = Snapshot.Truncation;
+	Result.WorldGatheredItemNames = Snapshot.WorldGatheredItemNames;
 	Result.bObservedStatsAvailable = Snapshot.bObservedStatsAvailable;
 	Result.bHasPlayerContext = Snapshot.bHasPlayerContext;
 	Result.bMilestoneSelected = Snapshot.bMilestoneSelected;

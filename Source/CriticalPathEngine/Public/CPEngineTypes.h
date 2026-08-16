@@ -491,6 +491,13 @@ struct CRITICALPATHENGINE_API FCPFactorySnapshot
 	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
 	TArray<FString> RawResourceNames;
 
+	/** Items the catalog walk reached for which NO recipe exists in the running game, and which
+	 *  are not extractable raw resources: power slugs, alien remains, mycelia, flower petals.
+	 *  You pick these up in the world. Read from the live recipe set, never a name list, so a
+	 *  mod that adds a recipe for one silently removes it from here. */
+	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
+	TArray<FString> WorldGatheredItemNames;
+
 	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
 	int32 HighestUnlockedTier = 0;
 
@@ -552,7 +559,11 @@ enum class ECPBlockerReason : uint8
 	ConnectivityUnknown,  // graph absent/truncated: do not manufacture a routing verdict
 	ByproductBackedUp,    // M2.7: producers fully stalled, outputs full; a co-product has no configured consumer
 	InputsStarved,        // machines report missing input (not wired, or upstream not delivering)
-	OutputsFull           // machines stalled with outputs backed up (no consumer-less co-product identified)
+	OutputsFull,          // machines stalled with outputs backed up (no consumer-less co-product identified)
+	/** NO recipe in the running game produces this item: power slugs, alien remains, mycelia.
+	 *  Distinct from NoProducer, which means "the line is not built yet". Here there is no line
+	 *  to build, so advising production is an instruction the player cannot follow. */
+	WorldGatheredOnly
 };
 
 /** Why a solver-backed delivery verdict is unknown. Kept separate from the blocker reason so
@@ -1347,6 +1358,12 @@ struct CRITICALPATHENGINE_API FCPAnalysisResult
 
 	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
 	FCPTruncation Truncation;
+
+	/** Carried through from the snapshot so presentation (and any mod reading this result) can
+	 *  tell "you have not built it" apart from "no machine can make it". See
+	 *  FCPFactorySnapshot::WorldGatheredItemNames. */
+	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
+	TArray<FString> WorldGatheredItemNames;
 
 	UPROPERTY(BlueprintReadOnly, Category = "CriticalPath")
 	bool bObservedStatsAvailable = false;

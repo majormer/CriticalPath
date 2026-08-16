@@ -231,6 +231,11 @@ msgctxt "CriticalPath,ClearPings"
 msgid "CLEAR PINGS"
 msgstr "MARKER LÖSCHEN"
 
+#. Key:	BalanceWorldGatheredFmt
+msgctxt "CriticalPath,BalanceWorldGatheredFmt"
+msgid "COLLECTED IN THE WORLD · no machine makes this; {0} is drawn from what you carry in and store"
+msgstr ""
+
 #. Key:	BalanceDemand
 msgctxt "CriticalPath,BalanceDemand"
 msgid "CONSUMER NEED"
@@ -280,6 +285,16 @@ msgstr "Critical Path konnte keinen Spieler finden, für den der Host angefragt 
 msgctxt "CriticalPath,MilestonePaid"
 msgid "Current milestone is fully paid - collect it and select the next one at the HUB."
 msgstr "Aktueller Meilenstein ist vollständig bezahlt - hole ihn ab und wähle im HUB den nächsten."
+
+#. Key:	BalanceStockedByHandRunwayFmt
+msgctxt "CriticalPath,BalanceStockedByHandRunwayFmt"
+msgid "DRAWN FROM STORAGE · nothing is making this; the {0} you have banked covers about {1} min at this rate"
+msgstr ""
+
+#. Key:	BalanceStockedByHandFmt
+msgctxt "CriticalPath,BalanceStockedByHandFmt"
+msgid "DRAWN FROM STORAGE · nothing is making this; {0} banked is all there is"
+msgstr ""
 
 #. Key:	StatusDelivered
 msgctxt "CriticalPath,StatusDelivered"
@@ -451,6 +466,11 @@ msgctxt "CriticalPath,BalanceCapacityMachineGapsFmt"
 msgid "NOT ENOUGH MACHINES · {0} short, and some machines are stopped as well"
 msgstr "ZU WENIG MASCHINEN · {0} zu wenig, und einige Maschinen stehen ebenfalls still"
 
+#. Key:	BalanceDistributionFmt
+msgctxt "CriticalPath,BalanceDistributionFmt"
+msgid "NOT REACHING THE MACHINES · {0} producer(s) backed up while {1} consumer(s) sit starved - this is routing, not capacity"
+msgstr ""
+
 #. Key:	BalanceNoDemand
 msgctxt "CriticalPath,BalanceNoDemand"
 msgid "NOTHING IS USING THIS · it is only filling storage right now"
@@ -501,6 +521,11 @@ msgctxt "CriticalPath,BalanceNoMatchesSearch"
 msgid "No line feeding your objective matches this filter."
 msgstr "Keine Linie, die dein Ziel versorgt, entspricht diesem Filter."
 
+#. Key:	BlockWorldGathered
+msgctxt "CriticalPath,BlockWorldGathered"
+msgid "No machine can make this - you collect it out in the world and carry it back"
+msgstr ""
+
 #. Key:	MilestoneNoneSelectedFmt
 msgctxt "CriticalPath,MilestoneNoneSelectedFmt"
 msgid "No milestone selected - {0} available. Choose one at the HUB."
@@ -531,13 +556,13 @@ msgctxt "CriticalPath,GapSpentFuelFmt"
 msgid "No recipe by design - spent fuel: burn {0} in a Nuclear Power Plant"
 msgstr "Kein Rezept vorgesehen - abgebrannter Brennstoff: verbrenne {0} in einem Kernkraftwerk"
 
-#. Key:	StatusNotBuilt
-msgctxt "CriticalPath,StatusNotBuilt"
+#. Key:	StatusNotBuiltDefault
+msgctxt "CriticalPath,StatusNotBuiltDefault"
 msgid "Not built yet"
 msgstr "Noch nicht gebaut"
 
-#. Key:	StatusNotBuiltDefault
-msgctxt "CriticalPath,StatusNotBuiltDefault"
+#. Key:	StatusNotBuilt
+msgctxt "CriticalPath,StatusNotBuilt"
 msgid "Not built yet"
 msgstr "Noch nicht gebaut"
 
@@ -736,6 +761,11 @@ msgctxt "CriticalPath,AgeStaleFmt"
 msgid "STALE - {0}s old (refresh failed)"
 msgstr "VERALTET - {0}s alt (Aktualisierung fehlgeschlagen)"
 
+#. Key:	BalanceObjectiveStock
+msgctxt "CriticalPath,BalanceObjectiveStock"
+msgid "STOCKPILING FOR YOUR OBJECTIVE · no machine draws this; you deliver it yourself"
+msgstr ""
+
 #. Key:	BalanceModelFmt
 msgctxt "CriticalPath,BalanceModelFmt"
 msgid "SUPPLY LINE  can send {0}  ·  actually arriving {1}"
@@ -901,13 +931,13 @@ msgctxt "CriticalPath,PlanExcludedWhyFmt"
 msgid "is not in this plan - its recipe unlocks with {0}"
 msgstr "ist nicht in diesem Plan - sein Rezept wird mit {0} freigeschaltet"
 
-#. Key:	EndpointBufferItems
-msgctxt "CriticalPath,EndpointBufferItems"
+#. Key:	BufferItems
+msgctxt "CriticalPath,BufferItems"
 msgid "items"
 msgstr "Gegenstände"
 
-#. Key:	BufferItems
-msgctxt "CriticalPath,BufferItems"
+#. Key:	EndpointBufferItems
+msgctxt "CriticalPath,EndpointBufferItems"
 msgid "items"
 msgstr "Gegenstände"
 
@@ -916,13 +946,13 @@ msgctxt "CriticalPath,BalanceSolidRateUnit"
 msgid "items/min"
 msgstr "Gegenstände/min"
 
-#. Key:	AgeJustNow
-msgctxt "CriticalPath,AgeJustNow"
+#. Key:	AgeJustNowFlow
+msgctxt "CriticalPath,AgeJustNowFlow"
 msgid "just now"
 msgstr "gerade eben"
 
-#. Key:	AgeJustNowFlow
-msgctxt "CriticalPath,AgeJustNowFlow"
+#. Key:	AgeJustNow
+msgctxt "CriticalPath,AgeJustNow"
 msgid "just now"
 msgstr "gerade eben"
 
@@ -946,13 +976,13 @@ msgctxt "CriticalPath,EndpointStateMissingInput"
 msgid "missing input"
 msgstr "fehlende Zufuhr"
 
-#. Key:	BufferM3
-msgctxt "CriticalPath,BufferM3"
+#. Key:	EndpointBufferM3
+msgctxt "CriticalPath,EndpointBufferM3"
 msgid "m³"
 msgstr "m³"
 
-#. Key:	EndpointBufferM3
-msgctxt "CriticalPath,EndpointBufferM3"
+#. Key:	BufferM3
+msgctxt "CriticalPath,BufferM3"
 msgid "m³"
 msgstr "m³"
 
@@ -1126,13 +1156,13 @@ msgctxt "CriticalPath,BalanceEndpointPingFmt"
 msgid "{0} - {1} - {2}"
 msgstr ""
 
-#. Key:	LedgerDeliveredFmt
-msgctxt "CriticalPath,LedgerDeliveredFmt"
+#. Key:	SummaryDoneFmt
+msgctxt "CriticalPath,SummaryDoneFmt"
 msgid "{0} delivered"
 msgstr "{0} geliefert"
 
-#. Key:	SummaryDoneFmt
-msgctxt "CriticalPath,SummaryDoneFmt"
+#. Key:	LedgerDeliveredFmt
+msgctxt "CriticalPath,LedgerDeliveredFmt"
 msgid "{0} delivered"
 msgstr "{0} geliefert"
 
